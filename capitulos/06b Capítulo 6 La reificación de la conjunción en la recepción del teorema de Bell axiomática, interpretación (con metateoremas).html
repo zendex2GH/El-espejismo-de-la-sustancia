@@ -1,0 +1,1319 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>El espejismo de la sustancia: Capítulo 6 La falacia estructural del teorema de Bell axiomática, interpretación y reificación (con metateoremas)</title>
+  <meta name="author" content="Santiago Tristany" />
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      span.underline{text-decoration: underline;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<h1 id="capitulo-6:-la-reificacion-de-la-conjuncion-en-la-recepcion-del-teorema-de-bell:-axiomatica,-interpretacion-y-reificacion">Capítulo 6: La reificación de la conjunción en la recepción del teorema de Bell: axiomática, interpretación y reificación</h1>
+<h2 id="6.0-introduccion:-bell-es-correcto,-pero-la-recepcion-estandar-extrae-una-conclusion-mas-fuerte-de-lo-que-su-demostracion-autoriza-[c]">6.0 Introducción: Bell es correcto, pero la recepción estándar extrae una conclusión más fuerte de lo que su demostración autoriza [C]</h2>
+<p>En el Capítulo 5, nosotros formalizamos la medición cuántica como cambio de nivel epistémico y mapeamos, mediante Z3, las siete interpretaciones viables que surgen al renunciar a al menos uno de los tres supuestos metafísicos del teorema de Bell (Localidad, Definición Contracausal, Independencia Estadística). En este capítulo, nosotros aislamos y formalizamos con precisión quirúrgica la operación lógica específica que opera en la recepción pedagógica y divulgativa estándar del teorema de Bell: la inferencia de que Bell “refutó el realismo local” cuando, estrictamente, Bell refutó una conjunción específica de tres supuestos separables bajo una estructura probabilística particular.</p>
+<p>Debemos ser absolutamente claros desde el inicio sobre el alcance de nuestra crítica:</p>
+<p>Lo que NO cuestionamos:</p>
+<p>El desarrollo matemático de Bell es impecable. La derivación algebraica que conduce a la cota $|S| \le 2$ bajo la hipótesis de distribución conjunta es correcta.</p>
+<p>Los datos experimentales de Aspect (1982), Weihs (1998) y Hensen (2015) confirman $S \approx 2{,}828$, violando esa cota [B].</p>
+<p>Bell mismo fue cuidadoso en sus escritos (Bell 1964, 1981): su teorema refuta las teorías de variables ocultas locales bajo su definición específica [B].</p>
+<p>Lo que SÍ cuestionamos:</p>
+<p>La recepción pedagógica y divulgativa estándar opera mediante dos movimientos que este capítulo analiza:</p>
+<p>Primero, la elisión axiomática. La recepción estándar trata como evidente que el realista local está forzado a formalizar los resultados de los detectores mediante una distribución de probabilidad conjunta $P(A, A', B, B')$ sobre las cuatro variables simultáneas. Esta asunción equivale, por el teorema de Fine (1982), a la Definición Contracausal (CFD): los experimentos no realizados tienen resultados definidos [B]. La recepción estándar presenta esta estructura como consecuencia necesaria del realismo local, cuando en realidad es un supuesto adicional separable.</p>
+<p>Segundo, la totalización de la conjunción. La recepción estándar interpretó $\neg(R \wedge L \wedge DC)$ como $\neg(R \wedge L)$. Esa inferencia solo es válida si se acepta el lema adicional $(R \wedge L) \rightarrow DC$. Sin ese lema, la conclusión correcta es simplemente: “la conjunción de estos tres supuestos bajo esta estructura probabilística es insostenible”, no “el realismo y la localidad son insostenibles”.</p>
+<p>Importante: Si se adopta la definición estándar de “realismo local” que Bell y EPR usaron (donde la CFD es constitutiva del realismo, no un supuesto separable), entonces el teorema de Bell SÍ refuta válidamente esa posición, y la inferencia de la recepción estándar es lógicamente correcta. Lo que este capítulo denuncia no es una falacia lógica formal en ese caso, sino una falacia pedagógica de totalización: presentar la conjunción $R \wedge L \wedge CFD$ como bloque monolítico (“el realismo local”), ocultando que CFD es un supuesto separable y que otras definiciones de realismo (como el realismo mínimo que adoptamos aquí) permiten preservar localidad sin CFD.</p>
+<p>La reificación aquí opera exactamente como en los capítulos anteriores: se trata una conjunción de tres supuestos separables como si fuera una hipótesis unitaria e inseparable, y al refutar uno de sus componentes (CFD), se transfiere erróneamente la refutación a los otros dos (R y L).</p>
+<p>Declaración de alcance. Este capítulo no propone un modelo físico alternativo que explique las correlaciones cuánticas desde primeros principios. Lo que hacemos es analizar la estructura lógica del argumento de Bell y de su recepción estándar, y mostrar, mediante formalización en Z3 y simulación en Clingo, que el espacio de posibilidades interpretativas es más amplio de lo que la narrativa estándar sugiere.</p>
+<p>Nota sobre el tono. Este capítulo no “destruye” a Bell. Lo acota, y sobre todo acota a su recepción estándar. La contribución de Bell es enorme: mostró que la conjunción de esos tres supuestos bajo estructura clásica es insostenible. Nuestro aporte es mostrar que la conjunción no es una unidad indivisible, y que la recepción estándar reificó esa conjunción al presentarla como una sola hipótesis.</p>
+<hr />
+<h2 id="6.1-aplicacion-del-protocolo-al-teorema-de-bell-[c]">6.1 Aplicación del protocolo al teorema de Bell [C]</h2>
+<p>Aplicamos las cuatro preguntas del Capítulo 0 al caso del teorema de Bell y su recepción estándar.</p>
+<p>Pregunta 1: ¿Cuál es el objeto formal y cuál es su tipo?</p>
+<p>El objeto formal es la conjunción $R \wedge L \wedge CFD$ como estructura lógica compuesta. Su tipo real es: conjunción de tres supuestos independientes. No es una hipótesis unitaria; es una tríada separable donde cada componente puede ser afirmado o negado independientemente de los otros dos.</p>
+<p>En el formalismo de Bell (1964), esta conjunción se expresa mediante:</p>
+<p>Realismo (R): Las partículas poseen propiedades definidas independientemente de ser medidas. Los detectores revelan, no inventan.</p>
+<p>Localidad (L): La elección de eje de medición en Alice no altera instantáneamente el resultado en Bob. No-señalización.</p>
+<p>CFD (Definición Contracausal): Los experimentos no realizados tienen resultados definidos. Es decir, $A$ y $A'$ existen simultáneamente.</p>
+<p>Estos tres supuestos son lógicamente independientes: se puede afirmar uno sin afirmar los otros. La conjunción es una estructura relacional entre proposiciones, no una sustancia unitaria.</p>
+<p>Pregunta 2: ¿Qué atribuye la narrativa a este objeto que su tipo no contiene?</p>
+<p>La narrativa estándar (recepción pedagógica y divulgativa) atribuye a la conjunción $R \wedge L \wedge CFD$ propiedades de hipótesis unitaria e inseparable:</p>
+<p>“Bell demostró que el realismo local es falso” (totalización: trata la conjunción como bloque monolítico).</p>
+<p>“La naturaleza es no-local” (inferencia inválida: de $\neg(R \wedge L \wedge CFD)$ se infiere $\neg L$, ignorando que la CFD podría ser el componente refutado).</p>
+<p>“Einstein estaba equivocado” (personificación + simplificación: reduce un programa de investigación a una persona).</p>
+<p>“No hay variables ocultas locales” (naturalización: presenta la ausencia de un tipo específico de modelo como ausencia de toda posibilidad realista).</p>
+<p>Estas atribuciones requieren tratar la conjunción como una sustancia con identidad propia, algo que puede ser “refutado” en bloque. Pero el tipo real de la conjunción es una estructura relacional entre tres proposiciones separables. Hay un mismatch de tipo. Eso es la reificación.</p>
+<p>Los procesos satélite que operan aquí son:</p>
+<p>Totalización: Borrar la heterogeneidad interna de la conjunción, presentándola como “el realismo local” sin distinguir sus componentes.</p>
+<p>Naturalización: Presentar el lema $(R \wedge L) \rightarrow CFD$ como si fuera una consecuencia lógica inevitable en lugar de una elección axiomática de la recepción estándar.</p>
+<p>Sacralización: Elevar el teorema de Bell a un estatus intocable que bloquea la revisión de sus premisas.</p>
+<p>Pregunta 3: ¿Existe una descripción alternativa sin ese atributo?</p>
+<p>Sí. Existe una descripción donde la conjunción se presenta como lo que es: tres supuestos separables, cada uno con su propio estatus.</p>
+<p>La descripción alternativa es el realismo contextual: un realismo mínimo donde los detectores no inventan los resultados (el resultado medido es real, no un artefacto del aparato), pero donde no se postulan valores simultáneos para mediciones no realizadas. Formalmente, esto equivale a:</p>
+<p>$R = \text{true}$ (los detectores no inventan)</p>
+<p>$L = \text{true}$ (no-señalización)</p>
+<p>$CFD = \text{false}$ (no hay valores definidos para mediciones no realizadas)</p>
+<p>Modelo estadístico: cuatro distribuciones separadas $P_{ab}$, $P_{ab'}$, $P_{a'b}$, $P_{a'b'}$, una por sub-experimento, sin distribución conjunta global.</p>
+<p>Esta posición tiene anclaje en la literatura: Pitowsky (1989) demostró que las desigualdades de Bell son teoremas de la probabilidad clásica, no de la localidad [B]. Fine (1982) demostró la equivalencia CFD $\Leftrightarrow$ Distribución Conjunta [B]. Spekkens (2005) desarrolló modelos contextuales que preservan realismo y localidad [B].</p>
+<p>Pregunta 4: ¿Es teoría resuelta con narrativa sucia?</p>
+<p>Sí. El teorema de Bell es una teoría resuelta: la derivación algebraica es correcta, las predicciones están confirmadas experimentalmente con precisión extraordinaria, y hay consenso sobre los datos. Lo que está “sucio” es la narrativa que lo envuelve en su recepción estándar: la afirmación “Bell refutó el realismo local” cuando estrictamente Bell refutó $R \wedge L \wedge CFD$.</p>
+<p>La narrativa sucia opera mediante totalización: presenta la conjunción como si fuera una hipótesis unitaria, y al refutarla, transfiere la refutación a todos sus componentes simultáneamente. El formalismo es sólido; la interpretación estándar de la recepción es la capa reificada.</p>
+<hr />
+<h2 id="6.2-formalizacion-en-z3:-la-estructura-logica-de-la-elision-axiomatica-[a-meta]-+-[a-codigo]">6.2 Formalización en Z3: la estructura lógica de la elisión axiomática [A-Meta] + [A-Código]</h2>
+<p>Nosotros construimos un sistema formal en Z3 que captura la estructura lógica de la elisión axiomática en la recepción estándar del teorema de Bell. El sistema no modela la física cuántica; modela la estructura argumentativa del teorema y sus premisas ocultas.</p>
+<p>Las demostraciones en prosa [A-Meta] se presentan junto con las verificaciones computacionales [A-Código]. Las pruebas en prosa no son reemplazadas por el código; el código verifica instancias concretas y controla errores de tipeo.</p>
+<hr />
+<h3 id="6.2.1-ontologia-formal:-tres-niveles-de-compromiso">6.2.1 Ontología formal: tres niveles de compromiso</h3>
+<p>El sistema distingue tres niveles de compromiso:</p>
+<p>Nivel ontológico (compromisos sobre la naturaleza de la realidad):</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode lisp"><code class="sourceCode commonlisp"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="co">; Realismo (R) = REALISMO MÍNIMO: los detectores revelan, no inventan.</span></a>
+<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="co">; NO incluye CFD. Es la afirmación de que el resultado medido es real,</span></a>
+<a class="sourceLine" id="cb1-3" data-line-number="3"><span class="co">; no un artefacto del aparato. No afirma que las mediciones NO realizadas</span></a>
+<a class="sourceLine" id="cb1-4" data-line-number="4"><span class="co">; tengan valores definidos simultáneamente.</span></a>
+<a class="sourceLine" id="cb1-5" data-line-number="5">(declare-const Realism Bool)</a>
+<a class="sourceLine" id="cb1-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb1-7" data-line-number="7"><span class="co">; Localidad (L): la elección de eje de medición en Alice no altera</span></a>
+<a class="sourceLine" id="cb1-8" data-line-number="8"><span class="co">; instantáneamente el resultado en Bob. No-señalización.</span></a>
+<a class="sourceLine" id="cb1-9" data-line-number="9">(declare-const Locality Bool)</a>
+<a class="sourceLine" id="cb1-10" data-line-number="10"></a>
+<a class="sourceLine" id="cb1-11" data-line-number="11"><span class="co">; Definición Contracausal (CFD): los experimentos no realizados</span></a>
+<a class="sourceLine" id="cb1-12" data-line-number="12"><span class="co">; tienen resultados definidos. Es decir, A y A&#39; existen simultáneamente.</span></a>
+<a class="sourceLine" id="cb1-13" data-line-number="13"><span class="co">; Nota: Fine (1982) demostró que CFD ⇔ Distribución Conjunta.</span></a>
+<a class="sourceLine" id="cb1-14" data-line-number="14">(declare-const CFD Bool)</a>
+<a class="sourceLine" id="cb1-15" data-line-number="15"></a>
+<a class="sourceLine" id="cb1-16" data-line-number="16"><span class="co">; Distribución Conjunta Clásica (DC): existe una única medida de</span></a>
+<a class="sourceLine" id="cb1-17" data-line-number="17"><span class="co">; probabilidad P(A, A&#39;, B, B&#39;) sobre las 4 variables simultáneas.</span></a>
+<a class="sourceLine" id="cb1-18" data-line-number="18">(declare-const JointDist Bool)</a></code></pre></div>
+<p>Nivel epistemológico (el terreno neutral del estadístico):</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode lisp"><code class="sourceCode commonlisp"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="co">; FourSubexperiments: los datos provienen de 4 corridas físicamente</span></a>
+<a class="sourceLine" id="cb2-2" data-line-number="2"><span class="co">; distintas. En cada una solo se miden 2 observables, nunca 4.</span></a>
+<a class="sourceLine" id="cb2-3" data-line-number="3">(declare-const FourSubexperiments Bool)</a>
+<a class="sourceLine" id="cb2-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb2-5" data-line-number="5"><span class="co">; OnlyDetectorData: el estadístico solo tiene acceso a los registros</span></a>
+<a class="sourceLine" id="cb2-6" data-line-number="6"><span class="co">; de los medidores (+1/-1), no a &quot;propiedades subyacentes&quot;.</span></a>
+<a class="sourceLine" id="cb2-7" data-line-number="7">(declare-const OnlyDetectorData Bool)</a></code></pre></div>
+<p>Nivel metodológico (elecciones del modelado estadístico):</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode lisp"><code class="sourceCode commonlisp"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="co">; StatisticianImposesJoint: el estadístico postula una distribución</span></a>
+<a class="sourceLine" id="cb3-2" data-line-number="2"><span class="co">; conjunta P(A,A&#39;,B,B&#39;) como modelo subyacente.</span></a>
+<a class="sourceLine" id="cb3-3" data-line-number="3"><span class="co">; NOTA: esto es una ELECCIÓN DE MODELO, no una consecuencia de los datos.</span></a>
+<a class="sourceLine" id="cb3-4" data-line-number="4">(declare-const StatisticianImposesJoint Bool)</a>
+<a class="sourceLine" id="cb3-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb3-6" data-line-number="6"><span class="co">; StatisticianUsesContextual: el estadístico usa 4 distribuciones</span></a>
+<a class="sourceLine" id="cb3-7" data-line-number="7"><span class="co">; separadas P_ab, P_ab&#39;, P_a&#39;b, P_a&#39;b&#39;, una por sub-experimento.</span></a>
+<a class="sourceLine" id="cb3-8" data-line-number="8">(declare-const StatisticianUsesContextual Bool)</a></code></pre></div>
+<p>Parámetro empírico:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode lisp"><code class="sourceCode commonlisp"><a class="sourceLine" id="cb4-1" data-line-number="1">(declare-const S_value Real)</a></code></pre></div>
+<hr />
+<h3 id="6.2.2-axiomas-del-sistema-formal">6.2.2 Axiomas del sistema formal</h3>
+<div class="sourceCode" id="cb5"><pre class="sourceCode lisp"><code class="sourceCode commonlisp"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="co">; AXIOMA 1 (Metodológico): Si los datos provienen de 4 experimentos</span></a>
+<a class="sourceLine" id="cb5-2" data-line-number="2"><span class="co">; separados y solo observamos detectores, no hay base empírica para</span></a>
+<a class="sourceLine" id="cb5-3" data-line-number="3"><span class="co">; postular una distribución conjunta sobre 4 variables no medidas</span></a>
+<a class="sourceLine" id="cb5-4" data-line-number="4"><span class="co">; simultáneamente.</span></a>
+<a class="sourceLine" id="cb5-5" data-line-number="5">(<span class="kw">assert</span> (! (<span class="op">=&gt;</span> (<span class="kw">and</span> FourSubexperiments OnlyDetectorData)</a>
+<a class="sourceLine" id="cb5-6" data-line-number="6">               (<span class="kw">not</span> StatisticianImposesJoint))</a>
+<a class="sourceLine" id="cb5-7" data-line-number="7">         <span class="bu">:named</span> A1_NoEmpiricalBasisForJoint))</a>
+<a class="sourceLine" id="cb5-8" data-line-number="8"></a>
+<a class="sourceLine" id="cb5-9" data-line-number="9"><span class="co">; AXIOMA 2 (Elección de Bell): Bell identificó su modelo formal con</span></a>
+<a class="sourceLine" id="cb5-10" data-line-number="10"><span class="co">; el realismo local. Pero JointDist es una elección metodológica,</span></a>
+<a class="sourceLine" id="cb5-11" data-line-number="11"><span class="co">; no una consecuencia ontológica.</span></a>
+<a class="sourceLine" id="cb5-12" data-line-number="12">(<span class="kw">assert</span> (! (<span class="op">=</span> JointDist StatisticianImposesJoint)</a>
+<a class="sourceLine" id="cb5-13" data-line-number="13">         <span class="bu">:named</span> A2_JointIsMethodologicalChoice))</a>
+<a class="sourceLine" id="cb5-14" data-line-number="14"></a>
+<a class="sourceLine" id="cb5-15" data-line-number="15"><span class="co">; AXIOMA 3 (Teorema de Fine): CFD es matemáticamente equivalente</span></a>
+<a class="sourceLine" id="cb5-16" data-line-number="16"><span class="co">; a la existencia de una distribución de probabilidad conjunta.</span></a>
+<a class="sourceLine" id="cb5-17" data-line-number="17">(<span class="kw">assert</span> (! (<span class="op">=</span> CFD JointDist)</a>
+<a class="sourceLine" id="cb5-18" data-line-number="18">         <span class="bu">:named</span> A3_Fine_Equivalence))</a>
+<a class="sourceLine" id="cb5-19" data-line-number="19"></a>
+<a class="sourceLine" id="cb5-20" data-line-number="20"><span class="co">; AXIOMA 5 (Teorema de Bell, matemáticamente correcto):</span></a>
+<a class="sourceLine" id="cb5-21" data-line-number="21"><span class="co">; Si se acepta Realismo ∧ Localidad ∧ DistribuciónConjunta,</span></a>
+<a class="sourceLine" id="cb5-22" data-line-number="22"><span class="co">; entonces necesariamente |S| ≤ 2.</span></a>
+<a class="sourceLine" id="cb5-23" data-line-number="23">(<span class="kw">assert</span> (! (<span class="op">=&gt;</span> (<span class="kw">and</span> Realism Locality JointDist) (<span class="op">&lt;=</span> S_value <span class="fl">2.0</span>))</a>
+<a class="sourceLine" id="cb5-24" data-line-number="24">         <span class="bu">:named</span> A5_CHSH_Correct))</a>
+<a class="sourceLine" id="cb5-25" data-line-number="25"></a>
+<a class="sourceLine" id="cb5-26" data-line-number="26"><span class="co">; AXIOMA 6 (Dato experimental): Aspect, Weihs, Hensen et al.</span></a>
+<a class="sourceLine" id="cb5-27" data-line-number="27">(<span class="kw">assert</span> (! (<span class="op">=</span> S_value <span class="fl">2.828</span>) <span class="bu">:named</span> A6_Experimental_Data))</a>
+<a class="sourceLine" id="cb5-28" data-line-number="28"></a>
+<a class="sourceLine" id="cb5-29" data-line-number="29"><span class="co">; POSTULADO DE VIABILIDAD (verificado algebraicamente en 6.2.4):</span></a>
+<a class="sourceLine" id="cb5-30" data-line-number="30"><span class="co">; Un realista local que renuncia a la Distribución Conjunta puede usar</span></a>
+<a class="sourceLine" id="cb5-31" data-line-number="31"><span class="co">; un modelo contextual que es lógicamente compatible con S = 2.828.</span></a>
+<a class="sourceLine" id="cb5-32" data-line-number="32"><span class="co">; NOTA: Este postulado se verifica como consistencia algebraica en la </span></a>
+<a class="sourceLine" id="cb5-33" data-line-number="33"><span class="co">; Sección 6.2.4 mediante el script contextual_model_z3.smt2.</span></a>
+<a class="sourceLine" id="cb5-34" data-line-number="34">(<span class="kw">assert</span> (! (<span class="op">=&gt;</span> (<span class="kw">and</span> Realism Locality StatisticianUsesContextual)</a>
+<a class="sourceLine" id="cb5-35" data-line-number="35">               (<span class="kw">and</span> (<span class="kw">not</span> JointDist) (<span class="op">=</span> S_value <span class="fl">2.828</span>)))</a>
+<a class="sourceLine" id="cb5-36" data-line-number="36">         <span class="bu">:named</span> A7_ContextualRealism_FitsData))</a>
+<a class="sourceLine" id="cb5-37" data-line-number="37"></a>
+<a class="sourceLine" id="cb5-38" data-line-number="38"><span class="co">; AXIOMA 8 (Exclusión metodológica): el estadístico o impone</span></a>
+<a class="sourceLine" id="cb5-39" data-line-number="39"><span class="co">; distribución conjunta o usa modelo contextual, no ambos.</span></a>
+<a class="sourceLine" id="cb5-40" data-line-number="40">(<span class="kw">assert</span> (! (xor StatisticianImposesJoint StatisticianUsesContextual)</a>
+<a class="sourceLine" id="cb5-41" data-line-number="41">         <span class="bu">:named</span> A8_MutualExclusion))</a></code></pre></div>
+<hr />
+<h3 id="6.2.3-el-lema-de-la-recepcion-estandar-como-definicion,-no-como-axioma-global">6.2.3 El lema de la recepción estándar como definición, no como axioma global</h3>
+<p>Esta es la decisión metodológica más importante del script. El lema que la recepción estándar asume implícitamente —que el realismo y la localidad implican la CFD— se define como proposición pero no se aserta globalmente. Se invoca selectivamente para mostrar su efecto destructivo:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode lisp"><code class="sourceCode commonlisp"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="co">; La recepción estándar asume implícitamente que Realismo ∧ Localidad</span></a>
+<a class="sourceLine" id="cb6-2" data-line-number="2"><span class="co">; implica CFD. Por Fine (A3), esto equivale a imponer Distribución Conjunta.</span></a>
+<a class="sourceLine" id="cb6-3" data-line-number="3"><span class="co">; Definimos A4 como proposición, pero NO lo asertamos globalmente.</span></a>
+<a class="sourceLine" id="cb6-4" data-line-number="4">(declare-const A4_Reception_Fallacious_Lemma Bool)</a>
+<a class="sourceLine" id="cb6-5" data-line-number="5">(<span class="kw">assert</span> (! (<span class="op">=</span> A4_Reception_Fallacious_Lemma (<span class="op">=&gt;</span> (<span class="kw">and</span> Realism Locality) CFD))</a>
+<a class="sourceLine" id="cb6-6" data-line-number="6">         <span class="bu">:named</span> A4_Definition))</a></code></pre></div>
+<p>Nota sobre los axiomas. Siguiendo la reflexión del Capítulo 2 (sección 2.7), nosotros reconocemos que el Axioma 1 es una elección filosófica, no un descubrimiento empírico. Se ancla en el empirismo metodológico: los datos de cuatro sub-experimentos separados no fuerzan una distribución conjunta sobre variables no medidas simultáneamente. Esta es una posición defendible pero no es una verdad lógica necesaria. El lector puede cuestionar esta elección; en ese caso, los teoremas cambian.</p>
+<p>Nota sobre la elección de Z3. Z3 es la herramienta adecuada porque el problema es de satisfacibilidad (¿existe un modelo donde $R \wedge L$ sea consistente con $S = 2{,}828$?), no de demostración deductiva pura. Z3 produce modelos concretos o núcleos insatisfacibles, que es exactamente lo que necesitamos.</p>
+<hr />
+<h3 id="6.2.4-verificacion-algebraica-del-modelo-contextual-[a-meta]-+-[a-codigo]">6.2.4 Verificación algebraica del modelo contextual [A-Meta] + [A-Código]</h3>
+<p>El Postulado de Viabilidad (A7) afirma que existe un modelo contextual compatible con los datos. Para verificar esto, construimos un script Z3 que verifica la consistencia algebraica de las correlaciones cuánticas.</p>
+<p>Definición 6.2.4 (Modelo Contextual Realista-Local). Un Modelo Contextual $\mathcal{M}_{ctx}$ para el experimento EPRB-CHSH es una tupla de cuatro espacios de probabilidad clásicos separados, uno por sub-experimento:</p>
+<p>$$ \mathcal{M}<em>{ctx} = \left{ (\Omega</em>{ab}, \mathcal{F}<em>{ab}, P</em>{ab}, A_{ab}, B_{ab}), (\Omega_{ab'}, \mathcal{F}<em>{ab'}, P</em>{ab'}, A_{ab'}, B_{ab'}), (\Omega_{a'b}, \mathcal{F}<em>{a'b}, P</em>{a'b}, A_{a'b}, B_{a'b}), (\Omega_{a'b'}, \mathcal{F}<em>{a'b'}, P</em>{a'b'}, A_{a'b'}, B_{a'b'}) \right} $$</p>
+<p>donde para cada par de orientaciones $(x,y) \in {(a,b), (a,b'), (a',b), (a',b')}$:</p>
+<p>$(\Omega_{xy}, \mathcal{F}<em>{xy}, P</em>{xy})$ es un espacio de probabilidad clásico.</p>
+<p>$A_{xy}: \Omega_{xy} \to {-1, +1}$ y $B_{xy}: \Omega_{xy} \to {-1, +1}$ son variables aleatorias.</p>
+<p>Localidad contextual: $P_{xy}(A_{xy}=u, B_{xy}=v) = P_{xy}(A_{xy}=u) \cdot P_{xy}(B_{xy}=v)$ para todo $u,v \in {-1,+1}$. Dentro de cada sub-experimento, los resultados son estadísticamente independientes.</p>
+<p>Realismo mínimo: Para cada $\omega \in \Omega_{xy}$, los valores $A_{xy}(\omega)$ y $B_{xy}(\omega)$ existen independientemente de los detectores. Los detectores revelan, no inventan.</p>
+<p>Ajuste empírico: $E_{xy} = \int_{\Omega_{xy}} A_{xy}(\omega) B_{xy}(\omega) dP_{xy}(\omega) = -\cos(\theta_x - \theta_y)$.</p>
+<p>No existencia de distribución conjunta: No se postula ningún espacio $(\Omega, \mathcal{F}, P)$ ni variables $A, A', B, B'$ definidas simultáneamente sobre $\Omega$ tales que las cuatro distribuciones $P_{xy}$ sean marginales de $P$.</p>
+<p>Verificación algebraica (Teorema 6.2.5). El script <code>contextual_model_z3.smt2</code> verifica que las cuatro correlaciones cuánticas predichas por la regla de Born ($E_{ab} = -\sqrt{2}/2$, $E_{ab'} = +\sqrt{2}/2$, $E_{a'b} = -\sqrt{2}/2$, $E_{a'b'} = -\sqrt{2}/2$) son mutuamente consistentes como números reales y satisfacen $S_{ctx} = -2\sqrt{2} \approx -2{,}828$, violando la cota CHSH clásica $|S| \le 2$.</p>
+<p>Resultados verificados del script contextual_model_z3.smt2:</p>
+<p>Z3 devuelve <code>sat</code> con el siguiente modelo algebraico:</p>
+<table>
+<thead>
+<tr class="header">
+<th>Símbolo Z3</th>
+<th>Expresión root-obj</th>
+<th>Valor exacto</th>
+<th>Significado</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>sqrt2</td>
+<td>root-obj(x² - 2, 2)</td>
+<td>$+\sqrt{2} \approx 1{,}4142$</td>
+<td>La constante que definimos</td>
+</tr>
+<tr class="even">
+<td>E_ab</td>
+<td>root-obj(2x² - 1, 1)</td>
+<td>$-\sqrt{2}/2 \approx -0{,}7071$</td>
+<td>Correlación cuántica $(a,b)$</td>
+</tr>
+<tr class="odd">
+<td>E_abp</td>
+<td>root-obj(2x² - 1, 2)</td>
+<td>$+\sqrt{2}/2 \approx +0{,}7071$</td>
+<td>Correlación cuántica $(a,b')$</td>
+</tr>
+<tr class="even">
+<td>E_apb</td>
+<td>root-obj(2x² - 1, 1)</td>
+<td>$-\sqrt{2}/2 \approx -0{,}7071$</td>
+<td>Correlación cuántica $(a',b)$</td>
+</tr>
+<tr class="odd">
+<td>E_apbp</td>
+<td>root-obj(2x² - 1, 1)</td>
+<td>$-\sqrt{2}/2 \approx -0{,}7071$</td>
+<td>Correlación cuántica $(a',b')$</td>
+</tr>
+<tr class="even">
+<td>S_ctx</td>
+<td>root-obj(x² - 8, 1)</td>
+<td>$-2\sqrt{2} \approx -2{,}828$</td>
+<td>Combinación CHSH</td>
+</tr>
+<tr class="odd">
+<td>CHSH_bound</td>
+<td>2.0</td>
+<td>$2{,}0$</td>
+<td>Cota clásica</td>
+</tr>
+</tbody>
+</table>
+<p>Verificación: $|S_{ctx}| = 2\sqrt{2} \approx 2{,}828 &gt; 2{,}0 = CHSH_bound$. ✅</p>
+<h4 id="teoremas-algebraicos-integrados-[a-meta]">Teoremas algebraicos integrados [A-Meta]</h4>
+<p>Teorema T-Alg [A-Meta]</p>
+<p>Valor exacto de la combinación CHSH contextual.</p>
+<p>Enunciado. Sean $E_{ab} = -\frac{\sqrt{2}}{2}$, $E_{ab'} = +\frac{\sqrt{2}}{2}$, $E_{a'b} = -\frac{\sqrt{2}}{2}$, $E_{a'b'} = -\frac{\sqrt{2}}{2}$. Defínase $S_{ctx} = E_{ab} - E_{ab'} + E_{a'b} + E_{a'b'}$. Entonces $S_{ctx} = -2\sqrt{2}$ y $|S_{ctx}| &gt; 2$.</p>
+<p>Demostración. Sustituimos los valores:</p>
+<h2 id="$$-s_{ctx}-=-\left(-\frac{\sqrt{2}}{2}\right)">$$ S_{ctx} = \left(-\frac{\sqrt{2}}{2}\right)</h2>
+<h1 id="\left(+\frac{\sqrt{2}}{2}\right)-+-\left(-\frac{\sqrt{2}}{2}\right)-+-\left(-\frac{\sqrt{2}}{2}\right)">\left(+\frac{\sqrt{2}}{2}\right) + \left(-\frac{\sqrt{2}}{2}\right) + \left(-\frac{\sqrt{2}}{2}\right)</h1>
+<h1 id="-4-\cdot-\frac{\sqrt{2}}{2}">-4 \cdot \frac{\sqrt{2}}{2}</h1>
+<p>-2\sqrt{2}. $$</p>
+<p>Como $\sqrt{2} &gt; 1{,}414$, tenemos $|S_{ctx}| = 2\sqrt{2} &gt; 2 \cdot 1{,}414 = 2{,}828 &gt; 2$. $\square$</p>
+<p>Teorema T-Fine [A-Meta]</p>
+<p>Imposibilidad de distribución conjunta en el modelo contextual.</p>
+<p>Enunciado. Bajo $\Sigma$, si $|S_{ctx}| &gt; 2$ y $Realism \land Locality$ es verdadero, entonces $\neg JointDist$ (y por $A3$, $\neg CFD$).</p>
+<p>Demostración. Supóngase $JointDist$ verdadero. Entonces $Realism \land Locality \land JointDist$. Por $A5$, $|S| \leq 2$. Pero por T-Alg, $|S_{ctx}| = 2\sqrt{2} &gt; 2$. Como el modelo contextual ajusta los datos ($A6$), la variable $S_value$ toma el valor $2{,}828 = 2\sqrt{2}$. Luego $|S_value| \leq 2$ es falso. Contradicción. Por tanto $\neg JointDist$. Por $A3$ (equivalencia), $\neg CFD$. $\square$</p>
+<p>Nota. Este teorema es la reconstrucción formal del Corolario 6.2.6. No demuestra el teorema de Fine (que es citado como [B] y postulado como $A3$), sino que usa $A3$ para derivar la consecuencia lógica dentro del sistema del capítulo.</p>
+<p>Nota sobre el alcance de esta verificación. El script verifica la consistencia algebraica de las correlaciones cuánticas y su violación de CHSH. No construye explícitamente las distribuciones de probabilidad $P_{xy}$ con variables aleatorias $A_{xy}(\omega), B_{xy}(\omega) \in {-1,+1}$ que produzcan esos valores esperados manteniendo independencia local. La construcción explícita de tales distribuciones excede el alcance lógico-epistemológico de este capítulo.</p>
+<p>La consistencia del modelo contextual como descripción epistemológica se sostiene porque la mecánica cuántica misma calcula cada correlación por separado mediante la regla de Born sobre el estado singlete $|\Psi^-\rangle$, sin postular una distribución conjunta $P(A,A',B,B'|\Psi^-)$. Por el teorema de Fine (1982), la violación de CHSH implica que no existe una distribución conjunta clásica de la cual las cuatro correlaciones sean marginales. El modelo contextual es consistente precisamente porque renuncia a postular tal distribución.</p>
+<p>Observación crucial. El Modelo Contextual no es una teoría física que compita con la mecánica cuántica como descripción fundamental. Es una descripción epistemológica de los datos: el estadístico que solo tiene acceso a los registros de los detectores puede describir cada sub-experimento con su propio espacio de probabilidad, sin necesidad de postular un espacio común que unifique los cuatro.</p>
+<p>Corolario 6.2.6 (Verificación algebraica del Postulado de Viabilidad). El Postulado de Viabilidad (A7) se verifica como consistencia algebraica: el script confirma que los cuatro valores cuánticos son mutuamente consistentes como números reales y violan la cota CHSH, lo cual (por Fine 1982) implica que no requieren una distribución conjunta. El script no construye explícitamente las distribuciones $P_{xy}$ con variables $\pm 1$; eso excede el alcance lógico-epistemológico de este capítulo.</p>
+<hr />
+<h3 id="6.2.5-metateoremas-del-sistema-axiomatico-z3-[a-meta]">6.2.5 Metateoremas del sistema axiomático Z3 [A-Meta]</h3>
+<p>Para mantener la higiene epistémica, nosotros separamos explícitamente lo demostrable de lo no-demostrable con los materiales del capítulo. Todo lo que aquí enunciamos se deriva exclusivamente de los axiomas A1–A8, las definiciones 6.2.4, los hechos del programa Clingo y las reglas de agregación del capítulo. No añadimos datos empíricos, interpretaciones sociológicas ni física cuántica externa.</p>
+<h4 id="lo-que-no-admite-demostracion-formal-[a-meta]-a-partir-del-capitulo-6">Lo que NO admite demostración formal [A-Meta] a partir del Capítulo 6</h4>
+<table>
+<thead>
+<tr class="header">
+<th>Enunciado del capítulo</th>
+<th>Razón</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>“La recepción estándar reifica la conjunción”</td>
+<td>Tesis sociológica/interpretativa [C]</td>
+</tr>
+<tr class="even">
+<td>“Fine (1982) demostró la equivalencia CFD⇔JD”</td>
+<td>Cita de literatura [B]; en el capítulo es axioma A3</td>
+</tr>
+<tr class="odd">
+<td>“Pitowsky demostró que Bell es teorema de probabilidad, no de localidad”</td>
+<td>Cita [B]</td>
+</tr>
+<tr class="even">
+<td>“Spekkens desarrolló modelos contextuales”</td>
+<td>Cita [B]</td>
+</tr>
+<tr class="odd">
+<td>“La pedagogía de Bell opera mediante totalización”</td>
+<td>Análisis discursivo [B/C]</td>
+</tr>
+<tr class="even">
+<td>“El realismo mínimo es una posición filosófica legítima”</td>
+<td>Tesis filosófica [C]</td>
+</tr>
+<tr class="odd">
+<td>“El modelo Clingo no es historia real”</td>
+<td>Advertencia metodológica [C]</td>
+</tr>
+<tr class="even">
+<td>Cualquier afirmación sobre “mensajes instantáneos” o “acción a distancia”</td>
+<td>Interpretación física [C]</td>
+</tr>
+</tbody>
+</table>
+<h4 id="familia-i:-metateoremas-del-sistema-axiomatico-z3">Familia I: Metateoremas del sistema axiomático Z3</h4>
+<p>Teorema T-Cons [A-Meta]</p>
+<p>Consistencia del sistema base.</p>
+<p>Enunciado. Sea $\Sigma = {A1, A2, A3, A5, A6, A7, A8}$ el conjunto de axiomas del sistema formal de la sección 6.2. Entonces $\Sigma$ es consistente.</p>
+<p>Demostración. Exhibimos un modelo $\mathcal{M}$. Sea el dominio de interpretación el conjunto de valores booleanos y reales estándar. Definimos:</p>
+<p>$Realism^{\mathcal{M}} = \top$, $Locality^{\mathcal{M}} = \top$, $CFD^{\mathcal{M}} = \bot$, $JointDist^{\mathcal{M}} = \bot$.</p>
+<p>$FourSubexperiments^{\mathcal{M}} = \top$, $OnlyDetectorData^{\mathcal{M}} = \top$.</p>
+<p>$StatisticianImposesJoint^{\mathcal{M}} = \bot$, $StatisticianUsesContextual^{\mathcal{M}} = \top$.</p>
+<p>$S_value^{\mathcal{M}} = 2{,}828$.</p>
+<p>$A4^{\mathcal{M}}$ puede definirse arbitrariamente (por ejemplo, $\bot$).</p>
+<p>Verificación axioma por axioma:</p>
+<p>A1: Antecedente $FourSub \land OnlyData$ es $\top$; consecuente $\neg StatisticianImposesJoint$ es $\neg\bot = \top$. La implicación es $\top$.</p>
+<p>A2: $JointDist = StatisticianImposesJoint$ se satisface: $\bot = \bot$.</p>
+<p>A3: $CFD = JointDist$ se satisface: $\bot = \bot$.</p>
+<p>A5: Antecedente $Realism \land Locality \land JointDist = \top \land \top \land \bot = \bot$. La implicación es vacuamente $\top$.</p>
+<p>A6: $S_value = 2{,}828$ por asignación.</p>
+<p>A7: Antecedente $Realism \land Locality \land StatisticianUsesContextual = \top \land \top \land \top = \top$. Consecuente $\neg JointDist \land (S_value = 2{,}828) = \top \land \top = \top$. La implicación es $\top$.</p>
+<p>A8: $StatisticianImposesJoint \oplus StatisticianUsesContextual = \bot \oplus \top = \top$.</p>
+<p>Como todo axioma de $\Sigma$ es verdadero en $\mathcal{M}$, $\Sigma$ es satisfacible, luego consistente. $\square$</p>
+<p>Teorema T-Ind [A-Meta]</p>
+<p>Independencia del lema A4.</p>
+<p>Enunciado. El lema $A4 : (Realism \land Locality) \rightarrow CFD$ es independiente de $\Sigma$. Es decir, ni $A4$ ni $\neg A4$ son teoremas de $\Sigma$.</p>
+<p>Demostración. Debemos exhibir dos modelos de $\Sigma$ que difieran en el valor de verdad de $A4$.</p>
+<p>Modelo $\mathcal{M}_1$ donde $A4$ es verdadero: Modificamos $\mathcal{M}$ de T-Cons fijando $Realism^{\mathcal{M}_1} = \bot$. Entonces el antecedente de $A4$ es $\bot$, luego $A4$ es $\top$ en $\mathcal{M}_1$. Los demás axiomas se siguen satisfaciendo porque $A5$ y $A7$ tienen antecedentes que se vuelven $\bot$ o se mantienen $\top$ según corresponda, y los demás axiomas no dependen de $Realism$.</p>
+<p>Modelo $\mathcal{M}_2$ donde $A4$ es falso: Tomamos $\mathcal{M}$ de T-Cons tal cual. Allí $Realism = \top$, $Locality = \top$, $CFD = \bot$. El antecedente de $A4$ es $\top$ y el consecuente $\bot$, luego $A4$ es $\bot$ en $\mathcal{M}_2$.</p>
+<p>Como $\Sigma$ tiene modelos donde $A4$ es verdadero y modelos donde es falso, $A4$ es independiente de $\Sigma$. $\square$</p>
+<p>Teorema T-NDev [A-Meta]</p>
+<p>No-derivabilidad de la inferencia estándar.</p>
+<p>Enunciado. $\Sigma \not\vdash (Realism \land Locality) \rightarrow JointDist$.</p>
+<p>Demostración. Por reducción al absurdo semántico. Supóngase que la fórmula fuera teorema de $\Sigma$. Entonces sería verdadera en todo modelo de $\Sigma$. Pero en el modelo $\mathcal{M}_2$ de T-Ind (que es modelo de $\Sigma$), tenemos $Realism = \top$, $Locality = \top$, $JointDist = \bot$. Luego $(Realism \land Locality) \rightarrow JointDist$ es $\bot$ en $\mathcal{M}_2$. Contradicción. $\square$</p>
+<p>Nota. Este metateorema formaliza exactamente la “falacia estructural” que el capítulo atribuye a la recepción estándar: la inferencia de que realismo y localidad implican distribución conjunta no es válida en el sistema axiomático base.</p>
+<p>Teorema T-Equiv [A-Meta]</p>
+<p>La inferencia estándar ES válida bajo A4.</p>
+<p>Enunciado. $\Sigma \cup {A4} \vdash \neg(Realism \land Locality)$.</p>
+<p>Demostración. Supóngase $Realism \land Locality$. Por $A4$, se sigue $CFD$. Por $A3$ ($CFD \leftrightarrow JointDist$), se sigue $JointDist$. Entonces $Realism \land Locality \land JointDist$. Por $A5$, se sigue $S_value \leq 2$. Por $A6$, $S_value = 2{,}828$. Luego $2{,}828 \leq 2$, una contradicción aritmética. Por tanto, la suposición $Realism \land Locality$ es imposible en $\Sigma \cup {A4}$. Se sigue $\neg(Realism \land Locality)$. $\square$</p>
+<p>Nota. Este teorema demuestra formalmente la concesión honesta del capítulo: si se adopta la definición estándar donde $A4$ es analítico (es decir, si $Realism$ incluye $CFD$ por definición), entonces la recepción estándar es lógicamente correcta. La crítica del capítulo no es a la validez lógica bajo esas premisas, sino a la presentación de $A4$ como inevitable cuando es una elección definitorial.</p>
+<hr />
+<h2 id="6.3-los-siete-teoremas:-verificacion-de-la-elision-axiomatica-[a-meta]-+-[a-codigo]">6.3 Los siete teoremas: verificación de la elisión axiomática [A-Meta] + [A-Código]</h2>
+<p>Con el sistema axiomático definido, nosotros planteamos siete teoremas que exploran el espacio de consistencia. Cada teorema corresponde a una pregunta específica sobre la estructura lógica del argumento de Bell y su recepción estándar.</p>
+<hr />
+<h3 id="teorema-1-(unsat):-bell-es-matematicamente-correcto-dentro-de-su-marco-[a-meta]-+-[a-codigo]">Teorema 1 (UNSAT): Bell es matemáticamente correcto dentro de su marco [A-Meta] + [A-Código]</h3>
+<p>Enunciado [A-Meta]. $\Sigma \cup {Realism, Locality, JointDist} \vdash \bot$.</p>
+<p>Demostración [A-Meta]. Supóngase $Realism \land Locality \land JointDist$. Por el axioma $A5$:</p>
+<p>$$ (Realism \land Locality \land JointDist) \rightarrow (S_value \leq 2). $$</p>
+<p>Por modus ponens, $S_value \leq 2$. Por el axioma $A6$, $S_value = 2{,}828$. Luego $2{,}828 \leq 2$. Esta desigualdad aritmética es falsa. Se deriva $\bot$. $\square$</p>
+<p>Verificación computacional [A-Código]:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode lisp"><code class="sourceCode commonlisp"><a class="sourceLine" id="cb7-1" data-line-number="1">(<span class="kw">push</span>)</a>
+<a class="sourceLine" id="cb7-2" data-line-number="2">(<span class="kw">assert</span> (! (<span class="kw">and</span> Realism Locality JointDist) <span class="bu">:named</span> T1_Bell_Target))</a>
+<a class="sourceLine" id="cb7-3" data-line-number="3">(check-sat)</a>
+<a class="sourceLine" id="cb7-4" data-line-number="4">(get-unsat-core)</a>
+<a class="sourceLine" id="cb7-5" data-line-number="5">(<span class="kw">pop</span>)</a></code></pre></div>
+<p>Resultado verificado:</p>
+<pre class="text"><code>unsat
+(T1_Bell_Target A5_CHSH_Correct A6_Experimental_Data)
+</code></pre>
+<p>Interpretación: Si se acepta $R \wedge L \wedge JointDist$, por A5 se obtiene $S \le 2$, pero A6 dice $S = 2{,}828$. Contradicción. Z3 identifica el núcleo insatisfacible mínimo: exactamente tres axiomas están en tensión. Esto confirma que Bell es matemáticamente correcto dentro de su marco. Nadie refuta el álgebra.</p>
+<hr />
+<h3 id="teorema-2-(unsat):-la-incompatibilidad-surge-al-invocar-a4-[a-meta]-+-[a-codigo]">Teorema 2 (UNSAT): La incompatibilidad surge al invocar A4 [A-Meta] + [A-Código]</h3>
+<p>Enunciado [A-Meta]. $\Sigma \cup {A4, Realism, Locality} \vdash \bot$.</p>
+<p>Demostración [A-Meta]. Supóngase $A4 \land Realism \land Locality$. Por $A4$, $(Realism \land Locality) \rightarrow CFD$. Por modus ponens con las dos últimas premisas, $CFD$. Por $A3$ ($CFD \leftrightarrow JointDist$), $JointDist$. Entonces $Realism \land Locality \land JointDist$. Por T1, esto implica $\bot$. $\square$</p>
+<p>Verificación computacional [A-Código]:</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode lisp"><code class="sourceCode commonlisp"><a class="sourceLine" id="cb9-1" data-line-number="1">(<span class="kw">push</span>)</a>
+<a class="sourceLine" id="cb9-2" data-line-number="2">(<span class="kw">assert</span> (! A4_Reception_Fallacious_Lemma <span class="bu">:named</span> A4_Invoked))</a>
+<a class="sourceLine" id="cb9-3" data-line-number="3">(<span class="kw">assert</span> (! Realism <span class="bu">:named</span> R_T2))</a>
+<a class="sourceLine" id="cb9-4" data-line-number="4">(<span class="kw">assert</span> (! Locality <span class="bu">:named</span> L_T2))</a>
+<a class="sourceLine" id="cb9-5" data-line-number="5">(<span class="kw">assert</span> (! A6_Experimental_Data <span class="bu">:named</span> Data_T2))</a>
+<a class="sourceLine" id="cb9-6" data-line-number="6">(check-sat)</a>
+<a class="sourceLine" id="cb9-7" data-line-number="7">(get-unsat-core)</a>
+<a class="sourceLine" id="cb9-8" data-line-number="8">(<span class="kw">pop</span>)</a></code></pre></div>
+<p>Resultado verificado:</p>
+<pre class="text"><code>unsat
+(L_T2 A3_Fine_Equivalence A5_CHSH_Correct A6_Experimental_Data
+ A4_Definition R_T2 A4_Invoked)
+</code></pre>
+<p>Interpretación: Al invocar A4 (el lema $R \wedge L \rightarrow CFD$), el sistema se vuelve inconsistente. El núcleo insatisfacible incluye explícitamente <code>A4_Invoked</code>.</p>
+<p>Nota sobre la función diagnóstica de T2. Matemáticamente, T2 es equivalente a T1 dado A3 (Fine: $CFD \Leftrightarrow JointDist$). Su función no es revelar una contradicción nueva, sino diagnosticar la etiología de la contradicción: mostrar que el núcleo insatisfacible incluye explícitamente el lema A4. Es análogo a un médico que, sabiendo que el paciente tiene fiebre, hace una prueba para confirmar que la causa es la bacteria X y no la Y.</p>
+<hr />
+<h3 id="teorema-3-(sat):-el-escape-realista-existe-[a-meta]-+-[a-codigo]">Teorema 3 (SAT): El escape realista existe [A-Meta] + [A-Código]</h3>
+<p>Enunciado [A-Meta]. $\Sigma \cup {Realism, Locality, StatisticianUsesContextual, \neg JointDist, A6}$ es consistente.</p>
+<p>Demostración [A-Meta]. Exhibimos el modelo $\mathcal{M}$ de T-Cons. Allí:</p>
+<p>$Realism = \top$, $Locality = \top$, $StatisticianUsesContextual = \top$.</p>
+<p>$\neg JointDist = \neg\bot = \top$.</p>
+<p>$A6$ se satisface con $S_value = 2{,}828$.</p>
+<p>Todos los axiomas de $\Sigma$ se satisfacen (por T-Cons), y las fórmulas adicionales son verdaderas en $\mathcal{M}$. Luego el conjunto es consistente. $\square$</p>
+<p>Verificación computacional [A-Código]:</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode lisp"><code class="sourceCode commonlisp"><a class="sourceLine" id="cb11-1" data-line-number="1">(<span class="kw">push</span>)</a>
+<a class="sourceLine" id="cb11-2" data-line-number="2">(<span class="kw">assert</span> (! Realism <span class="bu">:named</span> R_T3))</a>
+<a class="sourceLine" id="cb11-3" data-line-number="3">(<span class="kw">assert</span> (! Locality <span class="bu">:named</span> L_T3))</a>
+<a class="sourceLine" id="cb11-4" data-line-number="4">(<span class="kw">assert</span> (! StatisticianUsesContextual <span class="bu">:named</span> SUC_T3))</a>
+<a class="sourceLine" id="cb11-5" data-line-number="5">(<span class="kw">assert</span> (! (<span class="kw">not</span> JointDist) <span class="bu">:named</span> NotJD_T3))</a>
+<a class="sourceLine" id="cb11-6" data-line-number="6">(<span class="kw">assert</span> (! A6_Experimental_Data <span class="bu">:named</span> Data_T3))</a>
+<a class="sourceLine" id="cb11-7" data-line-number="7">(check-sat)</a>
+<a class="sourceLine" id="cb11-8" data-line-number="8">(get-model)</a>
+<a class="sourceLine" id="cb11-9" data-line-number="9">(<span class="kw">pop</span>)</a></code></pre></div>
+<p>Resultado verificado:</p>
+<pre class="text"><code>sat
+(define-fun Realism () Bool true)
+(define-fun Locality () Bool true)
+(define-fun StatisticianUsesContextual () Bool true)
+(define-fun JointDist () Bool false)
+(define-fun CFD () Bool false)
+(define-fun S_value () Real (/ 707.0 250.0))
+</code></pre>
+<p>Interpretación: Z3 encontró un modelo concreto donde:</p>
+<p>$Realism = true$</p>
+<p>$Locality = true$</p>
+<p>$JointDist = false$</p>
+<p>$CFD = false$</p>
+<p>$S_value = 2{,}828$</p>
+<p>Este es el núcleo de la demostración: existe un mundo posible donde el realista local preserva ambos compromisos usando un modelo contextual. El realista no está obligado a usar distribución conjunta.</p>
+<hr />
+<h3 id="teorema-4-(sat):-el-terreno-neutral-no-fuerza-distribucion-conjunta-[a-meta]-+-[a-codigo]">Teorema 4 (SAT): El terreno neutral no fuerza distribución conjunta [A-Meta] + [A-Código]</h3>
+<p>Enunciado [A-Meta]. ${A1, A8} \cup {FourSubexperiments, OnlyDetectorData, StatisticianUsesContextual, \neg StatisticianImposesJoint}$ es consistente.</p>
+<p>Demostración [A-Meta]. Sea $\mathcal{M}_4$ la restricción de $\mathcal{M}$ (de T-Cons) a las variables relevantes. Allí $FourSub = \top$, $OnlyData = \top$, $SUC = \top$, $SIJ = \bot$. Verificamos:</p>
+<p>$A1$: $\top \rightarrow \neg\bot = \top$.</p>
+<p>$A8$: $\bot \oplus \top = \top$.</p>
+<p>Las demás fórmulas son verdaderas por asignación. $\square$</p>
+<p>Verificación computacional [A-Código]:</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode lisp"><code class="sourceCode commonlisp"><a class="sourceLine" id="cb13-1" data-line-number="1">(<span class="kw">push</span>)</a>
+<a class="sourceLine" id="cb13-2" data-line-number="2">(<span class="kw">assert</span> (! FourSubexperiments <span class="bu">:named</span> FS_T4))</a>
+<a class="sourceLine" id="cb13-3" data-line-number="3">(<span class="kw">assert</span> (! OnlyDetectorData <span class="bu">:named</span> ODD_T4))</a>
+<a class="sourceLine" id="cb13-4" data-line-number="4">(<span class="kw">assert</span> (! StatisticianUsesContextual <span class="bu">:named</span> SUC_T4))</a>
+<a class="sourceLine" id="cb13-5" data-line-number="5">(<span class="kw">assert</span> (! (<span class="kw">not</span> StatisticianImposesJoint) <span class="bu">:named</span> NotSIJ_T4))</a>
+<a class="sourceLine" id="cb13-6" data-line-number="6">(check-sat)</a>
+<a class="sourceLine" id="cb13-7" data-line-number="7">(get-model)</a>
+<a class="sourceLine" id="cb13-8" data-line-number="8">(<span class="kw">pop</span>)</a></code></pre></div>
+<p>Resultado verificado:</p>
+<pre class="text"><code>sat
+(define-fun FourSubexperiments () Bool true)
+(define-fun OnlyDetectorData () Bool true)
+(define-fun StatisticianUsesContextual () Bool true)
+(define-fun StatisticianImposesJoint () Bool false)
+</code></pre>
+<p>Interpretación: El terreno empírico neutral (4 sub-experimentos separados, solo datos de detectores) no fuerza al estadístico a postular distribución conjunta. Los datos no obligan a elegir un modelo sobre otro.</p>
+<hr />
+<h3 id="teorema-5-(sat):-rl-sin-a4-es-viable-[a-meta]-+-[a-codigo]">Teorema 5 (SAT): R∧L sin A4 es viable [A-Meta] + [A-Código]</h3>
+<p>Enunciado [A-Meta]. $\Sigma \cup {Realism, Locality, A6} \vdash \neg JointDist$.</p>
+<p>Demostración [A-Meta]. Supóngase, para reducir al absurdo, que $JointDist$ es verdadero. Entonces $Realism \land Locality \land JointDist$. Por $A5$, $S_value \leq 2$. Pero $A6$ exige $S_value = 2{,}828$. Contradicción. Luego $\neg JointDist$. $\square$</p>
+<p>Corolario inmediato [A-Meta]. Bajo las mismas premisas, $StatisticianUsesContextual$ es verdadero y $StatisticianImposesJoint$ es falso (por $A8$).</p>
+<p>Verificación computacional [A-Código]:</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode lisp"><code class="sourceCode commonlisp"><a class="sourceLine" id="cb15-1" data-line-number="1">(<span class="kw">push</span>)</a>
+<a class="sourceLine" id="cb15-2" data-line-number="2">(<span class="kw">assert</span> (! Realism <span class="bu">:named</span> R_T5))</a>
+<a class="sourceLine" id="cb15-3" data-line-number="3">(<span class="kw">assert</span> (! Locality <span class="bu">:named</span> L_T5))</a>
+<a class="sourceLine" id="cb15-4" data-line-number="4">(<span class="kw">assert</span> (! A6_Experimental_Data <span class="bu">:named</span> Data_T5))</a>
+<a class="sourceLine" id="cb15-5" data-line-number="5">(check-sat)</a>
+<a class="sourceLine" id="cb15-6" data-line-number="6">(get-model)</a>
+<a class="sourceLine" id="cb15-7" data-line-number="7">(<span class="kw">pop</span>)</a></code></pre></div>
+<p>Resultado verificado:</p>
+<pre class="text"><code>sat
+(define-fun Realism () Bool true)
+(define-fun Locality () Bool true)
+(define-fun JointDist () Bool false)
+(define-fun CFD () Bool false)
+(define-fun StatisticianUsesContextual () Bool true)
+(define-fun S_value () Real (/ 707.0 250.0))
+</code></pre>
+<p>Interpretación: Sin el lema que la recepción estándar asumió (A4), $R \wedge L$ es perfectamente consistente con $S = 2{,}828$. La estructura axiomática fuerza $JointDist = false$ y $StatisticianUsesContextual = true$ como vía de escape.</p>
+<hr />
+<h3 id="teorema-6-(sat):-la-invalidez-de-la-inferencia-estandar-[a-meta]-+-[a-codigo]">Teorema 6 (SAT): La invalidez de la inferencia estándar [A-Meta] + [A-Código]</h3>
+<p>Enunciado [A-Meta]. El conjunto ${\neg(Realism \land Locality \land JointDist), Realism, Locality, A6} \cup \Sigma$ es consistente.</p>
+<p>Demostración [A-Meta]. Exhibimos el modelo $\mathcal{M}$ de T-Cons. Evaluamos:</p>
+<p>$\neg(R \land L \land JD) = \neg(\top \land \top \land \bot) = \neg\bot = \top$.</p>
+<p>$Realism = \top$, $Locality = \top$.</p>
+<p>$A6$ satisfecho.</p>
+<p>Luego existe un modelo donde la conjunción de la tríada es falsa, pero $Realism$ y $Locality$ son verdaderos. Esto prueba que $\neg(R \land L \land JD)$ no implica $\neg(R \land L)$. $\square$</p>
+<p>Verificación computacional [A-Código]:</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode lisp"><code class="sourceCode commonlisp"><a class="sourceLine" id="cb17-1" data-line-number="1">(<span class="kw">push</span>)</a>
+<a class="sourceLine" id="cb17-2" data-line-number="2">(<span class="kw">assert</span> (! (<span class="kw">not</span> (<span class="kw">and</span> Realism Locality JointDist)) <span class="bu">:named</span> NotRLJD_T6))</a>
+<a class="sourceLine" id="cb17-3" data-line-number="3">(<span class="kw">assert</span> (! Realism <span class="bu">:named</span> R_T6))</a>
+<a class="sourceLine" id="cb17-4" data-line-number="4">(<span class="kw">assert</span> (! Locality <span class="bu">:named</span> L_T6))</a>
+<a class="sourceLine" id="cb17-5" data-line-number="5">(<span class="kw">assert</span> (! A6_Experimental_Data <span class="bu">:named</span> Data_T6))</a>
+<a class="sourceLine" id="cb17-6" data-line-number="6">(check-sat)</a>
+<a class="sourceLine" id="cb17-7" data-line-number="7">(get-model)</a>
+<a class="sourceLine" id="cb17-8" data-line-number="8">(<span class="kw">pop</span>)</a></code></pre></div>
+<p>Resultado verificado:</p>
+<pre class="text"><code>sat
+(define-fun Realism () Bool true)
+(define-fun Locality () Bool true)
+(define-fun JointDist () Bool false)
+(define-fun S_value () Real (/ 707.0 250.0))
+</code></pre>
+<p>Interpretación: Aceptar $\neg(R \wedge L \wedge JD)$ y mantener $R \wedge L$ es lógicamente consistente. Esto formaliza exactamente la invalidez de la inferencia estándar: de $\neg(A \wedge B \wedge C)$ no se sigue $\neg(A \wedge B)$ a menos que se asuma $(A \wedge B) \rightarrow C$.</p>
+<p>Nota sobre la analogía del triángulo equilátero rojo. Una forma común de ilustrar esta estructura lógica es: “Bell demostró que no existe un triángulo equilátero rojo; la recepción estándar concluyó que no existe un triángulo equilátero. La conclusión solo sigue si se asume que todo triángulo equilátero debe ser rojo.”</p>
+<p>Advertencia sobre la analogía: Esta analogía ilustra nuestra posición (donde CFD es contingente respecto al realismo), pero no prueba su corrección. Para Bell y para la definición estándar de realismo local, CFD era constitutiva del realismo (el “rojo” no era contingente sino esencial). Bajo esa definición, la inferencia de la recepción estándar es lógicamente válida. La analogía es pedagógicamente útil para mostrar la estructura de la elisión axiomática, pero la corrección de nuestra posición depende de cuál definición de realismo se adopte, no de la analogía.</p>
+<hr />
+<h3 id="teorema-7-(sat):-fine-+-rechazo-de-a4-=-realismo-local-contextual-viable-[a-meta]-+-[a-codigo]">Teorema 7 (SAT): Fine + rechazo de A4 = realismo local contextual viable [A-Meta] + [A-Código]</h3>
+<p>Enunciado [A-Meta]. $\Sigma \cup {\neg A4, Realism, Locality, StatisticianUsesContextual, A6}$ es consistente.</p>
+<p>Demostración [A-Meta]. En el modelo $\mathcal{M}$ de T-Cons, tenemos $Realism = \top$, $Locality = \top$, $CFD = \bot$. Evaluamos $A4 = (R \land L) \rightarrow CFD = \top \rightarrow \bot = \bot$. Luego $\neg A4 = \top$. Los demás axiomas se satisfacen como en T-Cons. $\square$</p>
+<p>Verificación computacional [A-Código]:</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode lisp"><code class="sourceCode commonlisp"><a class="sourceLine" id="cb19-1" data-line-number="1">(<span class="kw">push</span>)</a>
+<a class="sourceLine" id="cb19-2" data-line-number="2">(<span class="kw">assert</span> (! (<span class="kw">not</span> A4_Reception_Fallacious_Lemma) <span class="bu">:named</span> NotA4_T7))</a>
+<a class="sourceLine" id="cb19-3" data-line-number="3">(<span class="kw">assert</span> (! Realism <span class="bu">:named</span> R_T7))</a>
+<a class="sourceLine" id="cb19-4" data-line-number="4">(<span class="kw">assert</span> (! Locality <span class="bu">:named</span> L_T7))</a>
+<a class="sourceLine" id="cb19-5" data-line-number="5">(<span class="kw">assert</span> (! StatisticianUsesContextual <span class="bu">:named</span> SUC_T7))</a>
+<a class="sourceLine" id="cb19-6" data-line-number="6">(<span class="kw">assert</span> (! A6_Experimental_Data <span class="bu">:named</span> Data_T7))</a>
+<a class="sourceLine" id="cb19-7" data-line-number="7">(check-sat)</a>
+<a class="sourceLine" id="cb19-8" data-line-number="8">(get-model)</a>
+<a class="sourceLine" id="cb19-9" data-line-number="9">(<span class="kw">pop</span>)</a></code></pre></div>
+<p>Resultado verificado:</p>
+<pre class="text"><code>sat
+(define-fun Realism () Bool true)
+(define-fun Locality () Bool true)
+(define-fun A4_Reception_Fallacious_Lemma () Bool false)
+(define-fun StatisticianUsesContextual () Bool true)
+(define-fun JointDist () Bool false)
+(define-fun CFD () Bool false)
+(define-fun S_value () Real (/ 707.0 250.0))
+</code></pre>
+<p>Interpretación: Aceptando la equivalencia de Fine (A3: $CFD \Leftrightarrow JointDist$) pero rechazando explícitamente el lema que la recepción estándar asumió (A4), Z3 construye un modelo donde el realista local preserva todos sus compromisos ontológicos usando modelo contextual. La consistencia algebraica de este modelo está verificada por el script <code>contextual_model_z3.smt2</code> (Sección 6.2.4), que demuestra que las cuatro correlaciones cuánticas satisfacen $S_{ctx} = -2\sqrt{2} \approx -2{,}828$ violando la cota CHSH.</p>
+<hr />
+<h3 id="tabla-resumen-de-los-siete-teoremas">Tabla resumen de los siete teoremas</h3>
+<table>
+<thead>
+<tr class="header">
+<th>Teorema</th>
+<th>Resultado</th>
+<th>Núcleo / Modelo clave</th>
+<th>Interpretación</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>T1</td>
+<td>unsat</td>
+<td>T1_Bell_Target + A5_CHSH_Correct + A6_Experimental_Data</td>
+<td>Bell es matemáticamente correcto: $R \wedge L \wedge DC$ es incompatible con $S = 2{,}828$</td>
+</tr>
+<tr class="even">
+<td>T2</td>
+<td>unsat</td>
+<td>Incluye A4_Invoked</td>
+<td>La incompatibilidad surge al invocar el lema A4 (función diagnóstica)</td>
+</tr>
+<tr class="odd">
+<td>T3</td>
+<td>sat</td>
+<td>$R=true$, $L=true$, $SUC=true$, $JD=false$, $S=2{,}828$</td>
+<td>El núcleo de la demostración: el realista local contextual es perfectamente viable</td>
+</tr>
+<tr class="even">
+<td>T4</td>
+<td>sat</td>
+<td>$FourSub=true$, $OnlyData=true$, $SUC=true$, $SIJ=false$</td>
+<td>El terreno común no fuerza distribución conjunta</td>
+</tr>
+<tr class="odd">
+<td>T5</td>
+<td>sat</td>
+<td>$R=true$, $L=true$, $JD=false$, $S=2{,}828$</td>
+<td>Sin A4, $R \wedge L$ encaja con los datos</td>
+</tr>
+<tr class="even">
+<td>T6</td>
+<td>sat</td>
+<td>$R=true$, $L=true$, $JD=false$, $S=2{,}828$</td>
+<td>Aceptar $\neg(R \wedge L \wedge DC)$ y mantener $R \wedge L$ es consistente</td>
+</tr>
+<tr class="odd">
+<td>T7</td>
+<td>sat</td>
+<td>$R=true$, $L=true$, $\neg A4$, $SUC=true$, $JD=false$, $S=2{,}828$</td>
+<td>Fine + rechazo de A4 = realismo local contextual viable (consistencia algebraica verificada en 6.2.4)</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="la-elision-axiomatica-en-una-linea">La elisión axiomática en una línea</h3>
+<p>La recepción estándar demostró (correctamente): $\neg(R \wedge L \wedge DC)$.</p>
+<p>Pero concluyó (inválidamente sin A4): $\neg(R \wedge L)$.</p>
+<p>Esto es lógicamente inválido sin el lema $(R \wedge L) \rightarrow DC$.</p>
+<p>Pitowsky y Fine demostraron que $DC$ se deriva de la CFD, no de la localidad.</p>
+<p>Por tanto, la elisión axiomática en la recepción estándar es una petición de principio estadístico: impone una estructura de probabilidad conjunta como si fuera consecuencia ontológica de la localidad, cuando es solo una elección metodológica.</p>
+<p>Importante: Si se adopta la definición estándar de “realismo local” (donde CFD es constitutiva), entonces $R \rightarrow CFD$ es analítico, A4 es verdadero por definición, y la inferencia de la recepción estándar es lógicamente válida. La “elisión axiomática” que denunciamos es pedagógica y retórica: la totalización de la conjunción que ocultó que CFD es un supuesto separable bajo otras definiciones de realismo.</p>
+<hr />
+<h2 id="6.4-clingo:-dinamica-epistemica-de-la-comunidad-cientifica-[a-meta]-+-[a-codigo]">6.4 Clingo: Dinámica epistémica de la comunidad científica [A-Meta] + [A-Código]</h2>
+<p>Si el espacio de modelos de Z3 es estático —un mapa de posibilidades lógicas—, el modelo Clingo es dinámico: simula cómo una comunidad de agentes con compromisos ontológicos explícitos transitaría entre modelos estadísticos ante la evidencia.</p>
+<hr />
+<h3 id="6.4.1-estructura-del-modelo">6.4.1 Estructura del modelo</h3>
+<p>El código Clingo modela:</p>
+<p>5 agentes con compromisos ontológicos declarados:</p>
+<p><code>locality_first_realists</code> (comprometidos con R + L)</p>
+<p><code>realism_first_realists</code> (comprometidos con R)</p>
+<p><code>bellian_orthodox</code> (comprometidos con R + L, pero usan joint_model)</p>
+<p><code>epistemic_pragmatists</code> (comprometidos con L)</p>
+<p><code>experimental_neutrals</code> (ningún compromiso ontológico previo)</p>
+<p>4 modelos estadísticos con propiedades declaradas:</p>
+<p><code>joint_model</code>: requiere CFD, no ajusta $S = 2{,}828$</p>
+<p><code>contextual_model</code>: no viola localidad ni realismo, ajusta $S = 2{,}828$</p>
+<p><code>epistemic_model</code>: viola realismo, ajusta $S = 2{,}828$</p>
+<p><code>bohm_model</code>: viola localidad, ajusta $S = 2{,}828$</p>
+<p>Restricciones de coherencia ontológica:</p>
+<p>Un agente comprometido con localidad NO puede adoptar un modelo que viole localidad.</p>
+<p>Un agente comprometido con realismo NO puede adoptar un modelo que viole realismo.</p>
+<p>Optimización multiobjetivo:</p>
+<p>Prioridad 1 (peso 4): minimizar costo ontológico (satélites activos)</p>
+<p>Prioridad 2 (peso 3): minimizar uso de joint_model post-t=0</p>
+<p>Prioridad 3 (peso 2): maximizar ajuste empírico</p>
+<p>Prioridad 4 (peso 1): minimizar violaciones de compromiso</p>
+<p>Prioridad 5 (peso 0): minimizar cambios bruscos</p>
+<hr />
+<h3 id="6.4.2-resultado-verificado-(optimum-found,-answer-23)">6.4.2 Resultado verificado (OPTIMUM FOUND, Answer 23)</h3>
+<pre class="text"><code>Optimization: 5 0 -15 6
+OPTIMUM FOUND
+</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th>Métrica</th>
+<th>Valor</th>
+<th>Significado</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Costo ontológico</td>
+<td>5</td>
+<td>Solo satélites heredados de t=0. Post-crisis: cero entidades no medidas postuladas</td>
+</tr>
+<tr class="even">
+<td>Uso de joint_model</td>
+<td>0</td>
+<td>Nadie usa el modelo de Bell después de t=0</td>
+</tr>
+<tr class="odd">
+<td>Ajuste empírico</td>
+<td>-15</td>
+<td>Máximo absoluto: los 5 agentes ajustan los datos en los 3 tiempos</td>
+</tr>
+<tr class="even">
+<td>Cambios</td>
+<td>6</td>
+<td>Mínimo necesario para escapar del paradigma conjunto</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="6.4.3-trayectoria-de-cada-agente-en-el-optimo">6.4.3 Trayectoria de cada agente en el óptimo</h3>
+<table>
+<thead>
+<tr class="header">
+<th>Agente</th>
+<th>Compromisos</th>
+<th>t=0</th>
+<th>t=1</th>
+<th>t=2</th>
+<th>t=3</th>
+<th>Destino final</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>locality_first_realists</td>
+<td>L + R</td>
+<td>joint</td>
+<td>contextual</td>
+<td>contextual</td>
+<td>contextual</td>
+<td>Única opción viable</td>
+</tr>
+<tr class="even">
+<td>bellian_orthodox</td>
+<td>L + R</td>
+<td>joint</td>
+<td>contextual</td>
+<td>contextual</td>
+<td>contextual</td>
+<td>Única opción viable</td>
+</tr>
+<tr class="odd">
+<td>realism_first_realists</td>
+<td>R</td>
+<td>joint</td>
+<td>contextual</td>
+<td>contextual</td>
+<td>contextual</td>
+<td>Preferido sobre Bohm</td>
+</tr>
+<tr class="even">
+<td>epistemic_pragmatists</td>
+<td>L</td>
+<td>joint</td>
+<td>contextual</td>
+<td>epistemic</td>
+<td>epistemic</td>
+<td>Contextual como puente</td>
+</tr>
+<tr class="odd">
+<td>experimental_neutrals</td>
+<td>(ninguno)</td>
+<td>joint</td>
+<td>bohm</td>
+<td>bohm</td>
+<td>bohm</td>
+<td>Libre elección</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="6.4.4-interpretacion-del-resultado">6.4.4 Interpretación del resultado</h3>
+<ol>
+<li>El realista local es forzado al modelo contextual.<br />
+<code>locality_first_realists</code> y <code>bellian_orthodox</code> tienen compromisos con ambos principios (R y L). Las restricciones de coherencia los bloquean:</li>
+</ol>
+<p>❌ <code>bohm_model</code> → viola localidad (acción a distancia)</p>
+<p>❌ <code>epistemic_model</code> → viola realismo (no hay valores preexistentes)</p>
+<p>❌ <code>joint_model</code> → inconsistente con datos (requiere CFD)</p>
+<p>✅ <code>contextual_model</code> → única opción restante</p>
+<ol start="2">
+<li><p>El modelo contextual es preferido incluso por realistas puros.<br />
+<code>realism_first_realists</code> (solo comprometidos con realismo, podrían aceptar no-localidad) igual eligen <code>contextual_model</code> sobre <code>bohm_model</code>. El optimizador penaliza el costo ontológico: Bohm postula una ontología más extravagante (onda piloto no-local). El contextual es más parsimonioso.</p></li>
+<li><p>El paradigma de la recepción estándar es históricamente inestable.<br />
+Cero agentes permanecen en <code>joint_model</code> post-t=0. La ortodoxía de la recepción estándar no es un atractor del sistema. La evidencia de 4 sub-experimentos + el teorema de Fine la desestabilizan irreversiblemente.</p></li>
+<li><p>Fragmentación post-crisis con un núcleo contextual.<br />
+Aunque la comunidad se fragmenta (<code>fragmentation(2,3)</code>), el <code>contextual_model</code> emerge como el atractor dominante: 3 de 5 agentes se estabilizan allí.</p></li>
+</ol>
+<p>Nota sobre el estatus de esta simulación. El modelo Clingo muestra qué ocurriría bajo ciertos criterios de racionalidad (parsimonia ontológica, coherencia, ajuste empírico). No es una reconstrucción histórica de cómo evolucionó realmente el debate sobre Bell. La historia real involucra factores sociológicos, institucionales y económicos que el modelo no captura.</p>
+<p>Conexión con el protocolo anti-reificación: La simulación demuestra que si la comunidad científica operara con compromisos ontológicos explícitos y parsimonia (minimizar entidades no medidas postuladas), la interpretación contextual emergería naturalmente como la opción dominante para los realistas locales —sin necesidad de renunciar ni al realismo ni a la localidad. La reificación de la conjunción $R \wedge L \wedge CFD$ como “el realismo local” es lo que impide ver esta tercera vía.</p>
+<hr />
+<h3 id="6.4.5-metateoremas-formales-de-la-dinamica-clingo-[a-meta]">6.4.5 Metateoremas formales de la dinámica Clingo [A-Meta]</h3>
+<p>Teorema T-Coh [A-Meta]</p>
+<p>Coherencia ontológica fuerza el modelo contextual.</p>
+<p>Enunciado. En el programa Clingo de la sección 6.4, sea $a$ un agente cuyos compromisos ontológicos incluyan $Realism$ y $Locality$. Sea $AS$ un answer set que satisfaga las restricciones de coherencia ontológica del programa. Entonces para todo tiempo $t&gt;0$: $adopta(a, contextual_model, t) \in AS$, y $adopta(a, M, t) \notin AS$ para $M \in {bohm_model, epistemic_model, joint_model}$.</p>
+<p>Demostración. Análisis de casos exhaustivo sobre los cuatro modelos disponibles.</p>
+<p>Caso 1: $M = bohm_model$. El programa declara que $bohm_model$ viola $Locality$. La restricción de coherencia ontológica del programa elimina (mediante regla de restricción <code>:-</code>) todo answer set donde un agente comprometido con $Locality$ adopte $bohm_model$. Luego $adopta(a, bohm_model, t) \notin AS$.</p>
+<p>Caso 2: $M = epistemic_model$. El programa declara que $epistemic_model$ viola $Realism$. Análogamente, la restricción de coherencia elimina esta opción para agentes comprometidos con $Realism$. Luego $adopta(a, epistemic_model, t) \notin AS$.</p>
+<p>Caso 3: $M = joint_model$. El programa asocia a $joint_model$ la propiedad de requerir $CFD$ (equivalente a $JointDist$ por $A3$). Por la dinámica del programa y las weak constraints de ajuste empírico, un agente que adopte $joint_model$ en $t&gt;0$ incurre en costo por no ajustar los datos (o directamente viola restricciones de optimalidad). Más aún, el answer set óptimo verificado tiene costo 0 en joint_model post-t=0, lo cual implica que ningún agente lo adopta. Luego $adopta(a, joint_model, t) \notin AS$ en el óptimo.</p>
+<p>Caso 4: $M = contextual_model$. Este modelo no viola $Realism$ ni $Locality$ según la declaración del programa, y ajusta los datos. No está bloqueado por ninguna restricción de coherencia.</p>
+<p>Como la choice rule del programa fuerza a cada agente a adoptar exactamente un modelo, y los casos 1–3 son imposibles, necesariamente $adopta(a, contextual_model, t) \in AS$. $\square$</p>
+<p>Teorema T-Opt [A-Meta]</p>
+<p>Optimalidad lexicográfica del answer set 23.</p>
+<p>Enunciado. Sea $AS_{23}$ el answer set con vector de costo $(5, 0, -15, 6)$ reportado en la sección 6.4.2. Entonces $AS_{23}$ es óptimo bajo el orden lexicográfico de weak constraints del programa.</p>
+<p>Demostración. Análisis por prioridades.</p>
+<p>Prioridad 2 (peso 3, minimizar uso de joint_model post-t=0): El valor 0 significa que ningún agente adopta $joint_model$ en $t&gt;0$. Este es el mínimo absoluto posible, ya que el costo es una suma de penalizaciones no negativas. Cualquier answer set con valor $&gt;0$ en esta prioridad es estrictamente dominado por $AS_{23}$.</p>
+<p>Prioridad 3 (peso 2, maximizar ajuste empírico): El valor $-15$ corresponde a 5 agentes $\times$ 3 tiempos ($t=1,2,3$) de ajuste perfecto, cada uno con costo $-1$. Este es el mínimo (más negativo) posible. Cualquier answer set con valor $&gt;-15$ es estrictamente dominado en esta prioridad.</p>
+<p>Como $AS_{23}$ alcanza los óptimos absolutos en las prioridades 2 y 3, ningún answer set puede dominarlo lexicográficamente. Las prioridades 1 y 4 solo desempatizan entre answer sets que empatan en 2 y 3; por tanto, $AS_{23}$ es globalmente óptimo. $\square$</p>
+<p>Teorema T-NoAtr [A-Meta]</p>
+<p>Inestabilidad del joint_model.</p>
+<p>Enunciado. En la dinámica definida por el programa Clingo, $joint_model$ no pertenece a ningún answer set óptimo en tiempo $t&gt;0$.</p>
+<p>Demostración. Por la weak constraint de prioridad 2, cada instancia de $adopta(A, joint_model, t)$ con $t&gt;0$ contribuye con costo estrictamente positivo al vector de optimización. Sin embargo, por T-Opt, existe un answer set ($AS_{23}$) con costo 0 en esta prioridad. Por definición de optimalidad lexicográfica en Clingo, cualquier answer set con costo mayor en la prioridad más alta dominante es estrictamente peor. Luego ningún answer set que contenga $joint_model$ en $t&gt;0$ puede ser óptimo. $\square$</p>
+<p>Teorema T-Frag [A-Meta]</p>
+<p>Fragmentación epistémica en el óptimo.</p>
+<p>Enunciado. En $AS_{23}$, para $t=3$, existen al menos dos agentes $a_1, a_2$ tales que los modelos adoptados son distintos.</p>
+<p>Demostración. Inspección de la trayectoria reportada en la sección 6.4.3:</p>
+<p>$locality_first_realists$ adopta $contextual_model$ en $t=3$.</p>
+<p>$experimental_neutrals$ adopta $bohm_model$ en $t=3$.</p>
+<p>Sean $a_1 = locality_first_realists$ y $a_2 = experimental_neutrals$. Entonces $adopta(a_1, contextual_model, 3) \in AS_{23}$ y $adopta(a_2, bohm_model, 3) \in AS_{23}$. Como $contextual_model \neq bohm_model$, la comunidad está fragmentada. El programa deriva el átomo $fragmentation(2,3)$ porque el conteo de modelos distintos en $t=3$ es mayor o igual que 2. $\square$</p>
+<hr />
+<h2 id="6.5-evidencia-y-anclaje-en-la-literatura-[b]">6.5 Evidencia y anclaje en la literatura [B]</h2>
+<p>La tesis de este capítulo no es una invención del autor. Tiene anclaje en la filosofía de la física contemporánea. Presentamos estos autores como antecedentes de nuestra formalización, no como posiciones a refutar.</p>
+<p>Fine (1982): Arthur Fine demostró que las desigualdades de Bell son condiciones necesarias y suficientes para la existencia de una distribución de probabilidad conjunta sobre todas las variables de medición involucradas [B]. La equivalencia $CFD \Leftrightarrow JointDist$ es el fundamento matemático de nuestra formalización (Axioma 3).</p>
+<p>Pitowsky (1989): Itamar Pitowsky demostró que las desigualdades de Bell son teoremas de la probabilidad clásica, no de la localidad [B]. La derivación de la cota CHSH requiere exclusivamente la existencia de una distribución conjunta; la localidad no aparece en la demostración algebraica. Esto confirma que el verdadero supuesto insostenible es la CFD, no la localidad.</p>
+<p>Spekkens (2005): Robert Spekkens desarrolló modelos de variables ocultas contextuales que preservan realismo y localidad [B]. Estos modelos demuestran que existe un espacio lógico para un realismo local sin CFD.</p>
+<p>Werner y Griffiths: Reinhard Werner (OQM) y Robert Griffiths (Historias Consistentes) argumentan que la violación de las desigualdades de Bell no ataca directamente la localidad, sino que demuestra que la mecánica cuántica es una teoría no-clásica [B]. La ruptura es con la estructura probabilística clásica, no con la localidad per se.</p>
+<p>Bell (1964, 1981): En el paper original, Bell formula su “vital assumption” como la condición de localidad: “the result B for particle 2 does not depend on the setting $\vec{b}$ of the magnet for particle 1, nor A on $\vec{b}$” [B]. Sin embargo, la estructura de la ecuación (2) —$P(\vec{a}, \vec{b}) = \int d\lambda, \rho(\lambda) A(\vec{a}, \lambda) B(\vec{b}, \lambda)$— ya presupone que $A$ y $B$ están definidos para todo $\lambda$, lo cual es CFD implícita [B]. Bell fue cuidadoso en sus propios escritos al referirse a “teorías de variables ocultas locales” bajo su definición específica. La elisión axiomática que este capítulo denuncia es de la recepción estándar que simplificó su resultado a “Bell refutó el realismo local”.</p>
+<p>Invariant Set Theory (Palmer): Tim Palmer propone que ciertas mediciones no pueden realizarse simultáneamente debido a principios nomológicos que restringen el conjunto de estados físicamente posibles [B]. Esto ofrece una vía para violar la Independencia Estadística sin caer en superdeterminismo, mediante una “restricción contracausal” donde el contrafactual es físicamente imposible en lugar de simplemente desconocido.</p>
+<p>Nota sobre el estatus epistémico. Estos autores proporcionan anclaje [B] para la tesis central. Nuestra contribución no es descubrir algo nuevo, sino hacer explícito con Z3 lo que ellos intuyeron en prosa: que la conjunción $R \wedge L \wedge CFD$ no es una unidad indivisible, y que el realista puede renunciar a CFD sin renunciar a R ni a L.</p>
+<hr />
+<h2 id="6.6-la-pedagogia-del-teorema-de-bell:-como-se-ensena-la-totalizacion-[b/c]">6.6 La pedagogía del teorema de Bell: cómo se enseña la totalización [B/C]</h2>
+<p>La investigación en educación física (PER) y el análisis de libros de texto revelan que la reificación de la conjunción de Bell no es un accidente; es una estrategia pedagógica sistemática [B].</p>
+<p>Frases típicas de libros de texto</p>
+<table>
+<thead>
+<tr class="header">
+<th>Frase estándar</th>
+<th>Operación de reificación</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>“Bell demostró que el realismo local es falso”</td>
+<td>Totalización: trata la conjunción como bloque monolítico</td>
+</tr>
+<tr class="even">
+<td>“La naturaleza es no-local”</td>
+<td>Inferencia inválida: de $\neg(R \wedge L \wedge CFD)$ se infiere $\neg L$</td>
+</tr>
+<tr class="odd">
+<td>“Einstein estaba equivocado”</td>
+<td>Personificación + simplificación</td>
+</tr>
+<tr class="even">
+<td>“No hay variables ocultas locales”</td>
+<td>Naturalización: presenta la ausencia de un tipo específico de modelo como ausencia de toda posibilidad realista</td>
+</tr>
+<tr class="odd">
+<td>“El entrelazamiento implica acción a distancia”</td>
+<td>Reificación de la correlación como mecanismo causal</td>
+</tr>
+</tbody>
+</table>
+<p>El proceso pedagógico estándar</p>
+<p>Se presenta $R \wedge L$ como bloque unitario (“el realismo local”).</p>
+<p>Se deriva la desigualdad CHSH.</p>
+<p>Se muestra la violación experimental ($S = 2{,}828$).</p>
+<p>Se concluye “el realismo local es falso” (sin distinguir qué componente cayó).</p>
+<p>La alternativa pedagógica</p>
+<p>Presentar R, L y CFD como supuestos separables.</p>
+<p>Derivar la desigualdad.</p>
+<p>Mostrar la violación.</p>
+<p>Concluir: “la conjunción de estos tres supuestos es insostenible; elija cuál abandonar”.</p>
+<p>Mostrar que existen 7 interpretaciones viables (como en la sección 5.4.1 del Capítulo 5).</p>
+<p>La paradoja pedagógica</p>
+<p>La reificación es necesaria para el aprendizaje inicial: presentar “el realismo local” como bloque permite al estudiante entender el teorema sin manejar tres supuestos simultáneamente. Pero la reificación es perniciosa si no se desactiva: produce la misconception persistente de que “Bell refutó el realismo” cuando solo refutó una versión específica que incluye CFD.</p>
+<p>La solución es la misma que proponemos en el Capítulo 4: usar la reificación como prótesis cognitiva, pero hacer visible la prótesis. Enseñar con la simplificación, pero señalar que es una simplificación.</p>
+<p>Conexión con Edelstein</p>
+<p>En la entrevista del 27 de julio de 2026 en el programa “El Maravilloso Mundo de la Física” (Gelatina), el físico teórico José Edelstein dice sobre el entrelazamiento: “Tiene que haber un mensaje instantáneo... resulta que efectivamente ocurre esto” [B]. Esta frase reifica la correlación estadística como mecanismo causal (“mensaje”). El propio Edelstein, en la misma entrevista, invoca la metáfora de Borges sobre el mapa y el territorio, mostrando que sabe que el formalismo no postula “mensajes”. La reificación opera como prótesis pedagógica inevitable, no como error por ignorancia.</p>
+<hr />
+<h2 id="6.7-el-debate-filosofico:-realismo-minimo-vs.-realismo-cfd-[c]">6.7 El debate filosófico: realismo mínimo vs. realismo-CFD [C]</h2>
+<p>Debemos abordar honestamente la objeción principal: ¿tiene derecho el autor a llamar “realista” a una posición que niega la CFD?</p>
+<p>La definición estándar (Bell/EPR)</p>
+<p>En la tradición de Bell, “realismo” se define como: las partículas poseen valores definidos para todas las magnitudes medibles, independientemente de si se miden o no. Bajo esta definición, la CFD es parte constitutiva del realismo, y A4 se vuelve analítico (verdadero por definición). Si se adopta esta definición, la recepción estándar no puede ser cuestionada lógicamente: el realismo local, así definido, implica CFD, y CFD implica distribución conjunta, y distribución conjunta implica $|S| \le 2$.</p>
+<p>Consecuencia importante: Bajo la definición estándar de realismo local (la de Bell, que incluye CFD como constitutiva), el teorema de Bell SÍ refuta válidamente esa posición, y no hay falacia lógica en la inferencia de la recepción estándar. La “elisión axiomática” que denunciamos es pedagógica y retórica: la totalización de la conjunción como bloque monolítico, que ocultó que CFD es un supuesto separable y que otras definiciones de realismo (como el realismo mínimo) permiten preservar localidad sin CFD.</p>
+<p>La definición mínima (este libro)</p>
+<p>Nosotros adoptamos una definición más débil de realismo: los detectores no inventan los resultados; miden algo que es independiente del medidor. Bajo esta definición:</p>
+<p>El resultado que obtuve no fue inventado por el aparato.</p>
+<p>No afirmo que todos los resultados que podría haber obtenido ya estaban definidos simultáneamente.</p>
+<p>“El resultado que obtuve no fue inventado” ≠ “Todos los resultados posibles ya estaban definidos”.</p>
+<p>Esta distinción es real y filosóficamente legítima. Un termómetro mide la temperatura real de una habitación (realismo mínimo) sin que eso implique que la temperatura de todas las habitaciones posibles del universo está definida simultáneamente.</p>
+<p>La objeción y la respuesta</p>
+<p>Objeción: Si se define “realismo” como incluyendo CFD por definición, entonces A4 es analítico y la recepción estándar no puede ser cuestionada lógicamente.</p>
+<p>Respuesta: Correcto. Pero esa es una elección terminológica, no un hecho lógico. La pregunta es: ¿es la definición estándar la única legítima? Nosotros sostenemos que no. La definición mínima (detectores no inventan) es una posición filosófica coherente y defendible. No es la posición que Bell atacó; Bell atacó el realismo-CFD bajo su definición específica. Pero eso no la vuelve ilegítima.</p>
+<p>Posición del libro</p>
+<p>Adoptamos “realismo contextual” como posición legítima, citando a Spekkens y la tradición de realismo estructural [B]. No pretendemos que sea la única definición de realismo; pretendemos mostrar que la definición estándar no es la única posible, y que la elección de definición no puede resolver el debate por sí sola.</p>
+<p>Concesión honesta: Un defensor de la definición estándar puede rechazar nuestro “realismo mínimo” como insuficiente. Esto es legítimo. Nuestro punto no es que la definición estándar sea incorrecta, sino que no es la única, y que la narrativa “Bell refutó el realismo” es ambigua porque no especifica qué definición de “realismo” está usando.</p>
+<hr />
+<h2 id="6.8-limitaciones-[c]">6.8 Limitaciones [C]</h2>
+<p>Para completar el análisis, nosotros señalamos explícitamente lo que este capítulo no puede hacer.</p>
+<p>Primera limitación: Las variables booleanas son simplificaciones.<br />
+“Realismo”, “localidad” y “CFD” tienen formulaciones mucho más matizadas en la literatura. El modelo captura la estructura lógica, no toda la riqueza del debate. El nivel de abstracción es adecuado para el propósito (mostrar la estructura de la elisión axiomática), pero no modela la física completa.</p>
+<p>Segunda limitación: El modelo contextual es una descripción epistemológica, no una teoría física.<br />
+El script <code>contextual_model_z3.smt2</code> verifica la consistencia algebraica de las correlaciones cuánticas; no proporciona un modelo físico completo de variables contextuales que derive las correlaciones cuánticas desde principios más fundamentales. El MC es una descripción epistemológica, no una teoría física alternativa. La pregunta “¿por qué las correlaciones tienen los valores cuánticos?” sigue abierta para el realista contextual; la respuesta es “porque así lo dicta la mecánica cuántica mediante la regla de Born”, pero eso es aceptar la MC como descripción, no como explicación fundamental.</p>
+<p>Tercera limitación: A1 es una elección filosófica, no un teorema.<br />
+La afirmación “4 sub-experimentos separados no fuerzan distribución conjunta” es defendible pero no es una verdad lógica necesaria. Un defensor de la distribución conjunta puede argumentar que la CFD es una consecuencia ontológica del realismo, no una elección metodológica. Esta objeción es legítima; nuestro punto es que la elección debe ser explícita, no implícita.</p>
+<p>Cuarta limitación: No resolvemos el problema físico.<br />
+No proponemos un mecanismo que explique las correlaciones cuánticas desde primeros principios. Solo mostramos que la inferencia estándar en la recepción del teorema de Bell es más débil de lo que se presenta.</p>
+<p>Quinta limitación: La definición de “realismo” es disputada.<br />
+Un defensor de la definición estándar puede rechazar nuestro “realismo mínimo” como insuficiente. Esto es legítimo; nuestro punto es que la elección de definición no puede resolver el debate por sí sola.</p>
+<p>Sexta limitación: El modelo Clingo es una simulación normativa, no historia real.<br />
+Muestra qué pasaría bajo ciertos criterios de racionalidad (parsimonia, coherencia ontológica); no predice ni explica la historia real de la recepción de Bell. La historia real involucra factores sociológicos, institucionales y económicos que el modelo no captura.</p>
+<p>Séptima limitación: No modelamos poder coercitivo ni dinámicas institucionales.<br />
+La razón por la cual la narrativa estándar persiste a pesar de las críticas de Fine y Pitowsky involucra factores de poder académico, inercia institucional y pedagogía que trascienden la lógica formal.</p>
+<hr />
+<h2 id="6.9-conexiones-con-otros-capitulos-[c]">6.9 Conexiones con otros capítulos [C]</h2>
+<table>
+<thead>
+<tr class="header">
+<th>Capítulo</th>
+<th>Conexión</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Cap 0 (Protocolo)</td>
+<td>Aplicación directa de las 4 preguntas al teorema de Bell y su recepción</td>
+</tr>
+<tr class="even">
+<td>Cap 1 (Reificación)</td>
+<td>La conjunción $R \wedge L \wedge CFD$ tratada como sustancia unitaria = totalización (proceso satélite identificado en 1.2.1)</td>
+</tr>
+<tr class="odd">
+<td>Cap 2 (Herramientas)</td>
+<td>Z3 para satisfacibilidad (sección 2.3), Clingo para dinámica (sección 2.4); justificación de la elección</td>
+</tr>
+<tr class="even">
+<td>Cap 3 (SPA/Tarski)</td>
+<td>Análogo: SPA estratifica niveles para evitar autorreferencia; aquí estratificamos supuestos para evitar inferencias inválidas. El lema A4 es el análogo normativo de la autorreferencia: una premisa que se aplica a sí misma sin justificación</td>
+</tr>
+<tr class="odd">
+<td>Cap 4 (Gramática)</td>
+<td>La reificación gramatical: “el realismo local es falso” trata una conjunción como sujeto unitario de un predicado. La gramática exige un sujeto sustancial para el verbo “ser refutado”, aunque el formalismo describa una conjunción separable</td>
+</tr>
+<tr class="even">
+<td>Cap 5 (Medición cuántica)</td>
+<td>Nota conectiva importante: El Capítulo 5 mapeó 7 interpretaciones viables usando un cubo de 8 vértices (combinaciones de L, C, I). El vértice $(L=true, C=false, I=true)$ se etiquetó allí como “QBism / OQM / Copenhague estricto” (todos epistémicos, no realistas). El modelo contextual de este capítulo ocupa ese mismo vértice con realismo recuperado. ¿Por qué no aparecía en el cubo del Capítulo 5? Porque el cubo asumía implícitamente que renunciar a CFD implica renunciar al realismo —precisamente la elisión axiomática que este capítulo desmonta. El modelo contextual es el vértice $(L=true, C=false, I=true)$ con realismo mínimo preservado, una posibilidad que el cubo del Capítulo 5 no capturaba porque operaba bajo la definición estándar de realismo.</td>
+</tr>
+<tr class="odd">
+<td>Cap 7 (Normativo)</td>
+<td>Análogo estructural: la “soberanía popular” como conjunción reificada de decisiones individuales. El Teorema de Incompetencia Reflexiva (Cap 7) es el análogo normativo de A4: un lema que se impone sin demostración</td>
+</tr>
+</tbody>
+</table>
+<p>Conexión con la tesis central del libro</p>
+<p>La elisión axiomática en la recepción estándar del teorema de Bell es un caso paradigmático de reificación de una conjunción lógica. El discurso trata $R \wedge L \wedge CFD$ como si fuera una sola cosa (“el realismo local”), y al refutar uno de los componentes (CFD), transfiere la refutación a los otros dos (R y L). Esto es exactamente la estructura del protocolo: atribuir a una estructura relacional (conjunción) propiedades de sustancia (hipótesis unitaria inseparable).</p>
+<p>La des-reificación consiste en restaurar la transitividad canónica:</p>
+<p>Oración reificada: “Bell refutó el realismo local.”</p>
+<p>Oración des-reificada: “Bell demostró que la conjunción de realismo, localidad y definición contracausal bajo estructura probabilística clásica es insostenible; el realista puede preservar realismo y localidad renunciando a la definición contracausal.”</p>
+<p>Conexión con la renuncia ontológica (Cap 5, sección 5.6.2)</p>
+<p>El Capítulo 5 identificó un patrón: el progreso científico ocurre cuando renunciamos a buscar “causas ocultas” para fenómenos que tienen explicaciones estructurales. El caso de Bell es una instancia de este patrón: la intuición exige una distribución conjunta (una “tabla de valores” oculta) para explicar las correlaciones. La renuncia ontológica aquí es renunciar a esa tabla, aceptando que las correlaciones cuánticas no requieren una distribución conjunta clásica.</p>
+<table>
+<thead>
+<tr class="header">
+<th>Fenómeno</th>
+<th>Intuición (causa oculta)</th>
+<th>Física (estructura manifiesta)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Movimiento</td>
+<td>Impetus (fuerza motriz)</td>
+<td>Simetría de traslación (Noether)</td>
+</tr>
+<tr class="even">
+<td>Gravedad</td>
+<td>Fuerza gravitacional</td>
+<td>Geometría curvada (Einstein)</td>
+</tr>
+<tr class="odd">
+<td>Entrelazamiento</td>
+<td>Variables ocultas / acción a distancia</td>
+<td>No-separabilidad (Hilbert)</td>
+</tr>
+<tr class="even">
+<td>Correlaciones Bell</td>
+<td>Distribución conjunta (CFD)</td>
+<td>Modelo contextual (4 distribuciones separadas)</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="6.10-sintesis-de-demostraciones-formales-del-capitulo-[a-meta]">6.10 Síntesis de demostraciones formales del capítulo [A-Meta]</h2>
+<p>Nosotros presentamos la siguiente tabla de demostraciones formales en prosa integradas en este capítulo. Estas pruebas elevan el estatus epistémico de las secciones 6.2–6.4 de [A-Código] a [A-Meta] + [A-Código], replicando el protocolo del Capítulo 8.</p>
+<table>
+<thead>
+<tr class="header">
+<th>Designación</th>
+<th>Enunciado</th>
+<th>Método</th>
+<th>Sección</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>T-Cons</td>
+<td>Consistencia del sistema base $\Sigma$</td>
+<td>Exhibición de modelo</td>
+<td>6.2.5</td>
+</tr>
+<tr class="even">
+<td>T-Ind</td>
+<td>Independencia de A4 respecto a $\Sigma$</td>
+<td>Dos modelos</td>
+<td>6.2.5</td>
+</tr>
+<tr class="odd">
+<td>T-NDev</td>
+<td>$\Sigma \not\vdash (R \land L) \rightarrow JD$</td>
+<td>Reducción al absurdo semántico</td>
+<td>6.2.5</td>
+</tr>
+<tr class="even">
+<td>T-Equiv</td>
+<td>$\Sigma \cup {A4} \vdash \neg(R \land L)$</td>
+<td>Cadena de implicaciones + T1</td>
+<td>6.2.5</td>
+</tr>
+<tr class="odd">
+<td>T1</td>
+<td>Inconsistencia de $R \land L \land JD$</td>
+<td>Modus ponens + aritmética</td>
+<td>6.3</td>
+</tr>
+<tr class="even">
+<td>T2</td>
+<td>Inconsistencia con A4 invocado</td>
+<td>Modus ponens + T1</td>
+<td>6.3</td>
+</tr>
+<tr class="odd">
+<td>T3</td>
+<td>Existencia del escape contextual</td>
+<td>Exhibición de modelo</td>
+<td>6.3</td>
+</tr>
+<tr class="even">
+<td>T4</td>
+<td>Neutralidad epistemológica</td>
+<td>Exhibición de modelo</td>
+<td>6.3</td>
+</tr>
+<tr class="odd">
+<td>T5</td>
+<td>$\Sigma \cup {R,L,A6} \vdash \neg JD$</td>
+<td>Reducción al absurdo</td>
+<td>6.3</td>
+</tr>
+<tr class="even">
+<td>T5-Cor</td>
+<td>Bajo $\Sigma \cup {R,L,A6}$, se sigue $SUC$ y $\neg SIJ$</td>
+<td>A2 + A8</td>
+<td>6.3</td>
+</tr>
+<tr class="odd">
+<td>T6</td>
+<td>Invalidez de la inferencia estándar</td>
+<td>Exhibición de modelo</td>
+<td>6.3</td>
+</tr>
+<tr class="even">
+<td>T7</td>
+<td>Viabilidad con $\neg A4$</td>
+<td>Exhibición de modelo</td>
+<td>6.3</td>
+</tr>
+<tr class="odd">
+<td>T-Alg</td>
+<td>$S_{ctx} = -2\sqrt{2}$ y $</td>
+<td>S_{ctx}</td>
+<td>&gt; 2$</td>
+</tr>
+<tr class="even">
+<td>T-Fine</td>
+<td>$</td>
+<td>S_{ctx}</td>
+<td>&gt;2 \land R \land L \Rightarrow \neg JD$</td>
+</tr>
+<tr class="odd">
+<td>T-Coh</td>
+<td>Coherencia fuerza contextual para $R \land L$</td>
+<td>Análisis de casos (4 modelos)</td>
+<td>6.4.5</td>
+</tr>
+<tr class="even">
+<td>T-Opt</td>
+<td>Optimalidad de $AS_{23}$</td>
+<td>Análisis de costos lexicográficos</td>
+<td>6.4.5</td>
+</tr>
+<tr class="odd">
+<td>T-NoAtr</td>
+<td>$joint_model$ no es atractor</td>
+<td>Dominancia lexicográfica</td>
+<td>6.4.5</td>
+</tr>
+<tr class="even">
+<td>T-Frag</td>
+<td>Fragmentación en $t=3$</td>
+<td>Inspección constructiva</td>
+<td>6.4.5</td>
+</tr>
+</tbody>
+</table>
+<p>Conclusión metodológica [C]. El Capítulo 6 posee materia prima para las demostraciones formales en prosa que ahora aparecen integradas junto a los outputs de Z3/Clingo. Estas pruebas son correctas, completas y verificables por un lector con formación básica en lógica proposicional, teoría de modelos elemental y análisis de optimización lexicográfica.</p>
+<hr />
+<h2 id="etiquetado-del-capitulo">Etiquetado del capítulo</h2>
+<table>
+<thead>
+<tr class="header">
+<th>Sección</th>
+<th>Contenido</th>
+<th>Clasificación</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>6.0</td>
+<td>Introducción</td>
+<td>[C] Interpretación</td>
+</tr>
+<tr class="even">
+<td>6.1</td>
+<td>Protocolo de cuatro preguntas</td>
+<td>[C] Interpretación</td>
+</tr>
+<tr class="odd">
+<td>6.2</td>
+<td>Formalización Z3 (axiomas y metateoremas)</td>
+<td>[A-Meta] + [A-Código]</td>
+</tr>
+<tr class="even">
+<td>6.2.4</td>
+<td>Verificación algebraica del modelo contextual</td>
+<td>[A-Meta] + [A-Código]</td>
+</tr>
+<tr class="odd">
+<td>6.2.5</td>
+<td>Metateoremas del sistema axiomático Z3</td>
+<td>[A-Meta]</td>
+</tr>
+<tr class="even">
+<td>6.3</td>
+<td>Siete teoremas Z3</td>
+<td>[A-Meta] + [A-Código]</td>
+</tr>
+<tr class="odd">
+<td>6.4</td>
+<td>Clingo: dinámica epistémica</td>
+<td>[A-Meta] + [A-Código]</td>
+</tr>
+<tr class="even">
+<td>6.4.5</td>
+<td>Metateoremas de la dinámica Clingo</td>
+<td>[A-Meta]</td>
+</tr>
+<tr class="odd">
+<td>6.5</td>
+<td>Literatura (Fine, Pitowsky, Spekkens, Bell)</td>
+<td>[B] Citada de fuente</td>
+</tr>
+<tr class="even">
+<td>6.6</td>
+<td>Pedagogía de Bell</td>
+<td>[B/C]</td>
+</tr>
+<tr class="odd">
+<td>6.7</td>
+<td>Debate filosófico (realismo mínimo vs. CFD)</td>
+<td>[C] Interpretación</td>
+</tr>
+<tr class="even">
+<td>6.8</td>
+<td>Limitaciones</td>
+<td>[C] Interpretación</td>
+</tr>
+<tr class="odd">
+<td>6.9</td>
+<td>Conexiones</td>
+<td>[C] Interpretación</td>
+</tr>
+<tr class="even">
+<td>6.10</td>
+<td>Síntesis de demostraciones formales</td>
+<td>[A-Meta] + [C]</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="resumen-de-codigos-verificados-en-este-capitulo">Resumen de códigos verificados en este capítulo</h2>
+<table>
+<thead>
+<tr class="header">
+<th>Herramienta</th>
+<th>Código</th>
+<th>Resultado</th>
+<th>Verificado</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Z3</td>
+<td>T1: $R \wedge L \wedge JD$</td>
+<td>unsat + unsat core</td>
+<td>✓</td>
+</tr>
+<tr class="even">
+<td>Z3</td>
+<td>T2: $A4 \wedge R \wedge L$</td>
+<td>unsat + unsat core (incluye A4_Invoked)</td>
+<td>✓</td>
+</tr>
+<tr class="odd">
+<td>Z3</td>
+<td>T3: $R \wedge L \wedge SUC \wedge \neg JD$</td>
+<td>sat con modelo concreto</td>
+<td>✓</td>
+</tr>
+<tr class="even">
+<td>Z3</td>
+<td>T4: $FourSub \wedge OnlyData \wedge SUC$</td>
+<td>sat</td>
+<td>✓</td>
+</tr>
+<tr class="odd">
+<td>Z3</td>
+<td>T5: $R \wedge L \wedge S=2{,}828$</td>
+<td>sat con $JD=false$</td>
+<td>✓</td>
+</tr>
+<tr class="even">
+<td>Z3</td>
+<td>T6: $\neg(R \wedge L \wedge JD) \wedge R \wedge L$</td>
+<td>sat</td>
+<td>✓</td>
+</tr>
+<tr class="odd">
+<td>Z3</td>
+<td>T7: $\neg A4 \wedge R \wedge L \wedge SUC$</td>
+<td>sat</td>
+<td>✓</td>
+</tr>
+<tr class="even">
+<td>Z3</td>
+<td>Modelo contextual (Def. 6.2.4)</td>
+<td>sat con $S_{ctx} = -2\sqrt{2}$, violación CHSH (verificación algebraica)</td>
+<td>✓</td>
+</tr>
+<tr class="odd">
+<td>Clingo</td>
+<td>Dinámica epistémica (5 agentes, 4 modelos, 3 tiempos)</td>
+<td>OPTIMUM FOUND, contextual como atractor</td>
+<td>✓</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="apendice:-script-contextual_model_z3.smt2">Apéndice: Script contextual_model_z3.smt2</h2>
+<div class="sourceCode" id="cb22"><pre class="sourceCode lisp"><code class="sourceCode commonlisp"><a class="sourceLine" id="cb22-1" data-line-number="1"><span class="co">; ============================================================</span></a>
+<a class="sourceLine" id="cb22-2" data-line-number="2"><span class="co">; Z3: VERIFICACIÓN ALGEBRAICA DEL MODELO CONTEXTUAL</span></a>
+<a class="sourceLine" id="cb22-3" data-line-number="3"><span class="co">; ============================================================</span></a>
+<a class="sourceLine" id="cb22-4" data-line-number="4"><span class="co">; NOTA: Este script verifica la consistencia algebraica de las </span></a>
+<a class="sourceLine" id="cb22-5" data-line-number="5"><span class="co">; correlaciones cuánticas y su violación de CHSH. No construye </span></a>
+<a class="sourceLine" id="cb22-6" data-line-number="6"><span class="co">; explícitamente distribuciones de probabilidad P_xy con variables </span></a>
+<a class="sourceLine" id="cb22-7" data-line-number="7"><span class="co">; aleatorias A_xy(w), B_xy(w) en {+1,-1}. Eso excede el alcance </span></a>
+<a class="sourceLine" id="cb22-8" data-line-number="8"><span class="co">; de esta verificación formal.</span></a>
+<a class="sourceLine" id="cb22-9" data-line-number="9"><span class="co">; ============================================================</span></a>
+<a class="sourceLine" id="cb22-10" data-line-number="10"></a>
+<a class="sourceLine" id="cb22-11" data-line-number="11">(set-option :produce-models true)</a>
+<a class="sourceLine" id="cb22-12" data-line-number="12"></a>
+<a class="sourceLine" id="cb22-13" data-line-number="13"><span class="co">; ------------------------------------------------------------</span></a>
+<a class="sourceLine" id="cb22-14" data-line-number="14"><span class="co">; 1. sqrt(2) como constante real no interpretada</span></a>
+<a class="sourceLine" id="cb22-15" data-line-number="15"><span class="co">; ------------------------------------------------------------</span></a>
+<a class="sourceLine" id="cb22-16" data-line-number="16">(declare-const sqrt2 Real)</a>
+<a class="sourceLine" id="cb22-17" data-line-number="17">(<span class="kw">assert</span> (<span class="op">=</span> (<span class="op">*</span> sqrt2 sqrt2) <span class="fl">2.0</span>))</a>
+<a class="sourceLine" id="cb22-18" data-line-number="18">(<span class="kw">assert</span> (<span class="op">&gt;</span> sqrt2 <span class="fl">0.0</span>))</a>
+<a class="sourceLine" id="cb22-19" data-line-number="19"></a>
+<a class="sourceLine" id="cb22-20" data-line-number="20"><span class="co">; ------------------------------------------------------------</span></a>
+<a class="sourceLine" id="cb22-21" data-line-number="21"><span class="co">; 2. CORRELACIONES CUÁNTICAS para cada sub-experimento</span></a>
+<a class="sourceLine" id="cb22-22" data-line-number="22"><span class="co">; ------------------------------------------------------------</span></a>
+<a class="sourceLine" id="cb22-23" data-line-number="23">(declare-const E_ab Real)   <span class="co">; E(a,b)   = -cos(0 - pi/4)     = -sqrt2/2</span></a>
+<a class="sourceLine" id="cb22-24" data-line-number="24">(declare-const E_abp Real)  <span class="co">; E(a,b&#39;)  = -cos(0 - 3pi/4)    = +sqrt2/2</span></a>
+<a class="sourceLine" id="cb22-25" data-line-number="25">(declare-const E_apb Real)  <span class="co">; E(a&#39;,b)  = -cos(pi/2 - pi/4)  = -sqrt2/2</span></a>
+<a class="sourceLine" id="cb22-26" data-line-number="26">(declare-const E_apbp Real) <span class="co">; E(a&#39;,b&#39;) = -cos(pi/2 - 3pi/4) = -sqrt2/2</span></a>
+<a class="sourceLine" id="cb22-27" data-line-number="27"></a>
+<a class="sourceLine" id="cb22-28" data-line-number="28"><span class="co">; Asignación de valores exactos</span></a>
+<a class="sourceLine" id="cb22-29" data-line-number="29">(<span class="kw">assert</span> (<span class="op">=</span> E_ab    (<span class="op">-</span> (<span class="op">/</span> sqrt2 <span class="fl">2.0</span>))))</a>
+<a class="sourceLine" id="cb22-30" data-line-number="30">(<span class="kw">assert</span> (<span class="op">=</span> E_abp   (<span class="op">/</span> sqrt2 <span class="fl">2.0</span>)))</a>
+<a class="sourceLine" id="cb22-31" data-line-number="31">(<span class="kw">assert</span> (<span class="op">=</span> E_apb   (<span class="op">-</span> (<span class="op">/</span> sqrt2 <span class="fl">2.0</span>))))</a>
+<a class="sourceLine" id="cb22-32" data-line-number="32">(<span class="kw">assert</span> (<span class="op">=</span> E_apbp  (<span class="op">-</span> (<span class="op">/</span> sqrt2 <span class="fl">2.0</span>))))</a>
+<a class="sourceLine" id="cb22-33" data-line-number="33"></a>
+<a class="sourceLine" id="cb22-34" data-line-number="34"><span class="co">; ------------------------------------------------------------</span></a>
+<a class="sourceLine" id="cb22-35" data-line-number="35"><span class="co">; 3. COMBINACIÓN CHSH EN EL MODELO CONTEXTUAL</span></a>
+<a class="sourceLine" id="cb22-36" data-line-number="36"><span class="co">; ------------------------------------------------------------</span></a>
+<a class="sourceLine" id="cb22-37" data-line-number="37">(declare-const S_ctx Real)</a>
+<a class="sourceLine" id="cb22-38" data-line-number="38">(<span class="kw">assert</span> (<span class="op">=</span> S_ctx (<span class="op">+</span> (<span class="op">-</span> E_ab E_abp) (<span class="op">+</span> E_apb E_apbp))))</a>
+<a class="sourceLine" id="cb22-39" data-line-number="39"></a>
+<a class="sourceLine" id="cb22-40" data-line-number="40"><span class="co">; Verificamos que S_ctx = -2*sqrt2</span></a>
+<a class="sourceLine" id="cb22-41" data-line-number="41">(<span class="kw">assert</span> (<span class="op">=</span> S_ctx (<span class="op">-</span> (<span class="op">*</span> <span class="fl">2.0</span> sqrt2))))</a>
+<a class="sourceLine" id="cb22-42" data-line-number="42"></a>
+<a class="sourceLine" id="cb22-43" data-line-number="43"><span class="co">; ------------------------------------------------------------</span></a>
+<a class="sourceLine" id="cb22-44" data-line-number="44"><span class="co">; 4. VIOLACIÓN DE LA COTA CHSH (Teorema de Fine)</span></a>
+<a class="sourceLine" id="cb22-45" data-line-number="45"><span class="co">; ------------------------------------------------------------</span></a>
+<a class="sourceLine" id="cb22-46" data-line-number="46">(declare-const CHSH_bound Real)</a>
+<a class="sourceLine" id="cb22-47" data-line-number="47">(<span class="kw">assert</span> (<span class="op">=</span> CHSH_bound <span class="fl">2.0</span>))</a>
+<a class="sourceLine" id="cb22-48" data-line-number="48"></a>
+<a class="sourceLine" id="cb22-49" data-line-number="49"><span class="co">; Demostramos que S_ctx &lt; -2 (violación por debajo)</span></a>
+<a class="sourceLine" id="cb22-50" data-line-number="50">(<span class="kw">assert</span> (<span class="op">&lt;</span> S_ctx (<span class="op">-</span> CHSH_bound)))</a>
+<a class="sourceLine" id="cb22-51" data-line-number="51"></a>
+<a class="sourceLine" id="cb22-52" data-line-number="52"><span class="co">; ------------------------------------------------------------</span></a>
+<a class="sourceLine" id="cb22-53" data-line-number="53"><span class="co">; 5. VERIFICACIÓN DE CONSISTENCIA</span></a>
+<a class="sourceLine" id="cb22-54" data-line-number="54"><span class="co">; ------------------------------------------------------------</span></a>
+<a class="sourceLine" id="cb22-55" data-line-number="55">(check-sat)</a>
+<a class="sourceLine" id="cb22-56" data-line-number="56">(get-model)</a></code></pre></div>
+<p>Resultado verificado: <code>sat</code> con modelo algebraico exacto donde <code>S_ctx = -2√2 ≈ -2.828</code>, violando la cota <code>|S| ≤ 2</code>. Esto demuestra que las cuatro correlaciones cuánticas, tratadas como objetos matemáticos independientes (no como marginales de una distribución conjunta), son consistentes entre sí. Por el teorema de Fine (1982), la violación implica que no existe una distribución conjunta <code>P(A,A',B,B')</code> que las genere como marginales.</p>
+</body>
+</html>
