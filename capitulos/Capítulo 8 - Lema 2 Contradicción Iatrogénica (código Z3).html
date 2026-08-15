@@ -1,0 +1,44 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/1999/REC-html401-19991224/strict.dtd">
+<html>
+<head>
+<META http-equiv=Content-Type content="text/html; charset=UTF-8">
+<title>El espejismo de la sustancia: Capítulo 8 Lema 2 Contradicción Iatrogénica (código Z3)</title>
+<meta name="author" content="Santiago Tristany" />
+<style type="text/css">
+span {
+	font-family: 'Consolas';
+	font-size: 18pt;
+	color: #FFFF80;
+}
+.sc0 {
+}
+</style>
+</head>
+<body>
+<div style="float: left; white-space: pre; line-height: 1; background: #3F3F3F; "><span class="sc0">; ============================================================
+; Lema 2: Contradiccion Iatrogenica
+; Instancia minima: si encierro implica daño, y no-daño es axioma,
+; entonces AplicaEncierro ∧ NoDano es unsat.
+; ============================================================
+(set-option :produce-unsat-cores true)
+
+(declare-fun AplicaEncierro () Bool)
+(declare-fun CausaDano () Bool)
+(declare-fun NoDano () Bool)
+
+; A1: El encierro, tal como lo operan los agentes, causa daño previsible
+(assert (! (=&gt; AplicaEncierro CausaDano) :named ax-iatrogenia))
+
+; A2: El axioma fundacional de integridad prohíbe el daño
+(assert (! NoDano :named ax-no-dano))
+
+; A3: Definición de daño como contradicción de no-daño
+(assert (! (=&gt; CausaDano (not NoDano)) :named ax-def-dano))
+
+(push)
+  (echo "===== L2: ¿Es consistente aplicar encierro bajo no-dano? =====")
+  (assert (! AplicaEncierro :named hip-aplica))
+  (check-sat)
+  (get-unsat-core)
+(pop)</span></div></body>
+</html>

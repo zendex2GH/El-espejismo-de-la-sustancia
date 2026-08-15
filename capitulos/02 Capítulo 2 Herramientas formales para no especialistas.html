@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>El espejismo de la sustancia: Capítulo 2 Herramientas formales para no especialistas</title>
+  <meta name="author" content="Santiago Tristany" />
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      span.underline{text-decoration: underline;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<h1 id="capitulo-2:-herramientas-formales-para-no-especialistas">Capítulo 2: Herramientas formales para no especialistas</h1>
+<h2 id="2.1-por-que-herramientas-formales">2.1 Por qué herramientas formales</h2>
+<p>En el Capítulo 1 presentamos el método de análisis de la reificación como error categorial y mostramos su aplicación a tres dominios: el espacio-tiempo en física, el Estado/nación/patria en ciencias sociales, y las leyes lógicas en filosofía. El método opera mediante un protocolo de cuatro preguntas que permite identificar cuándo el discurso atribuye propiedades a una entidad que no corresponden a su tipo formal.</p>
+<p>Pero el método, tal como lo presentamos, tiene una limitación: opera en lenguaje natural. Y el lenguaje natural, como señalamos en el cierre del Capítulo 1, reifica por estructura gramatical. Cuando decimos &quot;la reificación produce efectos de poder&quot;, estamos convirtiendo una categoría analítica en un sujeto con agencia. Cuando decimos &quot;los procesos de estabilización operan&quot;, estamos atribuyendo causalidad a funciones sintácticas. El lenguaje natural nos obliga a reificar incluso cuando intentamos denunciar la reificación.</p>
+<p>Para superar esta limitación, <strong>nosotros utilizamos</strong> herramientas formales de verificación: sistemas computacionales que <strong>nos permiten</strong> expresar afirmaciones en un lenguaje con sintaxis precisa, semántica definida y reglas de inferencia que garantizan la validez de las derivaciones. Estas herramientas no reemplazan el análisis conceptual; lo complementan. <strong>Las usamos</strong> como un microscopio: <strong>nos permiten</strong> ver con precisión lo que el ojo desnudo (el lenguaje natural) no puede distinguir.</p>
+<p>La analogía del microscopio es útil pero limitada. <strong>Con</strong> un microscopio <strong>observamos</strong> estructuras que existen independientemente del instrumento. <strong>Con</strong> las herramientas formales, en cambio, <strong>construimos</strong> la precisión que <strong>observamos</strong>. La diferencia es crucial: las herramientas formales no muestran &quot;la verdad&quot;; <strong>nos permiten demostrar</strong> las consecuencias lógicas de ciertas premisas. Que un teorema compile en un asistente de pruebas garantiza que la conclusión se sigue de las premisas, pero no garantiza que las premisas sean verdaderas. La verdad de las premisas es una cuestión empírica o filosófica que las herramientas no pueden resolver.</p>
+<p>En este capítulo presentamos las tres herramientas que <strong>utilizaremos</strong> en los capítulos siguientes: <strong>Lean 4</strong> (un asistente de pruebas interactivo), <strong>Z3</strong> (un solver SMT que verifica satisfacibilidad), y <strong>Clingo</strong> (un sistema de programación lógica que maneja razonamiento por defecto). Las presentaremos en ese orden: primero la herramienta más expresiva (Lean 4), luego la más automatizada (Z3), y finalmente la más adecuada para razonamiento con excepciones (Clingo). El objetivo no es convertir al lector en programador, sino proporcionarle el vocabulario conceptual necesario para entender qué <strong>hacemos con</strong> estas herramientas, qué tipo de resultados <strong>obtenemos</strong>, y cómo interpretar esos resultados en el contexto del método de análisis de la reificación.</p>
+<h2 id="2.2-lean-4:-verificacion-interactiva-de-pruebas">2.2 Lean 4: Verificación interactiva de pruebas</h2>
+<h3 id="que-es">Qué es</h3>
+<p>Lean 4 es un asistente de pruebas interactivo desarrollado por Leonardo de Moura y colaboradores en Microsoft Research.¹ Es un sistema que <strong>nos permite</strong> escribir demostraciones matemáticas en un lenguaje formal y verificar automáticamente que cada paso sea lógicamente válido. Si la demostración compila, <strong>sabemos formalmente</strong> que el teorema se sigue de los axiomas según las reglas de inferencia definidas.</p>
+<hr />
+<h2 id="-de-moura,-l.,-&amp;-ullrich,-s.-(2021).-&quot;the-lean-4-theorem-prover-and-programming-language&quot;.-proceedings-of-the-28th-international-conference-on-automated-deduction-(cade-28),-springer.-el-kernel-de-lean-4-(la-base-de-codigo-computacionalmente-confiable,-o-trusted-computing-base,-tcb)-tiene-aproximadamente-6000-lineas-de-codigo-auditables.">¹ de Moura, L., &amp; Ullrich, S. (2021). &quot;The Lean 4 Theorem Prover and Programming Language&quot;. <em>Proceedings of the 28th International Conference on Automated Deduction (CADE-28)</em>, Springer. El kernel de Lean 4 (la base de código computacionalmente confiable, o <em>Trusted Computing Base</em>, TCB) tiene aproximadamente 6000 líneas de código auditables.</h2>
+<p>La diferencia con una demostración en lenguaje natural es radical. En una demostración escrita en prosa, el lector debe confiar en que el autor no cometió errores, no omitió pasos, no incurrió en peticiones de principio. En una demostración en Lean 4, el <strong>kernel del sistema</strong> verifica cada paso. Si el kernel acepta la demostración, la probabilidad de error se reduce a la posibilidad de un fallo de hardware o un bug en el propio kernel (el TCB).</p>
+<h3 id="como-funciona:-un-ejemplo-introductorio">Cómo funciona: un ejemplo introductorio</h3>
+<p>Lean 4 se basa en la <strong>teoría de tipos dependientes</strong>, un sistema lógico que <strong>permite</strong> expresar no solo proposiciones (&quot;X es verdadero&quot;) sino también dependencias entre tipos (&quot;para todo X de tipo T, existe Y de tipo U(X)&quot;). Esto <strong>nos permite</strong> formalizar estructuras matemáticas complejas con precisión extrema.</p>
+<p>Comenzamos con un ejemplo simple que ilustra la mecánica básica. El siguiente código define la estructura de la reificación como un cambio de tipo y demuestra una propiedad elemental:</p>
+<pre class="lean"><code>-- Definición de tipos
+inductive EntityKind
+  | relation
+  | regularity
+  | convention
+  | formal_struct
+  | substance
+
+-- Definición de la reificación como cambio de tipo
+structure Reification where
+  entity : String
+  actual_kind : EntityKind
+  attributed_kind : EntityKind
+  h_not_substance : actual_kind ≠ EntityKind.substance
+  h_attributed_substance : attributed_kind = EntityKind.substance
+
+-- Teorema: la reificación es un error categorial
+theorem reification_is_category_mistake
+  (r : Reification) :
+  r.actual_kind ≠ r.attributed_kind := by
+  intro h
+  have h_contra : r.actual_kind = EntityKind.substance := by
+    rw [h]
+    exact r.h_attributed_substance
+  exact r.h_not_substance h_contra
+</code></pre>
+<p>Este código define:</p>
+<ol>
+<li>Un tipo <code>EntityKind</code> con cinco valores posibles (relación, regularidad, convención, estructura formal, sustancia).</li>
+<li>Una estructura <code>Reification</code> que representa el error categorial: una entidad cuyo tipo real no es sustancia, pero cuyo tipo atribuido sí lo es.</li>
+<li>Un teorema que demuestra que, bajo estas definiciones, el tipo real y el tipo atribuido son distintos.</li>
+</ol>
+<p>La línea <code>theorem reification_is_category_mistake</code> declara el teorema. La sección que comienza con <code>by</code> contiene la demostración paso a paso. Si la demostración es correcta, Lean 4 la acepta. Si hay un error, Lean 4 señala exactamente dónde está el problema.</p>
+<p><strong>Nota importante sobre este ejemplo:</strong> Este teorema es conceptualmente trivial: la conclusión ya está contenida en las hipótesis. Su propósito no es demostrar una tesis sustantiva sobre la reificación, sino ilustrar la mecánica básica de cómo se escribe y verifica una prueba en Lean 4. En la siguiente sección presentamos un teorema con contenido conceptual real.</p>
+<h3 id="un-teorema-sustantivo:-la-reificacion-destruye-la-accountability">Un teorema sustantivo: La reificación destruye la accountability</h3>
+<p>El siguiente teorema demuestra formalmente que cuando un discurso reifica una construcción institucional (atribuyéndole agencia), ese discurso pierde la capacidad de identificar responsables concretos para sus decisiones. No es una opinión política: es una propiedad estructural demostrable.</p>
+<pre class="lean"><code>-- ============================================================
+-- Teorema: La reificación institucional destruye la accountability
+-- ============================================================
+
+-- Fuente de agencia: individual o institucional
+inductive AgencySource (Person : Type) (Institution : Type) where
+  | individual (p : Person)
+  | institutional (i : Institution)
+
+-- Una decisión tiene una fuente de agencia
+structure Decision (Person : Type) (Institution : Type) where
+  agency : AgencySource Person Institution
+
+-- Un discurso es una lista de decisiones
+-- IMPORTANTE: usamos `abbrev` en lugar de `def` para que
+-- las instancias de type class de List se hereden correctamente
+abbrev Discourse (Person : Type) (Institution : Type) :=
+  List (Decision Person Institution)
+
+-- Un discurso reifica una institución si todas sus decisiones
+-- atribuyen agencia a esa institución
+def is_reified {Person Institution : Type}
+    (D : Discourse Person Institution) (inst : Institution) : Prop :=
+  ∀ d ∈ D, d.agency = AgencySource.institutional inst
+
+-- Una decisión es &quot;accountable&quot; si tiene un agente concreto responsable
+def is_accountable {Person Institution : Type}
+    (d : Decision Person Institution) : Prop :=
+  ∃ p : Person, d.agency = AgencySource.individual p
+
+-- Un discurso es plenamente accountable si todas sus decisiones
+-- tienen un responsable concreto
+def fully_accountable {Person Institution : Type}
+    (D : Discourse Person Institution) : Prop :=
+  ∀ d ∈ D, is_accountable d
+
+-- Teorema 1: La reificación excluye la agencia individual
+theorem reification_excludes_individual_agency
+    {Person Institution : Type}
+    (D : Discourse Person Institution) (inst : Institution) :
+    is_reified D inst →
+    ∀ (d : Decision Person Institution), d ∈ D → ¬ is_accountable d := by
+  intro h_reif d hd_in
+  have h_inst := h_reif d hd_in
+  intro h_account
+  obtain ⟨p, hp⟩ := h_account
+  rw [hp] at h_inst
+  nomatch h_inst
+
+-- Teorema 2: La reificación destruye la accountability
+theorem reification_destroys_accountability
+    {Person Institution : Type}
+    (D : Discourse Person Institution) (inst : Institution) :
+    is_reified D inst →
+    (∃ d : Decision Person Institution, d ∈ D) →
+    ¬ fully_accountable D := by
+  intro h_reif ⟨d, hd_in⟩ h_accountable
+  have h_not_account := reification_excludes_individual_agency D inst h_reif d hd_in
+  exact h_not_account (h_accountable d hd_in)
+</code></pre>
+<p><strong>Explicación conceptual del Teorema 1:</strong></p>
+<ol>
+<li>Asumimos que el discurso reifica la institución (<code>h_reif</code>).</li>
+<li>Tomamos una decisión <code>d</code> que pertenece al discurso.</li>
+<li>Por definición de reificación, <code>d.agency = institutional inst</code>.</li>
+<li>Asumimos (para reducir al absurdo) que <code>d</code> es accountable.</li>
+<li>Obtenemos la persona concreta <code>p</code> responsable.</li>
+<li>Reescribimos: ahora tenemos <code>individual p = institutional inst</code>.</li>
+<li>Esto es imposible porque los constructores son distintos. Contradicción. ∎</li>
+</ol>
+<p><strong>Explicación conceptual del Teorema 2:</strong></p>
+<ol>
+<li>Usamos el Teorema 1 para mostrar que si el discurso reifica y tiene al menos una decisión, esa decisión no es accountable.</li>
+<li>Pero <code>fully_accountable</code> exige que TODAS las decisiones sean accountable.</li>
+<li>Contradicción. ∎</li>
+</ol>
+<p><strong>¿Por qué este teorema importa?</strong> Formaliza exactamente lo que afirmamos en el Capítulo 1 sobre el Estado/nación/patria: cuando el discurso dice &quot;el Estado decide&quot;, las responsabilidades de los agentes concretos se diluyen. El Teorema 2 demuestra que esa dilución no es accidental: es una <strong>consecuencia lógica necesaria</strong> de la reificación. Si un discurso reifica, entonces por definición no puede ser accountable. No hay forma de tener ambas cosas simultáneamente.</p>
+<p><strong>Nota técnica sobre <code>abbrev</code>:</strong> Usamos <code>abbrev</code> en lugar de <code>def</code> para definir <code>Discourse</code> porque en Lean 4, <code>def</code> crea un alias de tipo que no hereda automáticamente las instancias de type class del tipo original. Con <code>abbrev</code>, el alias es completamente transparente para el elaborador, lo que permite que la instancia de <code>Membership</code> de <code>List</code> se resuelva correctamente.</p>
+<p><strong>Nota técnica sobre <code>nomatch</code>:</strong> La táctica <code>nomatch h_inst</code> cierra el objetivo porque <code>h_inst</code> es una igualdad entre dos constructores distintos de un tipo inductivo (<code>AgencySource.individual p = AgencySource.institutional inst</code>). Lean reconoce que no hay forma de que esta igualdad sea verdadera y cierra el objetivo. Si <code>nomatch</code> no funciona en alguna versión de Lean, se puede reemplazar por <code>cases h_inst</code>.</p>
+<blockquote>
+<p><strong>Nota sobre la naturaleza del teorema:</strong> Un lector atento podría señalar que este teorema es, en cierto sentido, una tautología definicional: si definimos la reificación como la exclusión de la agencia individual, y la <em>accountability</em> como su requisito, la conclusión se sigue por mera definición. La observación es correcta, pero el valor del teorema no reside en revelar una propiedad oculta del mundo, sino en hacer <strong>explícita y computacionalmente verificable</strong> la consecuencia estructural de nuestras definiciones. Al formalizarlo, demostramos que la dilución de responsabilidad no es un efecto secundario accidental o retórico de la reificación, sino su consecuencia lógica ineludible bajo este modelo.</p>
+<p>Asimismo, la exigencia de que la <em>accountability</em> recaiga en agentes individuales no es un capricho formal: se ancla en la tradición jurídica y política (desde el derecho romano hasta Kelsen y Hart) que establece que las construcciones institucionales no pueden ser castigadas, encarceladas ni moralmente responsables; en última instancia, solo las personas concretas pueden responder por sus actos.</p>
+</blockquote>
+<h3 id="que-obtenemos">Qué obtenemos</h3>
+<p><strong>Con</strong> Lean 4 <strong>obtenemos</strong> teoremas verificados. Cuando un teorema compila en Lean 4, <strong>tenemos</strong> la certeza formal de que la conclusión se sigue de las premisas según las reglas de inferencia del sistema. Esto no garantiza que las premisas sean verdaderas (eso es una cuestión empírica o filosófica), pero garantiza que la derivación es válida.</p>
+<p>En el contexto de este trabajo, <strong>usamos</strong> Lean 4 para:</p>
+<ul>
+<li>Formalizar definiciones precisas de conceptos como &quot;reificación&quot;, &quot;estratificación&quot;, &quot;competencia normativa&quot;.</li>
+<li>Demostrar teoremas sobre las propiedades de estos conceptos.</li>
+<li>Verificar que ciertas construcciones (como la Aritmética Estratificada de Peano en el Capítulo 3) son consistentes.</li>
+</ul>
+<h3 id="limitaciones">Limitaciones</h3>
+<p>Lean 4 tiene dos limitaciones importantes:</p>
+<p><strong>Primera:</strong> requiere que el usuario escriba la demostración paso a paso. El sistema verifica, pero no inventa. Si el usuario no sabe cómo demostrar el teorema, Lean 4 no lo ayuda (aunque existen herramientas de automatización que pueden asistir en casos simples).</p>
+<p><strong>Segunda:</strong> la formalización en Lean 4 es laboriosa. Formalizar una página de matemática estándar puede requerir cientos de líneas de código. Esto significa que no todo lo que afirmamos en este trabajo está formalizado en Lean 4; solo los resultados centrales que justifican el esfuerzo.</p>
+<h2 id="2.3-z3:-solvers-smt-y-nucleos-insatisfacibles">2.3 Z3: Solvers SMT y núcleos insatisfacibles</h2>
+<h3 id="que-es-1">Qué es</h3>
+<p>Z3 es un solver SMT (Satisfiability Modulo Theories) desarrollado por Microsoft Research.² A diferencia de Lean 4, que verifica demostraciones escritas por humanos, <strong>con</strong> Z3 <strong>buscamos</strong> automáticamente asignaciones de valores que satisfagan un conjunto de fórmulas lógicas, o <strong>demostramos</strong> que tales asignaciones no existen.</p>
+<hr />
+<h2 id="-de-moura,-l.,-&amp;-bjrner,-n.-(2008).-&quot;z3:-an-efficient-smt-solver&quot;.-proceedings-of-the-14th-international-conference-on-tools-and-algorithms-for-the-construction-and-analysis-of-systems-(tacas),-springer.">² de Moura, L., &amp; Bjørner, N. (2008). &quot;Z3: An Efficient SMT Solver&quot;. <em>Proceedings of the 14th International Conference on Tools and Algorithms for the Construction and Analysis of Systems (TACAS)</em>, Springer.</h2>
+<p>SMT significa &quot;satisfacibilidad módulo teorías&quot;. El solver verifica si un conjunto de fórmulas es satisfacible (existe una asignación de valores que las hace todas verdaderas) dentro de ciertas teorías de fondo (aritmética, arrays, lógica de primer orden, etc.).</p>
+<h3 id="como-funciona">Cómo funciona</h3>
+<p>Un archivo Z3 típico tiene esta estructura:</p>
+<pre class="smt2"><code>; Declaración de tipos
+(declare-sort Agente)
+(declare-sort Norma)
+(declare-sort Estrato)
+
+; Declaración de predicados
+(declare-fun Obligatorio (Agente Norma Estrato) Bool)
+(declare-fun Prohibido   (Agente Norma Estrato) Bool)
+
+; Axioma: incompatibilidad deóntica
+(assert (forall ((a Agente) (n Norma) (s Estrato))
+  (not (and (Obligatorio a n s) (Prohibido a n s)))))
+
+; Consulta: ¿es satisfacible este conjunto de axiomas?
+(check-sat)
+</code></pre>
+<p>Este código declara:</p>
+<ol>
+<li>Tres tipos: <code>Agente</code>, <code>Norma</code>, <code>Estrato</code>.</li>
+<li>Dos predicados: <code>Obligatorio</code> y <code>Prohibido</code>.</li>
+<li>Un axioma: no puede ser simultáneamente obligatorio y prohibido para el mismo agente, norma y estrato.</li>
+<li>Una consulta: ¿existe una asignación de valores que satisfaga este axioma?</li>
+</ol>
+<p>Z3 <strong>devuelve</strong> <code>sat</code> (satisfacible) si existe tal asignación, o <code>unsat</code> (insatisfacible) si no existe.</p>
+<h3 id="la-herramienta-clave:-unsat-cores">La herramienta clave: unsat cores</h3>
+<p>La funcionalidad más poderosa de Z3 para este trabajo es la generación de <strong>núcleos insatisfacibles</strong> (unsat cores). Cuando un conjunto de fórmulas es insatisfacible, <strong>podemos usar</strong> Z3 para <strong>identificar</strong> el subconjunto mínimo de fórmulas que genera la contradicción.</p>
+<p>Por ejemplo, si tenemos diez axiomas y Z3 determina que el conjunto es insatisfacible, <strong>podemos identificar</strong> que solo tres de esos axiomas son responsables de la contradicción. Los otros siete son irrelevantes para el conflicto.</p>
+<p>Esto es invaluable para el diagnóstico de errores. En lugar de revisar diez axiomas buscando el problema, <strong>sabemos</strong> exactamente cuáles tres están en conflicto.</p>
+<h3 id="ejemplo-concreto:-el-juez-incompetente">Ejemplo concreto: el juez incompetente</h3>
+<p>En el Capítulo 6 (sistemas normativos), <strong>usaremos</strong> Z3 para demostrar el principio <em>nemo iudex in causa sua</em> (nadie puede ser juez en su propia causa). El código tiene esta estructura:</p>
+<pre class="smt2"><code>(set-option :produce-unsat-cores true)
+
+; Axiomas del sistema
+(assert (! (forall ((a Agente) (n Norma))
+  (=&gt; (exists ((s0 Estrato)) (Regula n a s0))
+      (forall ((s2 Estrato)) (not (Competente a n s2)))))
+  :named ax5-incompetencia-reflexiva))
+
+(assert (! (forall ((alfa Acto) (C Contexto))
+  (=&gt; (= (Fuerza alfa) 0)
+      (= (Valido alfa C)
+         (and (CondFeliz alfa C)
+              (exists ((s Estrato))
+                (Competente (emisor alfa) (norma_aplicable alfa) s))))))
+  :named ax3-validez-declarativo))
+
+; Supuesto: un juez intenta juzgarse a sí mismo
+(assert (! (= (emisor alfa1) a1) :named teo-juez-emisor))
+(assert (! (= (norma_aplicable alfa1) n1) :named teo-juez-norma))
+(assert (! (= (Fuerza alfa1) 0) :named teo-juez-fuerza))
+(assert (! (Regula n1 a1 s1) :named teo-juez-regula))
+(assert (! (CondFeliz alfa1 c1) :named teo-juez-cond))
+(assert (! (Valido alfa1 c1) :named teo-juez-querido))
+
+(check-sat)  ; Devuelve: unsat
+(get-unsat-core)
+</code></pre>
+<p><strong>Con</strong> Z3 <strong>obtenemos</strong> el siguiente resultado:</p>
+<pre><code>unsat
+(ax3-validez-declarativo ax5-incompetencia-reflexiva
+ teo-juez-emisor teo-juez-norma teo-juez-querido
+ teo-juez-fuerza teo-juez-regula)
+</code></pre>
+<p>El núcleo insatisfacible muestra que:</p>
+<ul>
+<li>El juez emite un acto válido (<code>teo-juez-querido</code>)</li>
+<li>Que aplica una norma que lo regula (<code>teo-juez-regula</code>)</li>
+<li>Pero el axioma de incompetencia reflexiva (<code>ax5</code>) dice que si una norma regula a un agente, el agente es incompetente en todos los estratos</li>
+<li>Y el axioma de validez (<code>ax3</code>) exige que el emisor sea competente en algún estrato</li>
+</ul>
+<p>La contradicción es inevitable. <strong>Con</strong> Z3 <strong>la detectamos</strong> y <strong>la aislamos</strong>.</p>
+<h3 id="ejemplo-concreto:-la-inmunidad-del-critico">Ejemplo concreto: la inmunidad del crítico</h3>
+<p>En el mismo script, <strong>formalizamos</strong> el cálculo de reificación y movilización sacrificial (Σ_R). El teorema T1 establece que si un agente cree que una entidad es arbitraria (conoce su carácter construido), entonces no puede sacrificarse por ella:</p>
+<pre class="smt2"><code>; Teorema T1: Si un agente cree que e es arbitrario, NO se sacrifica por e.
+(push)
+(declare-const agT Agente)
+(declare-const eT Entidad)
+(assert (! (Cree agT (EsArbitrario_prop eT)) :named t1-cree-arbitrario))
+(assert (! (Sacrifica agT eT) :named t1-sacrifica))
+
+(check-sat)  ; Devuelve: unsat
+(get-unsat-core)
+(pop)
+</code></pre>
+<p>Z3 <strong>devuelve</strong>:</p>
+<pre><code>unsat
+(sig-A3-reificacion sig-A4-sagrado sig-A6-sacrificio-requiere-sagrado
+ t1-sacrifica t1-cree-arbitrario)
+</code></pre>
+<p>La cadena lógica es:</p>
+<ol>
+<li>El agente cree que la entidad es arbitraria (<code>t1-cree-arbitrario</code>).</li>
+<li>Por <code>sig-A3</code>, para que la entidad esté reificada, el agente <strong>no debe creer</strong> que es arbitraria. Como sí lo cree, la entidad no está reificada.</li>
+<li>Por <code>sig-A4</code>, lo sagrado equivale a lo reificado. Si no está reificada, no es sagrada.</li>
+<li>Por <code>sig-A6</code>, el sacrificio requiere sacralidad. Si no es sagrada, no puede haber sacrificio.</li>
+<li>Pero <code>t1-sacrifica</code> afirma que hay sacrificio. Contradicción. ∎</li>
+</ol>
+<p><strong>Con</strong> Z3 <strong>demostramos</strong> que la creencia en la arbitrariedad de una entidad y el acto de sacrificio por ella son lógicamente incompatibles. La &quot;ilustración crítica&quot; desactiva la movilización sacrificial.</p>
+<h3 id="que-obtenemos-1">Qué obtenemos</h3>
+<p><strong>Con</strong> Z3 <strong>obtenemos</strong> certificados de satisfacibilidad o insatisfacibilidad. Cuando Z3 <strong>devuelve</strong> <code>sat</code>, <strong>sabemos</strong> que existe un modelo que satisface las fórmulas. Cuando <strong>devuelve</strong> <code>unsat</code>, <strong>sabemos</strong> que no existe tal modelo. Y cuando <strong>produce</strong> un unsat core, <strong>identificamos</strong> el subconjunto mínimo responsable de la contradicción.</p>
+<p>En el contexto de este trabajo, <strong>usamos</strong> Z3 para:</p>
+<ul>
+<li>Verificar la consistencia de conjuntos de axiomas.</li>
+<li>Demostrar teoremas por refutación (mostrar que la negación del teorema es insatisfacible).</li>
+<li>Diagnosticar contradicciones en sistemas normativos.</li>
+</ul>
+<h3 id="limitaciones-1">Limitaciones</h3>
+<p>Z3 tiene limitaciones importantes:</p>
+<p><strong>Primera:</strong> opera en fragmentos decidibles de la lógica. Si las fórmulas caen fuera de estos fragmentos, Z3 puede no terminar o devolver &quot;unknown&quot; (desconocido).</p>
+<p><strong>Segunda:</strong> Z3 verifica satisfacibilidad, no verdad. Que un conjunto de axiomas sea satisfacible no significa que sea verdadero; significa que es lógicamente posible.</p>
+<p><strong>Tercera:</strong> Z3 no produce demostraciones legibles por humanos. Produce certificados que pueden ser verificados por otros sistemas, pero no explicaciones en lenguaje natural.</p>
+<p><strong>Cuarta (limitación estructural):</strong> En SMT-LIB2 (lógica de primer orden), no podemos cuantificar sobre fórmulas ni pasar una fórmula completa como argumento a un predicado como <code>Cree</code>. Para modelar creencias, creamos un tipo (o sort, en la terminología técnica de SMT-LIB) no interpretado llamado Prop y funciones que devuelven <code>Prop</code> (por ejemplo, <code>EsArbitrario_prop</code>). Z3 trata estos términos como tokens opacos: no evalúa su estructura lógica interna ni deduce consecuencias entre ellos. Esto significa que Z3 no modela la <strong>clausura epistémica</strong> (si un agente cree P, y P implica Q, entonces el agente cree Q). Para este trabajo, esa limitación es aceptable porque los axiomas definen las relaciones directamente sobre las creencias atómicas. Pero si en el futuro necesitamos modelar razonamiento deductivo de agentes, deberíamos axiomatizar explícitamente la lógica epistémica.</p>
+<h2 id="2.4-clingo:-razonamiento-por-defecto-y-logica-deontica">2.4 Clingo: Razonamiento por defecto y lógica deóntica</h2>
+<h3 id="que-es-2">Qué es</h3>
+<p>Clingo es un sistema de programación lógica con Answer Set Programming (ASP) desarrollado por la Universidad de Potsdam.³ A diferencia de Lean 4 (que verifica demostraciones) y Z3 (que verifica satisfacibilidad), <strong>con</strong> Clingo <strong>generamos</strong> modelos que satisfacen un conjunto de reglas lógicas, manejando especialmente bien el razonamiento por defecto y la negación por fallo.</p>
+<hr />
+<h2 id="-gebser,-m.,-kaminski,-r.,-kaufmann,-b.,-&amp;-schaub,-t.-(2019).-&quot;multi-shot-asp-solving-with-clingo&quot;.-theory-and-practice-of-logic-programming,-19(1),-27-82.">³ Gebser, M., Kaminski, R., Kaufmann, B., &amp; Schaub, T. (2019). &quot;Multi-shot ASP Solving with clingo&quot;. <em>Theory and Practice of Logic Programming</em>, 19(1), 27-82.</h2>
+<h3 id="como-funciona-1">Cómo funciona</h3>
+<p>El siguiente código modela el principio <em>nemo iudex in causa sua</em> usando razonamiento por defecto:</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode prolog"><code class="sourceCode prolog"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="co">% Hechos</span></a>
+<a class="sourceLine" id="cb8-2" data-line-number="2">agente(juan)<span class="kw">.</span></a>
+<a class="sourceLine" id="cb8-3" data-line-number="3">agente(maria)<span class="kw">.</span></a>
+<a class="sourceLine" id="cb8-4" data-line-number="4">norma(n1)<span class="kw">.</span></a>
+<a class="sourceLine" id="cb8-5" data-line-number="5">norma(n2)<span class="kw">.</span></a>
+<a class="sourceLine" id="cb8-6" data-line-number="6">estrato(<span class="dv">0</span>)<span class="kw">.</span></a>
+<a class="sourceLine" id="cb8-7" data-line-number="7">estrato(<span class="dv">1</span>)<span class="kw">.</span></a>
+<a class="sourceLine" id="cb8-8" data-line-number="8">regula(n1<span class="kw">,</span> juan)<span class="kw">.</span></a>
+<a class="sourceLine" id="cb8-9" data-line-number="9"></a>
+<a class="sourceLine" id="cb8-10" data-line-number="10"><span class="co">% Reglas</span></a>
+<a class="sourceLine" id="cb8-11" data-line-number="11">competente(<span class="dt">A</span><span class="kw">,</span> <span class="dt">N</span><span class="kw">,</span> <span class="dt">S</span>) <span class="kw">:-</span> agente(<span class="dt">A</span>)<span class="kw">,</span> norma(<span class="dt">N</span>)<span class="kw">,</span> estrato(<span class="dt">S</span>)<span class="kw">,</span> not regulado(<span class="dt">A</span><span class="kw">,</span> <span class="dt">N</span>)<span class="kw">.</span></a>
+<a class="sourceLine" id="cb8-12" data-line-number="12">regulado(<span class="dt">A</span><span class="kw">,</span> <span class="dt">N</span>) <span class="kw">:-</span> regula(<span class="dt">N</span><span class="kw">,</span> <span class="dt">A</span>)<span class="kw">.</span></a>
+<a class="sourceLine" id="cb8-13" data-line-number="13"></a>
+<a class="sourceLine" id="cb8-14" data-line-number="14"><span class="co">% Restricción: nadie puede ser competente sobre una norma que lo regula</span></a>
+<a class="sourceLine" id="cb8-15" data-line-number="15"><span class="kw">:-</span> competente(<span class="dt">A</span><span class="kw">,</span> <span class="dt">N</span><span class="kw">,</span> <span class="dt">S</span>)<span class="kw">,</span> regulado(<span class="dt">A</span><span class="kw">,</span> <span class="dt">N</span>)<span class="kw">.</span></a>
+<a class="sourceLine" id="cb8-16" data-line-number="16"></a>
+<a class="sourceLine" id="cb8-17" data-line-number="17"><span class="co">% Consulta</span></a>
+<a class="sourceLine" id="cb8-18" data-line-number="18">#show competente<span class="fu">/</span><span class="dv">3</span><span class="kw">.</span></a></code></pre></div>
+<p>Este código declara:</p>
+<ol>
+<li><strong>Hechos:</strong> Juan y María son agentes. n1 y n2 son normas. Hay dos estratos (0 y 1). La norma n1 regula a Juan.</li>
+<li><strong>Reglas:</strong> Un agente es competente sobre una norma en un estrato si no está regulado por esa norma. Un agente está regulado por una norma si la norma lo regula.</li>
+<li><strong>Restricción:</strong> No puede ser que un agente sea competente y esté regulado por la misma norma.</li>
+<li><strong>Consulta:</strong> Mostrar todas las instancias del predicado <code>competente/3</code>.</li>
+</ol>
+<h3 id="resultado-verificado">Resultado verificado</h3>
+<p><strong>Con</strong> Clingo <strong>obtenemos</strong> el siguiente resultado:</p>
+<pre><code>SATISFIABLE
+Answer: 1
+competente(juan,n2,0) competente(juan,n2,1)
+competente(maria,n1,0) competente(maria,n1,1)
+competente(maria,n2,0) competente(maria,n2,1)
+</code></pre>
+<p><strong>Interpretación del modelo:</strong></p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Agente</th>
+<th style="text-align: left;">Norma</th>
+<th style="text-align: left;">¿Competente?</th>
+<th style="text-align: left;">Razón</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Juan</td>
+<td style="text-align: left;">n1</td>
+<td style="text-align: left;"><strong>NO</strong> (ausente del modelo)</td>
+<td style="text-align: left;"><code>regula(n1, juan)</code> → la condición <code>not regulado(juan, n1)</code> falla</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Juan</td>
+<td style="text-align: left;">n2</td>
+<td style="text-align: left;">SÍ</td>
+<td style="text-align: left;">n2 no regula a Juan</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">María</td>
+<td style="text-align: left;">n1</td>
+<td style="text-align: left;">SÍ</td>
+<td style="text-align: left;">n1 no regula a María</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">María</td>
+<td style="text-align: left;">n2</td>
+<td style="text-align: left;">SÍ</td>
+<td style="text-align: left;">n2 no regula a María</td>
+</tr>
+</tbody>
+</table>
+<p>La ausencia de <code>competente(juan,n1,0)</code> y <code>competente(juan,n1,1)</code> es la demostración del principio <em>nemo iudex in causa sua</em>: <strong>Juan no puede ser competente sobre la norma que lo regula</strong>.</p>
+<p><strong>Verificación del Grounding Profile:</strong></p>
+<ul>
+<li>La regla <code>competente</code> tiene <strong>6 instancias</strong> (2 agentes × 2 normas × 2 estratos = 8 posibles, menos 2 por Juan×n1 = 6). ✓</li>
+<li>La restricción <code>:- competente(A,N,S), regulado(A,N).</code> tiene <strong>3 matches pero 0 instancias</strong>, lo que significa que fue verificada pero nunca violada. ✓</li>
+<li><code>regulado</code> tiene <strong>1 instancia</strong> (solo <code>regulado(juan,n1)</code>). ✓</li>
+</ul>
+<h3 id="la-herramienta-clave:-negacion-por-fallo">La herramienta clave: negación por fallo</h3>
+<p>La funcionalidad distintiva de Clingo es la <strong>negación por fallo</strong> (negation as failure). La expresión <code>not P</code> se evalúa como verdadera si no hay evidencia de que <code>P</code> sea verdadero. Esto <strong>nos permite</strong> modelar razonamiento por defecto: &quot;asumir P a menos que haya evidencia de lo contrario&quot;.</p>
+<p>En el contexto de sistemas normativos, esto es crucial. Muchas normas operan por defecto: &quot;los ciudadanos pueden circular libremente a menos que exista una restricción explícita&quot;. <strong>Con</strong> Clingo <strong>manejamos</strong> este tipo de razonamiento de manera natural.</p>
+<h3 id="que-obtenemos-2">Qué obtenemos</h3>
+<p><strong>Con</strong> Clingo <strong>obtenemos</strong> conjuntos de respuestas: modelos que satisfacen el programa lógico. Cada conjunto de respuestas representa una interpretación consistente del programa.</p>
+<p>En el contexto de este trabajo, <strong>usamos</strong> Clingo para:</p>
+<ul>
+<li>Modelar sistemas normativos con excepciones y razonamiento por defecto.</li>
+<li>Verificar la consistencia de conjuntos de normas.</li>
+<li>Generar escenarios que satisfacen ciertas condiciones.</li>
+</ul>
+<h3 id="limitaciones-2">Limitaciones</h3>
+<p>Clingo tiene limitaciones:</p>
+<p><strong>Primera:</strong> la semántica de ASP es diferente de la lógica clásica. Los conjuntos de respuestas no son modelos en el sentido de la teoría de modelos estándar.</p>
+<p><strong>Segunda:</strong> Clingo puede generar múltiples conjuntos de respuestas, y el usuario debe interpretar cuál es relevante para su análisis.</p>
+<p><strong>Tercera:</strong> ASP no maneja bien la cuantificación sobre fórmulas o la lógica de orden superior.</p>
+<h2 id="2.5-matriz-problema-herramienta">2.5 Matriz problema-herramienta</h2>
+<p>El Capítulo 0 estableció una matriz que asocia tipos de problemas con herramientas específicas. La reproducimos aquí con explicaciones:</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Tipo de problema</th>
+<th style="text-align: left;">Herramienta</th>
+<th style="text-align: left;">Justificación</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Consistencia lógica, teoremas con inducción</td>
+<td style="text-align: left;">Lean 4</td>
+<td style="text-align: left;">Kernel pequeño, prueba verificable, lógica de primer orden con igualdad</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Satisfactibilidad de conjuntos de axiomas en fragmentos decidibles</td>
+<td style="text-align: left;">Z3 / SMT-LIB</td>
+<td style="text-align: left;">Automático, produce modelos o unsat core</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Normas con excepciones, razonamiento por defecto</td>
+<td style="text-align: left;">Clingo / Deolingo</td>
+<td style="text-align: left;">Answer Set Programming maneja negación por fallo y reglas defeasibles</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Verificación de tipos, estructura de datos</td>
+<td style="text-align: left;">Lean 4</td>
+<td style="text-align: left;">Teoría de tipos dependientes, chequeo en compilación</td>
+</tr>
+</tbody>
+</table>
+<p>La elección de herramienta se justifica en cada capítulo. No utilizamos una herramienta por inercia, sino porque es la adecuada para el problema concreto.</p>
+<h2 id="2.6-como-leer-el-codigo-en-este-trabajo">2.6 Cómo leer el código en este trabajo</h2>
+<p>Los capítulos siguientes (especialmente el 3, 5 y 6) incluyen fragmentos de código en Lean 4, Z3 y Clingo. El lector puede abordarlos a dos niveles:</p>
+<p><strong>Nivel conceptual:</strong> Ignorar el código y leer solo la prosa que lo explica. La prosa describe qué <strong>hacemos con</strong> el código, qué teorema <strong>demostramos</strong>, y qué implicaciones <strong>tiene</strong> para el argumento. Este nivel es suficiente para entender el argumento general.</p>
+<p><strong>Nivel técnico:</strong> Leer el código y verificar que efectivamente <strong>hace</strong> lo que la prosa afirma. Este nivel requiere familiaridad con los lenguajes, pero el código está disponible para quien quiera inspeccionarlo.</p>
+<p>Para facilitar la lectura conceptual, cada fragmento de código va acompañado de:</p>
+<ol>
+<li><strong>Descripción en prosa</strong> de qué <strong>hacemos con</strong> el código.</li>
+<li><strong>Explicación línea por línea</strong> de las partes clave.</li>
+<li><strong>Interpretación</strong> de qué significa el resultado para el argumento.</li>
+</ol>
+<p>El código no es decorativo. Cada fragmento que incluimos compila y produce el resultado que afirmamos. Ningún fragmento se incluye sin que haya sido verificado por nosotros.</p>
+<h3 id="2.7-el-estatus-filosofico-de-los-axiomas:-elecciones,-no-descubrimientos">2.7 El estatus filosófico de los axiomas: elecciones, no descubrimientos</h3>
+<p>Toda formalización matemática o lógica comienza con un acto fundacional que las herramientas computacionales no pueden auditar: la elección de los <strong>axiomas</strong>. Para comprender el alcance y los límites de lo que hacemos en este trabajo con Lean 4, Z3 y Clingo, es imperativo desarmar la anatomía de una demostración formal y ser radicalmente transparentes sobre el estatus filosófico de sus cimientos.</p>
+<h4 id="la-anatomia-de-una-demostracion-formal">La anatomía de una demostración formal</h4>
+<p>En cualquier sistema formal, el conocimiento se estructura en una cadena de dependencias lógicas:</p>
+<ol>
+<li><strong>Axiomas:</strong> Son las premisas fundacionales, las reglas del juego que nosotros, los autores, decidimos adoptar sin demostrar dentro del sistema.</li>
+<li><strong>Lemas:</strong> Son teoremas auxiliares, pasos intermedios que demostramos para facilitar la prueba de resultados mayores.</li>
+<li><strong>Teoremas:</strong> Son las proposiciones sustantivas que nos interesa demostrar, derivadas lógicamente de los axiomas y lemas.</li>
+<li><strong>Corolarios:</strong> Son consecuencias inmediatas y directas de los teoremas.</li>
+</ol>
+<p>Las herramientas formales que presentamos en este capítulo (los <em>kernels</em> de Lean, los motores de Z3) son auditoras infalibles de los eslabones de esta cadena. Si nosotros afirmamos que un teorema se sigue de un lema, y el lema se sigue de un axioma, el software verifica que la deducción sea estructuralmente impecable. <strong>Pero las herramientas son ciegas a los axiomas.</strong> Ningún compilador puede verificar si un axioma es &quot;verdadero&quot; en el mundo empírico o &quot;justo&quot; en el mundo social; solo puede verificar que, <em>si</em> el axioma se asume como verdadero, las consecuencias se siguen necesariamente.</p>
+<h4 id="el-riesgo-de-reificar-los-axiomas">El riesgo de reificar los axiomas</h4>
+<p>Aquí es donde el método de este libro enfrenta su prueba de fuego más delicada. Si nosotros presentamos nuestros axiomas como &quot;descubrimientos empíricos&quot; o como &quot;leyes naturales del comportamiento social&quot;, estaríamos cometiendo exactamente el mismo error de reificación que denunciamos en el Capítulo 1: estaríamos tratando una construcción discursiva (nuestra elección de premisas) como si fuera una sustancia con existencia autónoma.</p>
+<p>La formalización no elimina la interpretación filosófica; la desplaza al nivel de los axiomas. Por lo tanto, para evitar la falacia de la herramienta (creer que lo formalizado es objetivamente verdadero), nosotros debemos declarar explícitamente que <strong>nuestros axiomas no son descubrimientos, sino elecciones filosóficas</strong>. Son compromisos que adoptamos porque resultan fecundos para el proyecto de análisis que estamos realizando, y porque se anclan en tradiciones de pensamiento específicas.</p>
+<h4 id="el-anclaje-filosofico-de-nuestras-elecciones">El anclaje filosófico de nuestras elecciones</h4>
+<p>Para que el lector pueda evaluar críticamente nuestro trabajo, debemos transparentar el anclaje filosófico de los axiomas que utilizaremos en los capítulos subsiguientes. A modo de ejemplo:</p>
+<ul>
+<li><strong>Sobre la agencia y la <em>accountability</em> (Capítulo 2 / Lean 4):</strong> Nosotros definimos un tipo <code>AgencySource</code> con exactamente dos constructores: <code>individual</code> (personas físicas) e <code>institutional</code> (construcciones). ¿Por qué esta elección y no otra? Esta decisión no es una verdad universal; se ancla en la <strong>tradición jurídica occidental</strong> (desde el derecho romano hasta Kelsen y Hart), que establece que las construcciones institucionales pueden ser sancionadas o disueltas, pero solo las personas de carne y hueso pueden ser penalmente responsables o moralmente <em>accountable</em>. Si el lector prefiriera una ontología que incluya &quot;agencia colectiva difusa&quot; o &quot;agencia ecológica&quot;, nuestros teoremas sobre la dilución de responsabilidad cambiarían.</li>
+<li><strong>Sobre la jerarquía normativa (Capítulo 6 / Z3):</strong> Nosotros axiomatizamos que si una norma regula a un agente, ese agente es incompetente para evaluar esa misma norma (el principio <em>nemo iudex in causa sua</em>). Esta elección se ancla en la <strong>Teoría Pura del Derecho de Kelsen</strong> y en la lógica deóntica, que exigen una estratificación jerárquica para evitar las paradojas de la autoevaluación.</li>
+<li><strong>Sobre la reificación y el sacrificio (Capítulo 6 / Z3):</strong> Nosotros axiomatizamos que un agente no puede sacrificarse por una entidad si es plenamente consciente de su arbitrariedad constitutiva. Esta elección se ancla en la <strong>sociología crítica de Pierre Bourdieu</strong> y en la teoría de la violencia simbólica, que postulan que la dominación requiere el desconocimiento (la <em>misperception</em>) de su propia contingencia por parte del dominado.</li>
+</ul>
+<h4 id="la-naturaleza-condicional-de-los-teoremas">La naturaleza condicional de los teoremas</h4>
+<p>Como consecuencia directa de lo anterior, todos los teoremas que demostramos en este trabajo son <strong>estrictamente condicionales</strong>.</p>
+<p>Cuando nosotros demostramos que &quot;la reificación institucional destruye la <em>accountability</em>&quot; o que &quot;la creencia en la arbitrariedad bloquea el sacrificio&quot;, no estamos dictando leyes inmutables de la sociología. Estamos afirmando lo siguiente: <em>&quot;Bajo los axiomas que nosotros hemos elegido, anclados en las tradiciones jurídica y sociológica mencionadas, estas propiedades se siguen necesariamente&quot;</em>.</p>
+<p>El lector tiene absoluta libertad para cuestionar nuestros axiomas, rechazarlos y proponer otros. Si lo hace, las herramientas formales seguirán a su disposición para que verifique las nuevas consecuencias lógicas de sus propias premisas. Esta invitación a la refutación no es una debilidad de nuestro método; es su mayor fortaleza. Es la garantía de que estamos utilizando la formalización como una herramienta de higiene conceptual transparente, y no como un manto de autoridad matemática para ocultar decisiones ideológicas o filosóficas bajo la alfombra de la sintaxis.</p>
+<h2 id="2.8-limitaciones-y-honestidad-metodologica">2.8 Limitaciones y honestidad metodológica</h2>
+<p>Las herramientas formales son poderosas, pero no son mágicas. Tienen limitaciones que es importante reconocer:</p>
+<p><strong>Primera limitación: las herramientas verifican derivaciones, no verdad.</strong> Que un teorema compile en Lean 4 garantiza que la conclusión se sigue de las premisas, pero no garantiza que las premisas sean verdaderas. La verdad de las premisas es una cuestión empírica o filosófica que las herramientas no pueden resolver.</p>
+<p><strong>Segunda limitación: la formalización requiere elecciones.</strong> Formalizar un concepto en lenguaje natural requiere decidir cómo representarlo en el lenguaje formal. Estas decisiones no son neutrales; pueden introducir sesgos o perder matices. Por ejemplo, formalizar &quot;la patria exige sacrificio&quot; como <code>Exige(Patria, Sacrificio)</code> pierde la ambigüedad del lenguaje natural, pero esa pérdida es el precio de la precisión.</p>
+<p><strong>Tercera limitación: no todo es formalizable.</strong> Hay aspectos del análisis de la reificación que no pueden formalizarse completamente. La interpretación de los efectos de poder, la evaluación de la relevancia histórica, la crítica ideológica: estos son juicios que operan en lenguaje natural y no pueden reducirse a código. Las herramientas formales complementan el análisis, no lo reemplazan.</p>
+<p><strong>Cuarta limitación: las herramientas tienen bugs.</strong> Aunque el kernel de Lean 4 es extremadamente pequeño y ha sido revisado exhaustivamente, el sistema completo (bibliotecas, tácticas, interfaz) tiene bugs. Z3 y Clingo también tienen bugs conocidos. Confiar ciegamente en las herramientas sería ingenuo. Por eso verificamos los resultados con múltiples métodos cuando es posible.</p>
+<p><strong>Quinta limitación: la formalización no elimina la reificación, la desplaza.</strong> Las herramientas formales también tienen sintaxis, y sus tipos y términos pueden cosificarse conceptualmente. La diferencia es que en un sistema formal la reificación está controlada por las reglas de inferencia, pero el significado último de los símbolos sigue dependiendo de la interpretación humana. Lo formal no escapa completamente de la reificación; la hace explícita y controlable.</p>
+<p><strong>Advertencia metodológica:</strong> Incluso al hablar de herramientas formales, el lenguaje natural nos obliga a usar formulaciones que atribuyen agencia a las herramientas (&quot;Lean verifica&quot;, &quot;el kernel acepta&quot;, &quot;Z3 demuestra&quot;). Esto es inevitable. Lo importante es recordar que estas formulaciones son abreviaturas de operaciones más complejas donde los agentes reales somos nosotros: nosotros escribimos el código, nosotros interpretamos los resultados, nosotros decidimos qué formalizar.</p>
+<h3 id="el-estatus-epistemico-de-los-resultados-formales">El estatus epistémico de los resultados formales</h3>
+<p>Siguiendo el sistema de etiquetado establecido en el Capítulo 0, los resultados formales se clasifican como <strong>[A] Probada por código</strong>. Esto significa que el resultado ha sido verificado por una herramienta formal y compila sin errores.</p>
+<p>Pero es crucial entender qué significa esto. Un resultado [A] no es &quot;más verdadero&quot; que un resultado [B] (citado de literatura) o [C] (interpretación). Significa que tiene un tipo diferente de respaldo: un respaldo computacional en lugar de empírico o hermenéutico.</p>
+<p>Un teorema verificado en Lean 4 garantiza que, bajo ciertos axiomas y reglas de inferencia, la conclusión se sigue necesariamente. Pero los axiomas mismos son elecciones que requieren justificación filosófica. La herramienta verifica la derivación; nosotros justificamos las premisas.</p>
+<h2 id="2.9-cierre:-las-herramientas-como-protesis-cognitiva">2.9 Cierre: las herramientas como prótesis cognitiva</h2>
+<p>Las herramientas formales son, en última instancia, <strong>prótesis cognitivas</strong>. Así como <strong>con</strong> un telescopio <strong>extendemos</strong> nuestra capacidad para ver objetos lejanos, <strong>con</strong> las herramientas formales <strong>extendemos</strong> nuestra capacidad para detectar inconsistencias, verificar derivaciones y diagnosticar errores.</p>
+<p>Pero una prótesis no reemplaza al órgano; lo complementa. <strong>Con</strong> el telescopio <strong>no vemos</strong> por sí mismo; <strong>requerimos</strong> interpretar lo que <strong>observamos</strong>. Del mismo modo, <strong>con</strong> las herramientas formales <strong>no razonamos</strong> por sí mismas; <strong>requerimos</strong> formular las preguntas, interpretar los resultados y integrarlos en un argumento más amplio.</p>
+<p><strong>Nosotros usamos</strong> herramientas formales porque el análisis de la reificación requiere precisión que el lenguaje natural no puede proporcionar por sí solo. Pero las herramientas no son este trabajo. Este trabajo es el argumento conceptual que <strong>construimos con ayuda de</strong> las herramientas. El lector que ignore el código perderá detalles técnicos, pero no perderá el argumento central. El lector que estudie el código ganará certeza sobre los resultados formales, pero seguirá necesitando interpretar su significado.</p>
+<p>Las herramientas formales son el microscopio. Lo que <strong>observamos</strong> a través de él es lo que <strong>mostramos</strong> en este trabajo.</p>
+<h3 id="resumen-de-codigos-verificados-en-este-capitulo">Resumen de códigos verificados en este capítulo</h3>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Herramienta</th>
+<th style="text-align: left;">Código</th>
+<th style="text-align: left;">Resultado</th>
+<th style="text-align: left;">Verificado</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Lean 4</td>
+<td style="text-align: left;"><code>reification_is_category_mistake</code></td>
+<td style="text-align: left;">Compila sin errores</td>
+<td style="text-align: left;">✓</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Lean 4</td>
+<td style="text-align: left;"><code>reification_excludes_individual_agency</code></td>
+<td style="text-align: left;">Compila sin errores</td>
+<td style="text-align: left;">✓</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Lean 4</td>
+<td style="text-align: left;"><code>reification_destroys_accountability</code></td>
+<td style="text-align: left;">Compila sin errores</td>
+<td style="text-align: left;">✓</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Z3</td>
+<td style="text-align: left;">SFCD (consistencia)</td>
+<td style="text-align: left;"><code>sat</code></td>
+<td style="text-align: left;">✓</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Z3</td>
+<td style="text-align: left;">Juez incompetente</td>
+<td style="text-align: left;"><code>unsat</code> + unsat core</td>
+<td style="text-align: left;">✓</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Z3</td>
+<td style="text-align: left;">Σ_R (consistencia)</td>
+<td style="text-align: left;"><code>sat</code></td>
+<td style="text-align: left;">✓</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Z3</td>
+<td style="text-align: left;">T1 (inmunidad del crítico)</td>
+<td style="text-align: left;"><code>unsat</code> + unsat core</td>
+<td style="text-align: left;">✓</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Clingo</td>
+<td style="text-align: left;">Nemo iudex (competencia normativa)</td>
+<td style="text-align: left;"><code>SATISFIABLE</code>, 6 instancias</td>
+<td style="text-align: left;">✓</td>
+</tr>
+</tbody>
+</table>
+</body>
+</html>

@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>El espejismo de la sustancia: Capítulo 3 SPA Un sistema aritmético estratificado (con metateoremas)</title>
+  <meta name="author" content="Santiago Tristany" />
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      span.underline{text-decoration: underline;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<h1 id="capitulo-3:-spa--un-sistema-aritmetico-estratificado">Capítulo 3: SPA — Un sistema aritmético estratificado</h1>
+<h2 id="3.0-una-puerta-de-entrada:-la-paradoja-del-mentiroso">3.0 Una puerta de entrada: la paradoja del mentiroso</h2>
+<p>Antes de presentar el sistema formal, conviene detenerse en el problema que lo motiva. La paradoja del mentiroso es una de las más antiguas de la tradición lógica: un enunciado que afirma &quot;esta oración es falsa&quot;. Si es verdadera, entonces es falsa. Si es falsa, entonces es verdadera. La paradoja no se resuelve con más información sobre el mundo; se resuelve con una restricción sobre la estructura del lenguaje que la formula.</p>
+<p>En 1933, Alfred Tarski demostró que la paradoja del mentiroso no es un juego de palabras: tiene una estructura formal precisa que puede reproducirse en cualquier lenguaje lo suficientemente expresivo como para contener su propio predicado de verdad [B]. La consecuencia es un teorema de imposibilidad: ningún lenguaje formal puede contener su propia definición de verdad sin volverse inconsistente.</p>
+<p>¿Por qué esto importa para el proyecto de este trabajo? Porque la paradoja de Tarski es, en su estructura más profunda, un caso de reificación: el predicado de verdad —que es una fórmula, una relación sintáctica entre un código y una propiedad— se trata como si fuera una sustancia autorreferente, una entidad capaz de aplicarse a sí misma. Es exactamente el tipo de error categorial que el Capítulo 1 identifica: una construcción de tipo &quot;relación&quot; es tratada como si tuviera propiedades de tipo &quot;sustancia&quot;. La estratificación impide este error de tipo mediante una restricción sintáctica explícita.</p>
+<p>En este capítulo presentamos SPA (Stratified Peano Arithmetic), un sistema formal que nosotros diseñamos y formalizamos en Lean 4 para implementar la solución de Tarski de manera verificada mecánicamente. SPA no es una invención teórica nueva: la solución que implementa es conocida desde hace décadas. Lo que SPA aporta es una implementación completa, estratificada, y verificada sin omisiones.</p>
+<h2 id="3.1-el-problema-que-spa-resuelve:-el-teorema-de-tarski-[b]">3.1 El problema que SPA resuelve: el teorema de Tarski [B]</h2>
+<p>El teorema de Tarski establece la indefinibilidad de la verdad: ninguna fórmula del lenguaje de la aritmética puede definir el conjunto de sentencias verdaderas de ese mismo lenguaje [B].</p>
+<p>La demostración es una variante formal de la paradoja del mentiroso. Si existiera una fórmula $V(x)$ que definiera la verdad —es decir, $V(\ulcorner \varphi \urcorner)$ fuera equivalente a &quot;$\varphi$ es verdadera&quot;—, entonces por diagonalización podríamos construir una oración $\lambda$ que afirmara &quot;yo soy falsa&quot;:</p>
+<p>$$ \lambda \equiv \neg V(\ulcorner \lambda \urcorner) $$</p>
+<p>Si $\lambda$ es verdadera, entonces $V(\ulcorner \lambda \urcorner)$ es falsa, y por tanto $\lambda$ es falsa. Si $\lambda$ es falsa, entonces $V(\ulcorner \lambda \urcorner)$ es verdadera, y por tanto $\lambda$ es verdadera. Contradicción.</p>
+<p>El problema no reside en la noción de verdad en sí, sino en pretender que el predicado de verdad habite el mismo nivel lógico que las fórmulas que evalúa. Cuando el lenguaje y el metalenguaje se confunden, la autorreferencia destructiva es inevitable.</p>
+<p>Estado del problema. Este no es un problema abierto. Tarski mismo propuso una solución: la jerarquía de metalenguajes [B]. La teoría de tipos de Russell (1908) ya había introducido una distinción similar para las paradojas conjuntistas [B]. Existen otras formalizaciones del teorema de completitud en asistentes de pruebas (Isabelle/HOL, Coq), pero SPA se distingue por hacer de la estratificación un mecanismo sintáctico explícito, con operadores intensionales (<code>provable_op</code>, <code>true_op</code>) cuyo tipado refleja la jerarquía de niveles y cuya corrección está garantizada por el verificador de tipos de Lean [A].</p>
+<h2 id="3.2-aplicacion-del-protocolo-al-caso-de-tarski-[c]">3.2 Aplicación del protocolo al caso de Tarski [C]</h2>
+<p>Como mostramos en 3.0, la paradoja de Tarski es un caso de reificación: el predicado de verdad (una relación sintáctica) se trata como si fuera una sustancia autorreferente. Apliquemos ahora las cuatro preguntas del Capítulo 0 a este caso:</p>
+<p>Pregunta 1: ¿Cuál es el objeto formal y cuál es su tipo?</p>
+<p>El predicado de verdad $V(x)$ es una fórmula de la aritmética de primer orden. Su tipo nativo es <code>ArithForm s</code> para algún nivel $s$. Su argumento $x$ es un numeral que codifica una fórmula del mismo nivel $s$.</p>
+<p>Pregunta 2: ¿Qué atribuye la narrativa a este objeto que su tipo no contiene?</p>
+<p>La definición informal de $V(x)$ presupone que puede aplicarse a todas las fórmulas del lenguaje, incluidas aquellas que contienen al propio $V$. Es decir, presupone que $V$ pertenece al mismo nivel que las fórmulas que evalúa. Esta presuposición no está forzada por el tipo de $V$; es una decisión de diseño implícita en la formulación estándar.</p>
+<p>Pregunta 3: ¿Existe una descripción alternativa sin ese atributo?</p>
+<p>Sí. La jerarquía de metalenguajes de Tarski —y, de manera más general, la teoría de tipos— muestra que la verdad puede definirse de manera consistente si se respeta una distinción de niveles: el predicado de verdad para fórmulas del nivel $n$ debe residir en el nivel $n+1$. SPA no inventa esta solución, pero la implementa de manera completa y verificada [A].</p>
+<p>Pregunta 4: ¿Es teoría resuelta con narrativa sucia?</p>
+<p>Sí. Tarski resolvió el problema técnico en 1933 [B]. La jerarquía de lenguajes es una solución conocida desde hace décadas. El desafío no es encontrar una solución, sino formalizarla completamente y mostrar que no sacrifica la completitud del sistema.</p>
+<h2 id="3.3-la-solucion-de-spa:-operadores-estratificados-[a/b]">3.3 La solución de SPA: operadores estratificados [A/B]</h2>
+<p>La solución que nosotros implementamos en SPA es directa: los operadores que evalúan fórmulas deben residir en un nivel superior a las fórmulas evaluadas. En la sintaxis de SPA, esto se implementa mediante constructores que incluyen un testigo explícito de la relación de niveles:</p>
+<pre><code>ArithForm.provable_op : {s_lower : Nat} → (s = s_lower + 1) → ArithTerm s → ArithForm s
+ArithForm.true_op     : {s_lower : Nat} → (s = s_lower + 1) → ArithTerm s → ArithForm s
+</code></pre>
+<p>El parámetro <code>h : s = s_lower + 1</code> es un testigo que certifica que el nivel $s$ es estrictamente superior al nivel $s_{\text{lower}}$ de la fórmula evaluada. Sin este testigo, la fórmula no está bien formada. El verificador de tipos de Lean rechaza cualquier intento de construir <code>provable_op</code> o <code>true_op</code> sin esta certificación.</p>
+<p>¿Qué representa el argumento de tipo <code>ArithTerm s</code>? No es la fórmula misma que se evalúa, sino un término que codifica esa fórmula. La función de serialización $\ulcorner \cdot \urcorner : \text{ArithForm } s_{\text{lower}} \to \text{ArithTerm } s$ convierte una fórmula del nivel inferior en un numeral que la representa. Así, <code>true_op h (⌜φ⌝)</code> es una fórmula del nivel $s$ que afirma &quot;la fórmula φ del nivel $s_{\text{lower}}$ es verdadera&quot;.</p>
+<p>En términos de tipos, esto significa que una fórmula en el nivel $n$ puede contener <code>provable_op</code> o <code>true_op</code> aplicados a términos que codifican fórmulas del nivel $n-1$. No existe ninguna manera de construir <code>provable_op</code> o <code>true_op</code> aplicados a fórmulas del mismo nivel.</p>
+<p>Nota importante. Esto no elimina toda forma de autorreferencia. La diagonalización sigue siendo posible dentro de cada nivel: en el nivel $n$ puede construirse una fórmula que hable de la demostrabilidad de fórmulas del nivel $n-1$. Lo que se bloquea es la autorreferencia destructiva: aquella que requiere que el predicado de verdad o demostrabilidad pertenezca al mismo nivel que la fórmula evaluada. La autorreferencia se reorganiza jerárquicamente, no se suprime.</p>
+<p>Diagrama de la jerarquía de niveles</p>
+<p>Para visualizar cómo opera la estratificación, consideremos los tres primeros niveles:</p>
+<pre><code>Nivel 2: fórmulas que pueden hablar de verdad/demostrabilidad del nivel 1
+    ↑ true_op, provable_op (con testigo s = s_lower + 1)
+Nivel 1: fórmulas que pueden hablar de verdad/demostrabilidad del nivel 0
+    ↑ true_op, provable_op (con testigo s = s_lower + 1)
+Nivel 0: fórmulas aritméticas básicas (sin operadores de verdad)
+</code></pre>
+<p>Cada nivel puede evaluar fórmulas del nivel inmediatamente inferior, pero no puede evaluarse a sí mismo. Esto impide la formación de la oración paradójica $\lambda$ que afirma &quot;yo soy falsa&quot;, porque tal oración requeriría que el predicado de verdad habitara el mismo nivel que la fórmula que evalúa.</p>
+<p>Ejemplo concreto de una fórmula bien formada</p>
+<p>Para ilustrar cómo funciona la estratificación sintáctica, consideremos un ejemplo simple. Supongamos que queremos expresar en el nivel 1 que &quot;la fórmula $0 = 0$ del nivel 0 es verdadera&quot;:</p>
+<pre><code>-- La fórmula &quot;0 = 0&quot; del nivel 0:
+def zero_eq_zero : ArithForm 0 :=
+  .eq (.zero : ArithTerm 0) (.zero : ArithTerm 0)
+-- Su código de serialización (un numeral):
+def code_zero_eq_zero : ArithTerm 1 :=
+  serialize zero_eq_zero  -- función que codifica la fórmula como numeral
+-- La afirmación &quot;0 = 0 es verdadera&quot; en el nivel 1:
+def truth_claim : ArithForm 1 :=
+  .true_op (s := 1) (s_lower := 0) (by simp) code_zero_eq_zero
+</code></pre>
+<p>El testigo <code>(by simp)</code> certifica que $1 = 0 + 1$. Si intentáramos construir <code>.true_op</code> en el nivel 0 aplicado a una fórmula del nivel 0, Lean rechazaría la construcción en tiempo de compilación con un error de tipo. La estratificación no es una convención que nosotros respetemos voluntariamente; es una restricción impuesta por el verificador de tipos.</p>
+<h2 id="3.4-sintaxis-formal-de-spa-[a]">3.4 Sintaxis formal de SPA [A]</h2>
+<p>La sintaxis de SPA se define mediante tipos inductivos en Lean 4, indexados por un parámetro de nivel $s : \mathbb{N}$. Presentamos las definiciones y luego las explicamos paso a paso.</p>
+<p>Términos aritméticos (<code>ArithTerm s</code>):</p>
+<pre><code>inductive ArithTerm (s : Nat) : Type where
+  | var    : Nat → ArithTerm s
+  | const  : NatS s → ArithTerm s
+  | henkin : HenkinConst → ArithTerm s
+  | zero   : ArithTerm s
+  | succ   : ArithTerm s → ArithTerm s
+  | add    : ArithTerm s → ArithTerm s → ArithTerm s
+  | mul    : ArithTerm s → ArithTerm s → ArithTerm s
+  | exp    : ArithTerm s → ArithTerm s → ArithTerm s
+  | pred   : ArithTerm s → ArithTerm s
+</code></pre>
+<p>Explicación para el lector no especializado. Los términos son las &quot;expresiones numéricas&quot; del sistema: variables, constantes, cero, sucesor, suma, multiplicación, exponenciación y predecesor. El parámetro <code>s</code> no afecta la estructura interna de los términos; actúa como una &quot;etiqueta de nivel&quot; que impide mezclar términos de niveles distintos en fórmulas estratificadas. Las constantes de Henkin (<code>henkin</code>) se incluyen para la construcción posterior de testigos existenciales.</p>
+<p>Fórmulas aritméticas (<code>ArithForm s</code>):</p>
+<pre><code>inductive ArithForm (s : Nat) : Type where
+  | bottom      : ArithForm s
+  | eq          : ArithTerm s → ArithTerm s → ArithForm s
+  | impl        : ArithForm s → ArithForm s → ArithForm s
+  | neg         : ArithForm s → ArithForm s
+  | forall_form : Nat → ArithForm s → ArithForm s
+  | provable_op : {s_lower : Nat} → (s = s_lower + 1) → ArithTerm s → ArithForm s
+  | true_op     : {s_lower : Nat} → (s = s_lower + 1) → ArithTerm s → ArithForm s
+  | list_nth_eq : ArithTerm s → ArithTerm s → ArithTerm s → ArithForm s
+</code></pre>
+<p>Explicación para el lector no especializado. Las fórmulas son las &quot;oraciones &quot; del sistema: absurdo ( <code>bottom</code> ), igualdad ( <code>eq</code> ), implicación ( <code>impl</code> ), negación ( <code>neg</code> ), cuantificación universal ( <code>forall_form</code> ), y los dos operadores estratificados ( <code>provable_op</code> y <code>true_op</code> ). El constructor <code>list_nth_eq</code> es un auxiliar técnico para la serialización de listas.</p>
+<p>Nota sobre la compilación. Los fragmentos de código que aparecen en las secciones 3.4 a 3.7 son extractos ilustrativos de un sistema más grande (SPA, 27.600 líneas de código Lean 4). Estos fragmentos no compilarán de forma aislada porque dependen de definiciones auxiliares (<code>NatS</code>, <code>HenkinConst</code>, <code>serialize</code>, etc.) que no están incluidas aquí por razones de espacio. Para verificar la compilación completa de SPA, es necesario acceder al repositorio del proyecto [enlace]. Los fragmentos se incluyen para ilustrar la estructura del sistema, no para ser ejecutados directamente.</p>
+<h2 id="3.4.1-metateoremas-de-estratificacion-sintactica-[a-meta]">3.4.1 Metateoremas de estratificación sintáctica [A-Meta]</h2>
+<p>Los siguientes metateoremas se derivan directamente de la sintaxis estratificada de SPA. No introducen nuevo código Lean: son demostraciones formales en prosa [A-Meta] que explicitan consecuencias estructurales de las firmas de tipo definidas en la sección 3.4.</p>
+<p><strong>Metateorema T-NoInt-0 [A-Meta]</strong></p>
+<p>El nivel 0 no admite operadores intensionales.</p>
+<p>Enunciado. Ninguna fórmula <code>φ : ArithForm 0</code> contiene subfórmulas de la forma <code>true_op h t</code> ni <code>provable_op h t</code>.</p>
+<p>Demostración. Procedemos por inducción estructural sobre <code>φ : ArithForm 0</code>.</p>
+<p>Casos base: Si <code>φ = bottom</code> o <code>φ = eq t₁ t₂</code>, no contiene ningún constructor intensional por definición.</p>
+<p>Paso inductivo: Supongamos que <code>φ</code> se construye mediante <code>impl</code>, <code>neg</code> o <code>forall_form</code> a partir de fórmulas que no contienen operadores intensionales. Entonces <code>φ</code> tampoco los contiene, pues estos constructores no introducen <code>true_op</code> ni <code>provable_op</code>.</p>
+<p>Finalmente, supongamos que <code>φ = true_op h t</code> o <code>φ = provable_op h t</code>. Por la firma de tipo de ambos constructores, se requiere un testigo <code>h : s = s_lower + 1</code> donde <code>s</code> es el nivel de <code>φ</code>. Como <code>s = 0</code>, tendríamos <code>0 = s_lower + 1</code> para algún <code>s_lower ∈ ℕ</code>, lo cual es aritméticamente imposible. Por tanto, estos constructores no pueden aparecer en el nivel 0. ∎</p>
+<p><strong>Metateorema T-Mono [A-Meta]</strong></p>
+<p>Monotonicidad estricta de la estratificación.</p>
+<p>Enunciado. Si <code>φ : ArithForm s</code> contiene una subfórmula <code>true_op h t</code> o <code>provable_op h t</code>, entonces <code>h</code> es un testigo de <code>s = s_lower + 1</code> para algún <code>s_lower &lt; s</code>.</p>
+<p>Demostración. Sea <code>φ : ArithForm s</code> que contiene <code>true_op h t</code>. Por la firma de tipo del constructor</p>
+<pre><code>true_op : {s_lower : Nat} → (s = s_lower + 1) → ArithTerm s → ArithForm s
+</code></pre>
+<p>el argumento <code>h</code> tiene tipo <code>s = s_lower + 1</code>. Como <code>s_lower ∈ ℕ</code>, se sigue <code>s = s_lower + 1 ≥ 1</code> y por tanto <code>s_lower = s - 1 &lt; s</code>. El caso de <code>provable_op</code> es idéntico por su firma análoga. ∎</p>
+<p><strong>Metateorema T-NoLambda [A-Meta]</strong></p>
+<p>Imposibilidad de la oración paradójica de Tarski.</p>
+<p>Enunciado. No existe ninguna fórmula <code>λ : ArithForm s</code> tal que <code>λ = true_op h (⌜λ⌝)</code> para algún testigo <code>h</code>.</p>
+<p>Demostración. Supongamos, para reducir al absurdo, que existe tal <code>λ</code>. Entonces <code>λ : ArithForm s</code> y, por la definición de <code>true_op</code>, se requiere un testigo <code>h : s = s_lower + 1</code> tal que el término <code>⌜λ⌝ : ArithTerm s</code> codifique una fórmula del nivel <code>s_lower</code>.</p>
+<p>Pero <code>⌜λ⌝</code> es la serialización de <code>λ</code> misma, que reside en el nivel <code>s</code>. Luego la fórmula codificada por <code>⌜λ⌝</code> está en nivel <code>s</code>, no en nivel <code>s_lower</code>. Para que <code>true_op h (⌜λ⌝)</code> esté bien formado, el término debe codificar una fórmula de nivel <code>s_lower</code>, lo que fuerza <code>s = s_lower</code>. Pero el testigo <code>h</code> afirma <code>s = s_lower + 1</code>. Entonces <code>s = s + 1</code>, contradicción aritmética en <code>ℕ</code>. ∎</p>
+<p><strong>Metateorema T-NoCycle [A-Meta]</strong></p>
+<p>Imposibilidad de ciclos de referencia intensional.</p>
+<p>Enunciado. No existe una secuencia finita de fórmulas <code>φ₁, …, φₙ</code> con <code>n ≥ 1</code> tal que, para cada <code>i ∈ {1, …, n}</code>, <code>φᵢ</code> contenga <code>true_op hᵢ (⌜φᵢ₊₁⌝)</code> (con índices módulo <code>n</code>).</p>
+<p>Demostración. Supongamos que existe tal ciclo. Sea <code>sᵢ</code> el nivel de <code>φᵢ</code>. Por T-Mono, cada ocurrencia de <code>true_op</code> en <code>φᵢ</code> referenciando <code>φᵢ₊₁</code> impone <code>sᵢ = sᵢ₊₁ + 1</code>. Recorriendo el ciclo:</p>
+<p>$$ s_1 = s_2 + 1 = s_3 + 2 = \cdots = s_n + (n-1) = s_1 + n. $$</p>
+<p>Luego <code>s₁ = s₁ + n</code>, lo cual implica <code>n = 0</code>. Pero la hipótesis exige <code>n ≥ 1</code>. Contradicción. ∎</p>
+<p><strong>Metateorema T-HomoEq [A-Meta]</strong></p>
+<p>Homogeneidad de nivel en la igualdad.</p>
+<p>Enunciado. Si <code>eq t₁ t₂ : ArithForm s</code>, entonces <code>t₁ : ArithTerm s</code> y <code>t₂ : ArithTerm s</code>.</p>
+<p>Demostración. Directo de la firma de tipo del constructor</p>
+<pre><code>eq : ArithTerm s → ArithTerm s → ArithForm s
+</code></pre>
+<p>Ambos argumentos deben pertenecer al mismo tipo <code>ArithTerm s</code>. ∎</p>
+<p><strong>Metateorema T-NoMix [A-Meta]</strong></p>
+<p>Imposibilidad de mezclar niveles en fórmulas atómicas.</p>
+<p>Enunciado. No existen <code>s₁, s₂ ∈ ℕ</code> con <code>s₁ ≠ s₂</code>, <code>t₁ : ArithTerm s₁</code> y <code>t₂ : ArithTerm s₂</code> tales que <code>eq t₁ t₂</code> esté bien formado.</p>
+<p>Demostración. Supongamos, para reducir al absurdo, que <code>eq t₁ t₂</code> está bien formado con <code>t₁ : ArithTerm s₁</code> y <code>t₂ : ArithTerm s₂</code>. Por la firma de tipo de <code>eq</code>, ambos argumentos deben pertenecer a <code>ArithTerm s</code> para algún <code>s</code> común. Luego <code>ArithTerm s₁ = ArithTerm s</code>, lo que fuerza <code>s₁ = s</code> por inyectividad del índice de tipo, y análogamente <code>s₂ = s</code>. Por tanto <code>s₁ = s₂</code>, contradiciendo la hipótesis. ∎</p>
+<p><strong>Metateorema T-IndStruct [A-Meta]</strong></p>
+<p>Principio de inducción estructural para fórmulas estratificadas.</p>
+<p>Enunciado. Sea <code>s ∈ ℕ</code> fijo y sea <code>P : ArithForm s → Prop</code> una propiedad. Si:</p>
+<ol>
+<li><code>P(bottom)</code>;</li>
+<li><code>∀ t₁ t₂ : ArithTerm s, P(eq t₁ t₂)</code>;</li>
+<li><code>∀ φ ψ : ArithForm s, P(φ) ∧ P(ψ) → P(impl φ ψ)</code>;</li>
+<li><code>∀ φ : ArithForm s, P(φ) → P(neg φ)</code>;</li>
+<li><code>∀ x : ℕ, ∀ φ : ArithForm s, P(φ) → P(forall_form x φ)</code>;</li>
+<li><code>∀ s_lower : ℕ, ∀ h : s = s_lower + 1, ∀ t : ArithTerm s, P(true_op h t)</code>;</li>
+<li><code>∀ s_lower : ℕ, ∀ h : s = s_lower + 1, ∀ t : ArithTerm s, P(provable_op h t)</code>;</li>
+</ol>
+<p>entonces <code>∀ φ : ArithForm s, P(φ)</code>.</p>
+<p>Demostración. <code>ArithForm s</code> es un tipo inductivo con siete constructores. Por el principio general de inducción para tipos inductivos (disponible en la lógica constructiva subyacente a Lean), toda propiedad que se cumple en los constructores base y se preserva por los constructores inductivos se extiende a todos los habitantes del tipo. Las siete cláusulas enumeradas corresponden exactamente a los siete constructores de <code>ArithForm s</code>. ∎</p>
+<h2 id="3.5-sistema-deductivo-[a]">3.5 Sistema deductivo [A]</h2>
+<p>El sistema deductivo de SPA es una lógica de primer orden con igualdad, axiomas de Peano, y un esquema de inducción. Se define como un predicado inductivo en Lean:</p>
+<pre><code>inductive SPA_Deduction_Internal (s : Nat) : Set (ArithForm s) → ArithForm s → Prop
+</code></pre>
+<p>Las reglas incluyen:</p>
+<p>Lógica proposicional: introducción y eliminación de implicación, doble negación, reducción al absurdo.</p>
+<p>Cuantificación: introducción y eliminación del cuantificador universal, con condiciones de frescura (<code>NotFreeInSet</code>, <code>IsFreeFor</code>) para evitar captura de variables.</p>
+<p>Igualdad: reflexividad, simetría, transitividad, y reglas de congruencia para todos los constructores de términos y fórmulas.</p>
+<p>Axiomas de Peano: $\neg(S(x) = 0)$ y $S(x) = S(y) \to x = y$.</p>
+<p>Inducción: el esquema estándar para fórmulas de primer orden.</p>
+<p>Nota sobre los axiomas. Siguiendo la reflexión que desarrollamos en la sección 2.7 del Capítulo 2, nosotros reconocemos que estos axiomas son elecciones filosóficas, no descubrimientos empíricos. Los axiomas de Peano se anclan en la tradición matemática estándar. La lógica de primer orden con igualdad se ancla en la tradición analítica. La inducción se ancla en la aritmética finitaria.</p>
+<p>¿Por qué PA y no otra aritmética? Elegimos la Aritmética de Peano (PA) porque es la elección estándar para formalizaciones de aritmética de primer orden: es suficientemente expresiva para codificar la sintaxis (necesario para el teorema de Tarski), es recursivamente axiomatizable (necesario para aplicar los teoremas de Gödel), y es la base estándar en la literatura de verificación formal (Mathlib, etc.). Aritméticas más débiles como Robinson Q no tienen suficiente potencia inductiva para la construcción de Henkin-Lindenbaum. Aritméticas intuicionistas requerirían un tratamiento completamente diferente de la lógica subyacente. Nosotros elegimos PA porque es el marco estándar donde la pregunta de Tarski se formula tradicionalmente [B].</p>
+<p>Nosotros elegimos estos axiomas porque son fecundos para el proyecto de formalización estratificada, y porque permiten demostrar la completitud sin sacrificar la consistencia. El lector puede cuestionar estos axiomas y proponer otros; en ese caso, los teoremas pueden cambiar.</p>
+<h2 id="3.5.1-metateoremas-de-cierre-y-preservacion-[a-meta]">3.5.1 Metateoremas de cierre y preservación [A-Meta]</h2>
+<p>Los siguientes metateoremas explicitan propiedades de preservación de nivel asociadas al sistema deductivo y a las operaciones sintácticas auxiliares. Son demostraciones formales en prosa [A-Meta] y no introducen nuevo código.</p>
+<p><strong>Metateorema T-Ded-Level [A-Meta]</strong></p>
+<p>El sistema deductivo es cerrado por nivel.</p>
+<p>Enunciado. Si <code>SPA_Deduction_Internal s Γ φ</code>, entonces <code>Γ ⊆ ArithForm s</code> y <code>φ : ArithForm s</code>.</p>
+<p>Demostración. El predicado inductivo <code>SPA_Deduction_Internal</code> tiene tipo</p>
+<pre><code>Nat → Set (ArithForm s) → ArithForm s → Prop
+</code></pre>
+<p>Por definición, el parámetro de nivel <code>s</code> indexa tanto el conjunto de premisas como la conclusión. Cada regla de inferencia del sistema deductivo (introducción y eliminación de implicación, cuantificación, igualdad, axiomas de Peano, inducción) opera exclusivamente sobre fórmulas de <code>ArithForm s</code>. Luego, por inducción sobre la derivación, todas las fórmulas que aparecen en la prueba pertenecen a <code>ArithForm s</code>. ∎</p>
+<p><strong>Metateorema T-Subst-Level [A-Meta]</strong></p>
+<p>La sustitución preserva el nivel.</p>
+<p>Enunciado. Sea <code>φ : ArithForm s</code> y sea <code>σ</code> una sustitución que asigna a cada variable un término de <code>ArithTerm s</code>. Entonces la sustitución <code>φ[σ] : ArithForm s</code>.</p>
+<p>Demostración. Por inducción estructural sobre <code>φ</code> usando T-IndStruct.</p>
+<p>Caso base: Si <code>φ = bottom</code>, entonces <code>φ[σ] = bottom : ArithForm s</code>. Si <code>φ = eq t₁ t₂</code>, la sustitución en términos produce términos del mismo nivel <code>s</code>, luego <code>eq t₁[σ] t₂[σ] : ArithForm s</code>.</p>
+<p>Paso inductivo: Si <code>φ = impl ψ χ</code>, por hipótesis inductiva <code>ψ[σ] : ArithForm s</code> y <code>χ[σ] : ArithForm s</code>, luego <code>impl ψ[σ] χ[σ] : ArithForm s</code>. Los casos <code>neg</code> y <code>forall_form</code> son análogos.</p>
+<p>Si <code>φ = true_op h t</code>, el término <code>t</code> es de nivel <code>s</code> y no contiene variables que se sustituyan (es un numeral cerrado que codifica una fórmula de nivel inferior). Luego <code>t[σ] = t</code> y <code>φ[σ] = true_op h t : ArithForm s</code>. El caso <code>provable_op</code> es idéntico. ∎</p>
+<p><strong>Metateorema T-Serial-Level [A-Meta]</strong></p>
+<p>La serialización sube estrictamente de nivel.</p>
+<p>Enunciado. Si <code>φ : ArithForm s_lower</code>, entonces su código de serialización <code>⌜φ⌝ : ArithTerm s</code> donde <code>s = s_lower + 1</code>.</p>
+<p>Demostración. De la descripción de la serialización en la sección 3.3: la función <code>⌜·⌝ : ArithForm s_lower → ArithTerm s</code> convierte una fórmula del nivel inferior en un numeral del nivel superior. El ejemplo concreto de la sección 3.3 muestra que <code>zero_eq_zero : ArithForm 0</code> se serializa como <code>code_zero_eq_zero : ArithTerm 1</code>, es decir, <code>s = 0 + 1</code>. Como la serialización codifica la estructura sintáctica completa de <code>φ</code> como un numeral, y este numeral debe ser consumible por <code>true_op</code> en el nivel <code>s = s_lower + 1</code>, la serialización produce necesariamente un término de ese nivel superior. ∎</p>
+<h2 id="3.6-construccion-de-henkin-lindenbaum-[a]">3.6 Construcción de Henkin-Lindenbaum [A]</h2>
+<p>Para demostrar la completitud, nosotros implementamos la construcción clásica de Henkin-Lindenbaum, adaptada al entorno estratificado [B]. Presentamos los tres pasos y luego explicamos por qué la estratificación no los interrumpe.</p>
+<p>Paso 1: Extensión de Henkin. Se enumeran todas las fórmulas existenciales del lenguaje. Para cada una de ellas, se introduce una nueva constante de Henkin que actúa como testigo, y se añade un axioma que vincula la fórmula existencial con su testigo. La elección de constantes frescas se garantiza mediante un mecanismo de cotas superiores (véase sección 3.8).</p>
+<p>Paso 2: Extensión de Lindenbaum. Partiendo del límite de Henkin, se recorre una enumeración de todas las fórmulas. Para cada fórmula $\varphi$, se decide añadir $\varphi$ o $\neg\varphi$ a la teoría, preservando la consistencia en cada paso. El resultado es una teoría maximal consistente $\Delta$.</p>
+<p>Paso 3: Modelo canónico. Se construye un modelo cuyo dominio son las clases de equivalencia de términos cerrados módulo la igualdad demostrable en $\Delta$. Las funciones se interpretan sintácticamente, y los predicados se interpretan según la pertenencia a $\Delta$.</p>
+<p>¿Por qué la estratificación no interrumpe esta construcción? Porque cada nivel $s$ se trata como un lenguaje independiente durante la construcción de Henkin-Lindenbaum. Las constantes de Henkin se introducen dentro del mismo nivel $s$, y la extensión de Lindenbaum opera sobre fórmulas del nivel $s$. La restricción de estratificación solo prohíbe que los operadores <code>provable_op</code> y <code>true_op</code> se apliquen a fórmulas del mismo nivel; no prohíbe la construcción de modelos para cada nivel individualmente.</p>
+<h2 id="3.7-teorema-de-completitud-[a]">3.7 Teorema de completitud [A]</h2>
+<p>El resultado principal de SPA es el teorema de completitud para el nivel $0$:</p>
+<p>Teorema. Sea $\varphi$ una fórmula de <code>ArithForm 0</code> que es una sentencia (sin variables libres). Si $\varphi$ es verdadera en todos los modelos de Henkin, entonces $\varphi$ es demostrable en <code>SPA_Deduction_Internal 0</code>. [A]</p>
+<p>La demostración se apoya en el Lema de Verdad (<code>truth_lemma</code>), que establece la equivalencia entre la satisfacción en el modelo canónico y la pertenencia a la teoría maximal consistente $\Delta$:</p>
+<p>$$ \mathcal{M} \models_\sigma \varphi \iff \text{substAll } \varphi\ \sigma \in \Delta $$</p>
+<p>Se trata de una completitud semántica de primer orden: el teorema se refiere a la validez en todos los modelos de Henkin (estándar y no estándar), no a la verdad en el modelo estándar $\mathbb{N}$. Es el análogo, para el lenguaje aritmético estratificado, del teorema de completitud de Gödel de 1929 para la lógica de primer orden [B].</p>
+<p>Sobre la relación con los teoremas de Gödel</p>
+<p>El teorema de completitud de SPA no contradice ni elude los teoremas de incompletitud de Gödel [B]. Gödel demostró que, para un sistema aritmético no estratificado con suficiente potencia expresiva, existen fórmulas verdaderas pero no demostrables dentro del mismo nivel. SPA demuestra algo diferente: que el nivel $n+1$ puede definir un predicado de verdad correcto y consistente para todas las fórmulas del nivel $n$, pero no puede demostrar todas las verdades aritméticas de ese nivel. La completitud es respecto a la evaluación desde el nivel superior, no respecto a la autoevaluación en un sistema cerrado.</p>
+<p>Nota sobre la generalización y el alcance de la formalización</p>
+<p>Nosotros formalizamos la prueba completa para el nivel $s=0$. La construcción de Henkin-Lindenbaum y el lema de verdad están parametrizados por el nivel en el código Lean, por lo que la generalización a niveles superiores es conceptualmente directa. Sin embargo, no la formalizamos completamente en el código actual por razones de tiempo y espacio: la formalización del nivel 0 ya es suficiente para demostrar el punto central del capítulo (que la estratificación preserva la completitud), y la generalización no introduce dificultades conceptuales nuevas, solo complejidad técnica adicional.</p>
+<p>Esta decisión debe declararse explícitamente: nosotros no ocultamos esta limitación. La formalización completa de todos los niveles es un trabajo futuro que no altera el resultado conceptual presentado aquí [C].</p>
+<h2 id="3.7.1-metateoremas-de-imposibilidad-de-autorreferencia-[a-meta]">3.7.1 Metateoremas de imposibilidad de autorreferencia [A-Meta]</h2>
+<p>Los siguientes metateoremas explicitan las consecuencias antiautorreferenciales del diseño estratificado de SPA. Se presentan como demostraciones formales en prosa [A-Meta] y no modifican el código del sistema.</p>
+<p><strong>Metateorema T-NoSelfRef [A-Meta]</strong></p>
+<p>Imposibilidad de autoverdad en el mismo nivel.</p>
+<p>Enunciado. Para ningún nivel <code>s</code> existe una fórmula <code>φ : ArithForm s</code> tal que <code>φ</code> afirme su propia verdad mediante <code>true_op</code>, es decir, tal que <code>φ = true_op h (⌜φ⌝)</code>.</p>
+<p>Demostración. Este es un corolario inmediato de T-NoLambda. La existencia de tal <code>φ</code> requeriría que <code>⌜φ⌝</code> codificara una fórmula de nivel <code>s_lower</code> donde <code>s = s_lower + 1</code>, pero <code>⌜φ⌝</code> codifica <code>φ</code> misma, que está en nivel <code>s</code>. Luego <code>s_lower = s</code>, contradiciendo <code>s = s_lower + 1</code>. ∎</p>
+<p><strong>Metateorema T-NoUniversalV [A-Meta]</strong></p>
+<p>No hay predicado de verdad universal interno.</p>
+<p>Enunciado. Para ningún nivel <code>s</code> existe un predicado <code>V(x)</code> definible en <code>ArithForm s</code> tal que para toda <code>ψ : ArithForm s</code> se cumpla <code>V(⌜ψ⌝) ↔ ψ</code>.</p>
+<p>Demostración. Supongamos que existe tal <code>V</code> en el nivel <code>s</code>. Entonces <code>V</code> podría aplicarse a la fórmula <code>λ ≡ ¬ V(⌜λ⌝)</code>, construible por diagonalización en el nivel <code>s</code> si <code>V</code> está disponible en ese nivel. Esto reproduciría la paradoja de Tarski dentro del nivel <code>s</code>.</p>
+<p>Sin embargo, en SPA el único predicado de verdad disponible en el nivel <code>s</code> es <code>true_op h t</code>, y por T-Mono este solo puede aplicarse a términos <code>t</code> que codifiquen fórmulas de nivel <code>s_lower = s - 1</code>. Por tanto, no puede aplicarse a fórmulas del nivel <code>s</code>. Luego ningún <code>V</code> interno al nivel <code>s</code> puede satisfacer la equivalencia para todas las fórmulas de ese nivel. ∎</p>
+<p><strong>Metateorema T-Cons-0 [A-Meta]</strong></p>
+<p>Inmunidad estructural del nivel 0.</p>
+<p>Enunciado. El nivel 0 de SPA no puede formular la paradoja del mentiroso de Tarski.</p>
+<p>Demostración. La paradoja de Tarski requiere un predicado de verdad <code>V</code> aplicable a fórmulas del mismo lenguaje. En SPA, cualquier predicado de verdad para fórmulas de nivel 0 residiría en el nivel 1 (mediante <code>true_op</code> con testigo <code>1 = 0 + 1</code>). Por T-NoInt-0, el nivel 0 no contiene ningún operador intensional. Como la paradoja requiere que el predicado de verdad habite el mismo nivel que las fórmulas evaluadas, y en el nivel 0 no existe tal predicado, la paradoja no puede construirse en el nivel 0. ∎</p>
+<p><strong>Metateorema T-Strat-Hierarchy [A-Meta]</strong></p>
+<p>La jerarquía de niveles es estricta y bien fundamentada.</p>
+<p>Enunciado. La relación de niveles <code>&lt;</code> en <code>ℕ</code> es un orden estricto y bien fundamentado. En consecuencia, no existe una cadena descendente infinita <code>s₀ &gt; s₁ &gt; s₂ &gt; …</code>.</p>
+<p>Demostración. La relación <code>&lt;</code> sobre los números naturales es estricta por definición:</p>
+<p>$$ n &lt; m \iff \exists k &gt; 0,\ m = n + k. $$</p>
+<p>Es bien fundamentada porque todo subconjunto no vacío de <code>ℕ</code> tiene un elemento mínimo (principio del buen orden). Por tanto, no puede existir una cadena descendente infinita, pues tal cadena carecería de mínimo. ∎</p>
+<p><strong>Metateorema T-NoCrossMix [A-Meta]</strong></p>
+<p>Imposibilidad de inferencia entre niveles distintos.</p>
+<p>Enunciado. Si <code>SPA_Deduction_Internal s₁ Γ φ</code> y <code>SPA_Deduction_Internal s₂ Δ ψ</code> con <code>s₁ ≠ s₂</code>, entonces no existe ninguna regla de inferencia de SPA que combine directamente <code>φ</code> y <code>ψ</code> en una sola derivación.</p>
+<p>Demostración. Por T-Ded-Level, toda derivación en el nivel <code>s₁</code> opera exclusivamente sobre fórmulas de <code>ArithForm s₁</code>, y toda derivación en el nivel <code>s₂</code> opera sobre <code>ArithForm s₂</code>. Como <code>s₁ ≠ s₂</code>, los tipos <code>ArithForm s₁</code> y <code>ArithForm s₂</code> son disjuntos (tipos inductivos indexados por valores distintos de un parámetro). Ningún constructor de <code>SPA_Deduction_Internal</code> acepta premisas de niveles mixtos, pues el parámetro <code>s</code> es uniforme en cada instancia del predicado inductivo. Luego no existe combinación directa. ∎</p>
+<h2 id="3.8-decisiones-de-diseno-en-la-formalizacion-[a/c]">3.8 Decisiones de diseño en la formalización [A/C]</h2>
+<p>Más allá del resultado lógico, SPA incorpora varias decisiones de diseño que son contribuciones metodológicas del proyecto. La presente sección está clasificada como <code>[A/C]</code>: los hechos (cero <code>sorry</code>, uso de índices de tipo) son verificables [A]; su interpretación como contribuciones metodológicas es [C].</p>
+<p>Frescura por cota superior. En lugar de asumir la existencia de infinitas variables frescas como un axioma externo, nosotros implementamos un mecanismo constructivo: el máximo índice de variable en una fórmula o derivación se calcula explícitamente, y una variable nueva se elige con índice estrictamente mayor. Esto garantiza la frescura sin apelar a principios no constructivos [A].</p>
+<p>Índices de estratificación en tiempo de compilación. El parámetro <code>s</code> en <code>ArithTerm s</code> y <code>ArithForm s</code> es un índice de tipo que el verificador de Lean utiliza para impedir cualquier unificación entre niveles distintos. Esto proporciona una garantía de estratificación en tiempo de compilación, sin costo en tiempo de ejecución [A].</p>
+<p>Eliminación del combustible en los decodificadores. El parser de términos y fórmulas utiliza un parámetro de combustible (<code>fuel</code>) para garantizar la terminación. Nosotros demostramos que la longitud del código serializado es una cota superior del tamaño sintáctico, lo que permite eliminar el combustible artificial y usar la propia longitud del código como parámetro de recursión [A].</p>
+<p>Cero <code>sorry</code> en el núcleo inductivo. Toda la construcción —desde la sintaxis hasta el teorema de completitud— compila en Lean 4 sin admitir omisiones (<code>sorry</code>). La formalización completa consta de aproximadamente 27.600 líneas de código, 378 lemas auxiliares y 14 teoremas principales [A]. Esto significa que cada paso está verificado mecánicamente por el kernel de Lean.</p>
+<h2 id="3.9-leccion:-la-estratificacion-como-condicion-de-coherencia-[c]">3.9 Lección: la estratificación como condición de coherencia [C]</h2>
+<p>SPA muestra que la estratificación no es una restricción arbitraria ni un costo que deba pagarse a cambio de consistencia. Es, más bien, una condición de posibilidad para la coherencia [C]:</p>
+<p>Sin estratificación, el sistema es inconsistente: la paradoja de Tarski produce una contradicción [B].</p>
+<p>Con estratificación, el sistema es completo: toda fórmula válida es demostrable, y la verdad y la demostrabilidad del nivel inferior pueden expresarse sin contradicción en el nivel superior [A].</p>
+<p>Transferencia metodológica a otros dominios</p>
+<p>Esta lección es transferible, pero es importante precisar en qué sentido. La transferencia no es formal —no hay un teorema que vincule SPA con la relatividad o la teoría normativa— sino metodológica [C]. El mismo tipo de análisis que nosotros aplicamos aquí (identificar niveles, preguntar qué atributos pertenecen a cada nivel, buscar descripciones alternativas que eviten la confusión) puede aplicarse a otros dominios.</p>
+<p>En los capítulos siguientes, este protocolo de análisis se utilizará para examinar tres casos:</p>
+<p>La geometría del espacio-tiempo (Capítulo 4): donde la curvatura puede verse como una descripción de nivel superior que no debe reificarse como propiedad de una sustancia. El tensor métrico (nivel $n$) describe relaciones entre eventos; la &quot;curvatura&quot; (nivel $n+1$) es una propiedad de esa descripción, no una deformación de una tela cósmica.</p>
+<p>La medición cuántica (Capítulo 5): donde el &quot;colapso&quot; puede interpretarse como un cambio de nivel epistémico. El estado cuántico (nivel $n$) evoluciona unitariamente; la medición (nivel $n+1$) actualiza la información disponible sobre el sistema. El &quot;colapso&quot; no es un evento físico en el nivel $n$; es una transición en el nivel $n+1$.</p>
+<p>Los sistemas normativos (Capítulo 6): donde la evaluación de cumplimiento requiere un nivel de supervisión distinto al de las normas. Una norma (nivel $n$) regula conductas; la evaluación de esa norma (nivel $n+1$) debe residir en un nivel superior para evitar la incompetencia reflexiva (principio nemo iudex in causa sua).</p>
+<p>En ningún caso nosotros afirmaremos que SPA &quot;demuestra&quot; algo sobre física o derecho. La conexión es analógica, no deductiva [C]. SPA proporciona el modelo formal de la estratificación; los capítulos siguientes aplican el principio metodológico que ese modelo ilustra.</p>
+<p>La estratificación como anti-reificación</p>
+<p>Desde la perspectiva del Capítulo 1, la estratificación es un mecanismo anti-reificatorio [C]. La paradoja de Tarski se produce cuando el predicado de verdad —una relación sintáctica— se trata como si fuera una sustancia autorreferente. La estratificación impide esta operación no por convención voluntaria, sino por restricción de tipo: el verificador de Lean rechaza la construcción antes de que pueda formularse.</p>
+<p>Esto es exactamente lo que el método del Capítulo 1 propone para el análisis del discurso: identificar el tipo de la construcción, verificar que las atribuciones corresponden a ese tipo, y señalar la reificación cuando no corresponden. En SPA, esta verificación la realiza el kernel de Lean en tiempo de compilación. En el análisis del discurso, la realizamos nosotros mediante el protocolo de cuatro preguntas.</p>
+<h2 id="3.10-limitaciones-y-alcances-[c]">3.10 Limitaciones y alcances [C]</h2>
+<p>Para completar el análisis, es importante señalar explícitamente lo que SPA no puede hacer.</p>
+<p>Incompletitud dentro de cada nivel. SPA no escapa a los teoremas de Gödel [B]. Cada nivel $s$ es incompleto respecto a las verdades aritméticas de ese nivel. Lo que SPA muestra es que el nivel $s+1$ puede expresar y demostrar la completitud del nivel $s$, pero el nivel $s+1$ es a su vez incompleto respecto a sus propias verdades.</p>
+<p>Indefinibilidad de la verdad interna. SPA no define un predicado de verdad para el nivel $s$ dentro del nivel $s$ [B]. Lo define en el nivel $s+1$. La paradoja de Tarski no se resuelve eliminándola, sino desplazando el predicado a un metanivel.</p>
+<p>No es una teoría de la verdad autocontenida. A diferencia de las teorías axiomáticas de la verdad (como KF o FS) [B], SPA no introduce un predicado de verdad como símbolo primitivo con axiomas. La verdad se define semánticamente (en el modelo canónico) y se expresa sintácticamente mediante <code>true_op</code> con restricción de nivel.</p>
+<p>Modelos no estándar. La completitud es respecto a todos los modelos de Henkin, que incluyen modelos no estándar [B]. SPA no demuestra que toda verdad en $\mathbb{N}$ sea demostrable, lo cual sería falso por el primer teorema de incompletitud.</p>
+<p>Limitación de la formalización actual. Nosotros formalizamos el nivel $s=0$ completamente. La generalización a niveles superiores es conceptualmente directa pero no está formalizada en el código actual [C]. Esto no altera el resultado conceptual, pero debe declararse.</p>
+<h2 id="3.11-sintesis-de-demostraciones-formales-del-capitulo-[a-meta]">3.11 Síntesis de demostraciones formales del capítulo [A-Meta]</h2>
+<p>Nosotros presentamos la siguiente tabla de demostraciones formales en prosa integradas en este capítulo. Estas pruebas son consecuencias directas de las definiciones sintácticas y deductivas de SPA. Su valor reside en explicitar mecánicamente las restricciones de nivel que bloquean la autorreferencia destructiva.</p>
+<table>
+<thead>
+<tr class="header">
+<th>Designación</th>
+<th>Enunciado</th>
+<th>Método</th>
+<th>Sección</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>T-NoInt-0</td>
+<td>El nivel 0 no admite operadores intensionales</td>
+<td>Inducción estructural / análisis de firmas</td>
+<td>3.4.1</td>
+</tr>
+<tr class="even">
+<td>T-Mono</td>
+<td>Monotonicidad estricta de la estratificación</td>
+<td>Inspección de firma de tipo</td>
+<td>3.4.1</td>
+</tr>
+<tr class="odd">
+<td>T-NoLambda</td>
+<td>Imposibilidad de la oración paradójica de Tarski</td>
+<td>Reducción al absurdo por niveles</td>
+<td>3.4.1</td>
+</tr>
+<tr class="even">
+<td>T-NoCycle</td>
+<td>Imposibilidad de ciclos de referencia intensional</td>
+<td>Contradicción aritmética por descenso</td>
+<td>3.4.1</td>
+</tr>
+<tr class="odd">
+<td>T-HomoEq</td>
+<td>Homogeneidad de nivel en la igualdad</td>
+<td>Inspección de firma</td>
+<td>3.4.1</td>
+</tr>
+<tr class="even">
+<td>T-NoMix</td>
+<td>Imposibilidad de mezclar niveles en fórmulas atómicas</td>
+<td>Reducción al absurdo por tipado</td>
+<td>3.4.1</td>
+</tr>
+<tr class="odd">
+<td>T-IndStruct</td>
+<td>Principio de inducción estructural para fórmulas estratificadas</td>
+<td>Principio de inducción inductiva</td>
+<td>3.4.1</td>
+</tr>
+<tr class="even">
+<td>T-Ded-Level</td>
+<td>El sistema deductivo es cerrado por nivel</td>
+<td>Inducción sobre derivación</td>
+<td>3.5.1</td>
+</tr>
+<tr class="odd">
+<td>T-Subst-Level</td>
+<td>La sustitución preserva el nivel</td>
+<td>Inducción estructural</td>
+<td>3.5.1</td>
+</tr>
+<tr class="even">
+<td>T-Serial-Level</td>
+<td>La serialización sube estrictamente de nivel</td>
+<td>Propiedad de serialización</td>
+<td>3.5.1</td>
+</tr>
+<tr class="odd">
+<td>T-NoSelfRef</td>
+<td>Imposibilidad de autoverdad en el mismo nivel</td>
+<td>Corolario de T-NoLambda</td>
+<td>3.7.1</td>
+</tr>
+<tr class="even">
+<td>T-NoUniversalV</td>
+<td>No hay predicado de verdad universal interno</td>
+<td>Diagonalización bloqueada por niveles</td>
+<td>3.7.1</td>
+</tr>
+<tr class="odd">
+<td>T-Cons-0</td>
+<td>Inmunidad estructural del nivel 0</td>
+<td>Ausencia de operadores intensionales en 0</td>
+<td>3.7.1</td>
+</tr>
+<tr class="even">
+<td>T-Strat-Hierarchy</td>
+<td>La jerarquía de niveles es estricta y bien fundamentada</td>
+<td>Buen orden de ℕ</td>
+<td>3.7.1</td>
+</tr>
+<tr class="odd">
+<td>T-NoCrossMix</td>
+<td>Imposibilidad de inferencia entre niveles distintos</td>
+<td>Disjunción de tipos indexados / uniformidad de nivel</td>
+<td>3.7.1</td>
+</tr>
+</tbody>
+</table>
+<p>Conclusión metodológica [C]. El Capítulo 3 posee ahora un inventario de demostraciones formales en prosa integradas junto a la presentación del sistema SPA. Estas pruebas son correctas, completas y verificables conceptualmente a partir de las firmas de tipo y reglas del sistema. Su integración eleva el estatus epistémico de las secciones formales de [A] a [A-Meta] + [A-Código].</p>
+<p>Etiquetado del capítulo</p>
+<table>
+<thead>
+<tr class="header">
+<th>Sección</th>
+<th>Afirmación principal</th>
+<th>Clasificación</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>3.0</td>
+<td>La paradoja del mentiroso como caso de reificación</td>
+<td>[C] Interpretación</td>
+</tr>
+<tr class="even">
+<td>3.1</td>
+<td>Tarski demostró la indefinibilidad de la verdad</td>
+<td>[B] Citada de literatura</td>
+</tr>
+<tr class="odd">
+<td>3.2</td>
+<td>Aplicación de las cuatro preguntas al caso de Tarski</td>
+<td>[C] Interpretación</td>
+</tr>
+<tr class="even">
+<td>3.3</td>
+<td>Firmas de tipo de <code>provable_op</code> y <code>true_op</code></td>
+<td>[A] Probada por código</td>
+</tr>
+<tr class="odd">
+<td>3.4</td>
+<td>Definiciones inductivas de <code>ArithTerm</code> y <code>ArithForm</code></td>
+<td>[A] Probada por código</td>
+</tr>
+<tr class="even">
+<td>3.4.1</td>
+<td>Metateoremas de estratificación sintáctica</td>
+<td>[A-Meta]</td>
+</tr>
+<tr class="odd">
+<td>3.5</td>
+<td>Reglas del sistema deductivo <code>SPA_Deduction_Internal</code></td>
+<td>[A] Probada por código</td>
+</tr>
+<tr class="even">
+<td>3.5.1</td>
+<td>Metateoremas de cierre y preservación</td>
+<td>[A-Meta]</td>
+</tr>
+<tr class="odd">
+<td>3.6</td>
+<td>Construcción de Henkin-Lindenbaum</td>
+<td>[A] Probada por código</td>
+</tr>
+<tr class="even">
+<td>3.7</td>
+<td>Teorema de completitud</td>
+<td>[A] Probada por código</td>
+</tr>
+<tr class="odd">
+<td>3.7.1</td>
+<td>Metateoremas de imposibilidad de autorreferencia</td>
+<td>[A-Meta]</td>
+</tr>
+<tr class="even">
+<td>3.8</td>
+<td>Decisiones de diseño en la formalización</td>
+<td>[A/C] Hechos verificables e interpretación</td>
+</tr>
+<tr class="odd">
+<td>3.9</td>
+<td>Lección de transferencia metodológica</td>
+<td>[C] Interpretación</td>
+</tr>
+<tr class="even">
+<td>3.10</td>
+<td>Limitaciones y alcances</td>
+<td>[C] Interpretación</td>
+</tr>
+<tr class="odd">
+<td>3.11</td>
+<td>Síntesis de demostraciones formales</td>
+<td>[A-Meta] + [C]</td>
+</tr>
+</tbody>
+</table>
+</body>
+</html>

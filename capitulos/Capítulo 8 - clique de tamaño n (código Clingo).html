@@ -1,0 +1,36 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/1999/REC-html401-19991224/strict.dtd">
+<html>
+<head>
+<META http-equiv=Content-Type content="text/html; charset=UTF-8">
+<title>El espejismo de la sustancia: Capítulo 8 clique de tamaño n (código Clingo)</title>
+<meta name="author" content="Santiago Tristany" />
+<style type="text/css">
+span {
+	font-family: 'Consolas';
+	font-size: 18pt;
+	color: #FFFF80;
+}
+.sc0 {
+}
+</style>
+</head>
+<body>
+<div style="float: left; white-space: pre; line-height: 1; background: #3F3F3F; "><span class="sc0">% Código Clingo: clique de tamaño n
+% Verifica que no existe asignación de vigilancia válida.
+
+#const n=3.
+
+agente_estatal(1..n).
+accion(1..n).
+
+realiza(X, X) :- agente_estatal(X).
+
+favores(X, Y) :- agente_estatal(X), agente_estatal(Y), X != Y.
+
+1 { vigila(X, A, F) : agente_estatal(X) } 1 :- realiza(A, F).
+
+:- vigila(X, X, F).
+:- vigila(X, Y, F), favores(X, Y).
+
+#show vigila/3.</span></div></body>
+</html>

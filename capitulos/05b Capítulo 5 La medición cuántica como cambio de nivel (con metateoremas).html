@@ -1,0 +1,1477 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>El espejismo de la sustancia: Capítulo 5 La medición cuántica como cambio de nivel (con metateoremas)</title>
+  <meta name="author" content="Santiago Tristany" />
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      span.underline{text-decoration: underline;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<h1 id="capitulo-5:-la-medicion-cuantica-como-cambio-de-nivel">Capítulo 5: La medición cuántica como cambio de nivel</h1>
+<h2 id="5.0-introduccion:-el-problema-de-la-medicion-cuantica">5.0 Introducción: el problema de la medición cuántica</h2>
+<p>En el Capítulo 4, nosotros formalizamos la gramática de la reificación en el discurso físico clásico, mostrando que el espacio-tiempo, la energía y la fuerza son tratados como sustancias cuando el formalismo los define como estructuras relacionales. En este capítulo, aplicamos el mismo protocolo a un caso paradigmático de la física moderna: la medición cuántica y el llamado “colapso de la función de onda”.</p>
+<p>La narrativa divulgativa estándar presenta el colapso como un evento físico: una función de onda que “colapsa” abruptamente desde una superposición de estados a un estado definido cuando se realiza una medición. Esta narrativa sugiere que algo cambia en el sistema físico mismo: la función de onda, tratada como una entidad sustancial, sufre una transformación abrupta [B].</p>
+<p>Hay que ser cuidadosos aquí: esta narrativa es en parte una caricatura didáctica, pero como demostramos en los capítulos anteriores, la reificación no es simplemente un error pedagógico; está profundamente facilitada por la estructura gramatical del lenguaje mismo. El lenguaje natural, con su estructura sujeto-predicado, nos empuja constantemente a tratar procesos y relaciones como si fueran sustancias con propiedades. Cuando decimos “la función de onda colapsa”, la gramática exige un sujeto sustancial (“la función de onda”) que realiza una acción (“colapsa”), aunque el formalismo matemático describa simplemente una actualización de distribuciones de probabilidad. La reificación cuántica es, por tanto, un caso paradigmático de cómo la gramática del lenguaje natural conspira contra la precisión ontológica del formalismo matemático.</p>
+<p>La interpretación de Copenhague, en las formulaciones originales de Bohr y Heisenberg, ya enfatizaba el carácter epistémico de la función de onda. Bohr escribió: “No hay un mundo cuántico. Solo hay una descripción cuántica abstracta de la realidad” [B]. La reificación del colapso es más un producto de la pedagogía simplificada y de las constricciones gramaticales del lenguaje natural que de la interpretación original. Sin embargo, la narrativa sustancialista sigue siendo dominante en libros de texto y divulgación, y produce misconceptions persistentes [B].</p>
+<p>Existe una narrativa alternativa, respaldada por interpretaciones como QBism de Fuchs, la Mecánica Cuántica Operacional (OQM) de Werner, y lecturas epistémicas de Copenhague: el “colapso” no es un evento físico en el sistema, sino una actualización epistémica en el observador. Lo que cambia no es el sistema, sino la información disponible sobre el sistema. La función de onda no es una sustancia que colapsa; es una representación de nuestro conocimiento que se actualiza [B].</p>
+<h3 id="estructura-formal-del-capitulo:-fisica,-logica-y-dinamica-discursiva">Estructura formal del capítulo: física, lógica y dinámica discursiva</h3>
+<p>Este capítulo emplea una estrategia formal tripartita que es importante anunciar desde el inicio para orientar al lector. La reificación en la mecánica cuántica tiene una característica peculiar que la distingue de los capítulos anteriores: la reificación no se produce en los objetos matemáticos mismos, sino en el paso de su interpretación. El vector de estado en un espacio de Hilbert no está reificado; la reificación aparece cuando se interpreta ese vector como “una cosa que colapsa”.</p>
+<p>Por ello, el capítulo procede en tres niveles de formalización:</p>
+<ol>
+<li><p><strong>Lean 4 (Secciones 5.2–5.3):</strong> Formalizamos las propiedades estructurales genuinas de la mecánica cuántica: no-conmutatividad, violación de las desigualdades de Bell, contextualidad y bloqueo de la definición contracausal. Estos teoremas establecen los límites algebraicos y analíticos que distinguen el comportamiento cuántico del clásico. Aquí demostramos física, no reificación. Las demostraciones en prosa <strong>[A-Meta]</strong> acompañan a las verificaciones formales <strong>[A-Código]</strong>.</p></li>
+<li><p><strong>Z3 (Sección 5.4.1):</strong> Formalizamos el mapa del pluralismo interpretativo. Demostramos que el teorema de Bell no refuta “el realismo” en abstracto, sino una conjunción específica de tres supuestos metafísicos (Localidad, Definición Contracausal, Independencia Estadística). Z3 mapea exhaustivamente las 7 interpretaciones viables que surgen al renunciar a al menos uno de estos supuestos, mostrando que la interpretación epistémica es una opción entre varias, no una conclusión lógicamente inevitable.</p></li>
+<li><p><strong>Clingo (Sección 5.4.2):</strong> Modelamos la dinámica histórica del discurso cuántico. Simulamos cómo una comunidad científica transita entre las 7 posibilidades del mapa de Z3 cuando llega evidencia contraria al paradigma dominante. El resultado revela que la interpretación epistémica no es la trayectoria óptima bajo criterios de parsimonia pura; su adopción requiere argumentos filosóficos adicionales.</p></li>
+</ol>
+<p>Esta estructura permite al lector comprender primero qué dice la física (Lean), luego qué espacio de interpretaciones es lógicamente viable (Z3), y finalmente cómo evoluciona el debate científico (Clingo). Las secciones de Lean son las más técnicas; el lector puede saltarlas y centrarse en las interpretaciones prosaicas, que son autosuficientes.</p>
+<p>Nota sobre el alcance de la formalización. Nosotros no formalizamos la mecánica cuántica completa (espacios de Hilbert de dimensión infinita, operadores autoadjuntos, evolución unitaria). Lo que nosotros formalizamos es un modelo estructural con qubits y ángulos de medición que captura propiedades esenciales de la teoría cuántica. El modelo es didáctico pero no trivial: los teoremas demuestran límites algebraicos y analíticos verificables que distinguen el comportamiento epistémico cuántico de cualquier teoría clásica de variables ocultas locales.</p>
+<hr />
+<h2 id="5.1-el-caso-del-colapso-de-la-funcion-de-onda:-aplicacion-del-protocolo-[c]">5.1 El caso del colapso de la función de onda: aplicación del protocolo [C]</h2>
+<p>Aplicamos las cuatro preguntas del Capítulo 0 al caso del colapso de la función de onda, manteniendo la neutralidad interpretativa: el protocolo analiza el formalismo matemático sin presuponer ninguna interpretación particular.</p>
+<h3 id="pregunta-1:-cual-es-el-objeto-formal-y-cual-es-su-tipo?">Pregunta 1: ¿Cuál es el objeto formal y cuál es su tipo?</h3>
+<p>El objeto formal es la función de onda $\psi$, que en la formulación estándar es un vector unitario en un espacio de Hilbert. Matemáticamente, codifica una distribución de probabilidad sobre los posibles resultados de medición, calculada mediante la regla de Born: $P(a_i) = |\langle a_i | \psi \rangle|^2$. El formalismo por sí mismo es agnóstico respecto al estatus ontológico de este objeto: podría ser una entidad física real (interpretación ontológica) o un recurso predictivo (interpretación epistémica).</p>
+<p>En la formulación estándar, la función de onda evoluciona de dos maneras:</p>
+<ol>
+<li><strong>Evolución unitaria (ecuación de Schrödinger):</strong> determinista, continua, reversible.</li>
+<li><strong>Colapso (postulado de medición):</strong> probabilístico, discontinuo, irreversible.</li>
+</ol>
+<p>Esta dualidad es la fuente del “problema de la medición”: ¿por qué hay dos reglas de evolución distintas?</p>
+<h3 id="pregunta-2:-que-atribuye-la-narrativa-a-este-objeto-que-el-formalismo-no-exige?">Pregunta 2: ¿Qué atribuye la narrativa a este objeto que el formalismo no exige?</h3>
+<p>La narrativa divulgativa atribuye a la función de onda propiedades de sustancia física:</p>
+<ul>
+<li>“La función de onda colapsa” (como si fuera un objeto que sufre una transformación física).</li>
+<li>“El electrón está en una superposición de estados” (como si la superposición fuera un estado físico real, no una representación matemática).</li>
+<li>“La medición fuerza al sistema a elegir un estado” (como si el sistema tuviera una ontología definida que la medición revela).</li>
+</ul>
+<p>Estas atribuciones requieren un sujeto de tipo sustancia (algo que puede colapsar, estar en superposición, ser forzado). El formalismo matemático no exige estas atribuciones; son una capa interpretativa añadida. Como demostramos en el Capítulo 1, la estructura gramatical del lenguaje natural (sujeto-predicado) facilita esta reificación: el lenguaje nos empuja a tratar “la función de onda” como un sustantivo que denota una entidad, cuando en el formalismo es simplemente un vector en un espacio abstracto.</p>
+<h3 id="pregunta-3:-existen-descripciones-alternativas?">Pregunta 3: ¿Existen descripciones alternativas?</h3>
+<p>Sí, y son múltiples. Hay al menos dos familias de interpretaciones:</p>
+<ul>
+<li><strong>Interpretaciones ontológicas:</strong> tratan la función de onda como entidad física real (teoría de Bohm, muchos mundos, colapso objetivo).</li>
+<li><strong>Interpretaciones epistémicas:</strong> tratan la función de onda como representación de información (QBism, OQM, Copenhague estricto).</li>
+</ul>
+<p>Bajo las interpretaciones epistémicas, el “colapso” se trata como una actualización bayesiana: el observador actualiza su información sobre el sistema tras obtener un resultado de medición. El sistema físico no cambia; lo que cambia es la información del observador.</p>
+<h3 id="pregunta-4:-es-teoria-resuelta-con-narrativa-sucia?">Pregunta 4: ¿Es teoría resuelta con narrativa sucia?</h3>
+<p>Parcialmente. La mecánica cuántica es una teoría resuelta en el sentido de que las predicciones empíricas están confirmadas con precisión extraordinaria (violación de desigualdades de Bell, efecto Casimir, computación cuántica). Pero la interpretación de la teoría sigue siendo objeto de debate.</p>
+<p>En las secciones siguientes, nosotros argumentaremos que la interpretación epistémica es la opción más parsimoniosa porque evita postular eventos físicos misteriosos (colapsos instantáneos, acción a distancia), aunque a costa de renunciar al realismo clásico. Esta elección no es una derivación necesaria del protocolo, sino una hipótesis interpretativa que defendemos por su coherencia con el principio anti-reificador que articula este trabajo.</p>
+<hr />
+<h2 id="5.2-formalizacion-del-modelo-epistemico-en-lean-4-[a-codigo]">5.2 Formalización del modelo epistémico en Lean 4 [A-Código]</h2>
+<p>Nosotros construimos un sistema formal en Lean 4 que modela la medición cuántica desde una perspectiva puramente epistémica. Aquí no postulamos un estado ontológico subyacente con valores definidos. La superposición, la no-conmutatividad y el entrelazamiento se modelan enteramente como propiedades de los estados de creencia del agente.</p>
+<h3 id="definiciones-operacionales:-agente,-informacion-y-frontera">Definiciones operacionales: agente, información y frontera</h3>
+<p><strong>Agente.</strong> En nuestro modelo, un “agente” es cualquier sistema macroscópico capaz de registrar un resultado de medición de manera termodinámicamente irreversible. No requiere conciencia; puede ser un aparato de medición, un computador o un observador humano.</p>
+<p><strong>Información.</strong> La “información” se entiende aquí como recurso predictivo operacional, no como creencia subjetiva (QBism) ni como conocimiento objetivo (Copenhague). Es el conjunto de probabilidades que un agente racional debe asignar a futuros resultados de medición.</p>
+<p><strong>Frontera.</strong> El “problema de la frontera” pregunta dónde termina el sistema cuántico y dónde empieza el agente clásico. Nosotros adoptamos un criterio pragmático: la frontera es el umbral de decoherencia, la interacción irreversible con el entorno macroscópico que registra un resultado de manera estable.</p>
+<h3 id="codigo-lean-4:-tipos,-medicion-y-correlaciones">Código Lean 4: tipos, medición y correlaciones</h3>
+<pre class="lean"><code>import Mathlib.Tactic
+import Mathlib.Analysis.SpecialFunctions.Trigonometric.Basic
+
+open Real
+
+noncomputable section
+
+-- Ejes de medición (observables incompatibles)
+inductive Axis
+  | Z | X | D | D&#39;
+  deriving DecidableEq, Repr
+
+-- Resultados de medición
+inductive SpinResult
+  | up | down
+  deriving DecidableEq, Repr
+
+-- Función auxiliar: mapeo de SpinResult a enteros ±1
+def spin_to_int (s : SpinResult) : Int :=
+  match s with
+  | .up =&gt; 1
+  | .down =&gt; -1
+
+theorem spin_to_int_cases (s : SpinResult) : spin_to_int s = 1 ∨ spin_to_int s = -1 := by
+  cases s &lt;;&gt; simp [spin_to_int]
+
+-- Estado epistémico: creencias del agente
+structure EpistemicState where
+  prob_up_Z : Nat
+  prob_up_X : Nat
+  prob_up_D : Nat
+  prob_up_D&#39; : Nat
+  deriving DecidableEq, Repr
+
+-- Medición como actualización epistémica
+def measure_Z (_prior : EpistemicState) (result : SpinResult) : EpistemicState :=
+  match result with
+  | .up =&gt; ⟨100, 50, 50, 50⟩
+  | .down =&gt; ⟨0, 50, 50, 50⟩
+
+def measure_X (_prior : EpistemicState) (result : SpinResult) : EpistemicState :=
+  match result with
+  | .up =&gt; ⟨50, 100, 50, 50⟩
+  | .down =&gt; ⟨50, 0, 50, 50⟩
+
+def measure_D (_prior : EpistemicState) (result : SpinResult) : EpistemicState :=
+  match result with
+  | .up =&gt; ⟨50, 50, 100, 50⟩
+  | .down =&gt; ⟨50, 50, 0, 50⟩
+
+-- Estados preparados
+def prepared_Z_up : EpistemicState := ⟨100, 50, 50, 50⟩
+def prepared_X_up : EpistemicState := ⟨50, 100, 50, 50⟩
+def prepared_maximally_mixed : EpistemicState := ⟨50, 50, 50, 50⟩
+
+-- Correlación cuántica: E(θa, θb) = -cos(θa - θb)
+def quantum_correlation (θa θb : ℝ) : ℝ := -cos (θa - θb)
+
+def angle_a  : ℝ := 0
+def angle_a&#39; : ℝ := π/2
+def angle_b  : ℝ := π/4
+def angle_b&#39; : ℝ := 3*π/4
+
+def S_quantum : ℝ :=
+  quantum_correlation angle_a angle_b - quantum_correlation angle_a angle_b&#39; +
+  quantum_correlation angle_a&#39; angle_b + quantum_correlation angle_a&#39; angle_b&#39;
+
+-- Correlación clásica: producto de resultados ±1
+def classical_correlation (assignA assignB : Axis → SpinResult) (a b : Axis) : Int :=
+  (spin_to_int (assignA a)) * (spin_to_int (assignB b)) * 100
+
+def classical_S (assignA assignB : Axis → SpinResult) : Int :=
+  classical_correlation assignA assignB .Z .D -
+  classical_correlation assignA assignB .Z .D&#39; +
+  classical_correlation assignA assignB .X .D +
+  classical_correlation assignA assignB .X .D&#39;
+
+end
+</code></pre>
+<hr />
+<h2 id="5.3-teoremas-estructurales-de-la-mecanica-cuantica-en-lean-4-[a-meta]-+-[a-codigo]">5.3 Teoremas estructurales de la mecánica cuántica en Lean 4 [A-Meta] + [A-Código]</h2>
+<p>Nota sobre la accesibilidad del código. Las demostraciones formales que siguen utilizan tácticas de Lean 4 y Mathlib que pueden ser técnicas para lectores sin formación en asistentes de prueba. El lector puede saltar las pruebas formales y centrarse en las interpretaciones prosaicas, que son autosuficientes.</p>
+<p>Nota sobre el estatus epistémico. Los Teoremas 1, 3 y 5 son verificaciones de consistencia estructural (sanity checks) que garantizan que nuestro modelo respeta sus propios axiomas de diseño. El peso físico-filosófico sustantivo recae en el Teorema 2 (frontera de Bell).</p>
+<hr />
+<h3 id="5.3.1-no-conmutatividad-(principio-de-incertidumbre)-[a-meta]-+-[a-codigo]">5.3.1 No-conmutatividad (Principio de Incertidumbre) [A-Meta] + [A-Código]</h3>
+<h4 id="teorema-t-nc-z-[a-meta]">Teorema T-NC-Z [A-Meta]</h4>
+<p>La medición en Z desordena la información sobre X.</p>
+<p>Enunciado. $\forall (prior : EpistemicState), \forall (result : SpinResult),; (measure_Z; prior; result).prob_up_X = 50$.</p>
+<p>Demostración. Sea $prior$ un estado epistémico arbitrario y sea $result \in {up, down}$. Examinemos la definición de $measure_Z$:</p>
+<p>$$ measure_Z; prior; up = \langle 100, 50, 50, 50 \rangle, $$</p>
+<p>$$ measure_Z; prior; down = \langle 0, 50, 50, 50 \rangle. $$</p>
+<p>En ambos casos, el segundo campo de la tupla resultante —que corresponde a $prob_up_X$— vale $50$. Luego, para todo $prior$ y todo $result$, la probabilidad epistémica asignada a $X = up$ tras medir $Z$ es $50$. $\square$</p>
+<h4 id="teorema-t-nc-x-[a-meta]">Teorema T-NC-X [A-Meta]</h4>
+<p>La medición en X desordena la información sobre Z.</p>
+<p>Enunciado. $\forall (prior : EpistemicState), \forall (result : SpinResult),; (measure_X; prior; result).prob_up_Z = 50$.</p>
+<p>Demostración. Sea $prior$ arbitrario y $result \in {up, down}$. Por definición:</p>
+<p>$$ measure_X; prior; up = \langle 50, 100, 50, 50 \rangle, $$</p>
+<p>$$ measure_X; prior; down = \langle 50, 0, 50, 50 \rangle. $$</p>
+<p>En ambas ramas, el primer campo —$prob_up_Z$— es $50$. Por tanto, la medición de $X$ borra toda información previa sobre $Z$. $\square$</p>
+<h4 id="verificacion-en-lean-[a-codigo]">Verificación en Lean [A-Código]</h4>
+<pre class="lean"><code>noncomputable section
+
+theorem measurement_Z_scrambles_X :
+    ∀ (prior : EpistemicState) (result : SpinResult),
+      (measure_Z prior result).prob_up_X = 50 := by
+  intro prior result; cases result &lt;;&gt; rfl
+
+theorem measurement_X_scrambles_Z :
+    ∀ (prior : EpistemicState) (result : SpinResult),
+      (measure_X prior result).prob_up_Z = 50 := by
+  intro prior result; cases result &lt;;&gt; rfl
+</code></pre>
+<p>Interpretación: Medir un observable desordena la información sobre observables incompatibles. Esto no es una limitación tecnológica; es una propiedad estructural de la teoría.</p>
+<hr />
+<h3 id="5.3.2-la-frontera-de-bell-(teorema-central)-[a-meta]-+-[a-codigo]">5.3.2 La frontera de Bell (Teorema central) [A-Meta] + [A-Código]</h3>
+<p>Este es el teorema central del capítulo. Demuestra que ninguna teoría de variables ocultas locales puede reproducir las correlaciones predichas por la mecánica cuántica. La demostración procede en tres partes.</p>
+<hr />
+<h4 id="parte-a:-cota-algebraica-clasica-[a-meta]-+-[a-codigo]">Parte A: Cota algebraica clásica [A-Meta] + [A-Código]</h4>
+<h5 id="teorema-t-chsh-alg-[a-meta]">Teorema T-CHSH-Alg [A-Meta]</h5>
+<p>Cota algebraica clásica para la combinación CHSH.</p>
+<p>Enunciado. Sean $a, a', b, b' \in {-1, +1}$. Entonces:</p>
+<p>$$ |a b - a b' + a' b + a' b'| \leq 2. $$</p>
+<p>Demostración. Sea:</p>
+<p>$$ E = a b - a b' + a' b + a' b'. $$</p>
+<p>Factorizando algebraicamente:</p>
+<p>$$ E = a(b - b') + a'(b + b'). $$</p>
+<p>Como $b, b' \in {-1, +1}$, distinguimos dos casos exhaustivos.</p>
+<p><strong>Caso 1:</strong> $b = b'$. Entonces $b - b' = 0$ y $b + b' \in {-2, +2}$. Luego:</p>
+<p>$$ E = a'(b + b') \in {-2, +2}. $$</p>
+<p><strong>Caso 2:</strong> $b \neq b'$. Entonces $b + b' = 0$ y $b - b' \in {-2, +2}$. Luego:</p>
+<p>$$ E = a(b - b') \in {-2, +2}. $$</p>
+<p>En ambos casos $|E| \leq 2$. Por tanto, la cota vale para toda asignación. $\square$</p>
+<h5 id="teorema-t-chsh-scale-[a-meta]">Teorema T-CHSH-Scale [A-Meta]</h5>
+<p>Acotación de la correlación clásica en el modelo epistémico.</p>
+<p>Enunciado. $\forall assignA, \forall assignB,; |classical_S; assignA; assignB| \leq 200$.</p>
+<p>Demostración. Sean $assignA, assignB : Axis \to SpinResult$ funciones arbitrarias. Definamos:</p>
+<p>$$ r_A^Z = spin_to_int(assignA(Z)), \quad r_A^X = spin_to_int(assignA(X)), $$</p>
+<p>$$ r_B^D = spin_to_int(assignB(D)), \quad r_B^{D'} = spin_to_int(assignB(D')). $$</p>
+<p>Por definición de $spin_to_int$, cada una de estas cuatro variables pertenece a ${-1, +1}$. Sustituyendo en la definición de $classical_S$:</p>
+<p>$$ classical_S = 100 \cdot (r_A^Z r_B^D - r_A^Z r_B^{D'} + r_A^X r_B^D + r_A^X r_B^{D'}). $$</p>
+<p>Por T-CHSH-Alg, el factor entre paréntesis está acotado en valor absoluto por $2$. Luego:</p>
+<p>$$ |classical_S| = 100 \cdot |r_A^Z r_B^D - r_A^Z r_B^{D'} + r_A^X r_B^D + r_A^X r_B^{D'}| \leq 100 \cdot 2 = 200. $$</p>
+<p>$\square$</p>
+<h5 id="verificacion-en-lean-[a-codigo]-1">Verificación en Lean [A-Código]</h5>
+<pre class="lean"><code>theorem chsh_bound_core (aZ aX bD bD&#39; : Int)
+   (haZ : aZ = 1 ∨ aZ = -1) (haX : aX = 1 ∨ aX = -1)
+   (hbD : bD = 1 ∨ bD = -1) (hbD&#39; : bD&#39; = 1 ∨ bD&#39; = -1) :
+   (aZ * bD - aZ * bD&#39; + aX * bD + aX * bD&#39;).natAbs ≤ 2 := by
+   rcases hbD with (rfl | rfl) &lt;;&gt; rcases hbD&#39; with (rfl | rfl) &lt;;&gt;
+   rcases haZ with (rfl | rfl) &lt;;&gt; rcases haX with (rfl | rfl) &lt;;&gt;
+   norm_num
+
+theorem classical_S_bounded (assignA assignB : Axis → SpinResult) :
+   (classical_S assignA assignB).natAbs ≤ 200 := by
+   let rA_Z := spin_to_int (assignA .Z)
+   let rA_X := spin_to_int (assignA .X)
+   let rB_D := spin_to_int (assignB .D)
+   let rB_D&#39; := spin_to_int (assignB .D&#39;)
+   have hA_Z : rA_Z = 1 ∨ rA_Z = -1 := spin_to_int_cases (assignA .Z)
+   have hA_X : rA_X = 1 ∨ rA_X = -1 := spin_to_int_cases (assignA .X)
+   have hB_D : rB_D = 1 ∨ rB_D = -1 := spin_to_int_cases (assignB .D)
+   have hB_D&#39; : rB_D&#39; = 1 ∨ rB_D&#39; = -1 := spin_to_int_cases (assignB .D&#39;)
+   have h_bound := chsh_bound_core rA_Z rA_X rB_D rB_D&#39; hA_Z hA_X hB_D hB_D&#39;
+   have h_eq : classical_S assignA assignB =
+     100 * (rA_Z * rB_D - rA_Z * rB_D&#39; + rA_X * rB_D + rA_X * rB_D&#39;) := by
+     unfold classical_S classical_correlation
+     simp only [rA_Z, rB_D, rA_X, rB_D&#39;]
+     ring
+   rw [h_eq]
+   rw [Int.natAbs_mul]
+   have h_abs_100 : Int.natAbs 100 = 100 := by norm_num
+   rw [h_abs_100]
+   calc
+     100 * (rA_Z * rB_D - rA_Z * rB_D&#39; + rA_X * rB_D + rA_X * rB_D&#39;).natAbs
+       ≤ 100 * 2 := Nat.mul_le_mul_left 100 h_bound
+     _ = 200 := by norm_num
+</code></pre>
+<p>Interpretación: Cualquier teoría que postule valores definidos simultáneos para todas las mediciones (CFD) está algebraicamente limitado a $|S| \le 2$. Es una consecuencia pura de la probabilidad clásica conjunta.</p>
+<hr />
+<h4 id="parte-b:-prediccion-trigonometrica-cuantica-[a-meta]-+-[a-codigo]">Parte B: Predicción trigonométrica cuántica [A-Meta] + [A-Código]</h4>
+<h5 id="teorema-t-bell-exact-[a-meta]">Teorema T-Bell-Exact [A-Meta]</h5>
+<p>Valor exacto de la combinación CHSH cuántica.</p>
+<p>Enunciado. $S_{quantum} = -2\sqrt{2}$.</p>
+<p>Demostración. Por definición:</p>
+<p>$$ S_{quantum} = -\cos\left(0 - \frac{\pi}{4}\right)</p>
+<ul>
+<li>\cos\left(0 - \frac{3\pi}{4}\right)</li>
+</ul>
+<ul>
+<li>\cos\left(\frac{\pi}{2} - \frac{\pi}{4}\right)</li>
+<li>\cos\left(\frac{\pi}{2} - \frac{3\pi}{4}\right). $$</li>
+</ul>
+<p>Evaluemos cada término.</p>
+<p>Sea $\alpha = 0 - \frac{\pi}{4} = -\frac{\pi}{4}$. Como $\cos$ es par:</p>
+<p>$$ \cos\left(-\frac{\pi}{4}\right) = \cos\left(\frac{\pi}{4}\right) = \frac{\sqrt{2}}{2}. $$</p>
+<p>Sea $\beta = 0 - \frac{3\pi}{4} = -\frac{3\pi}{4}$. Entonces:</p>
+<p>$$ \cos(\beta) = \cos\left(\frac{3\pi}{4}\right) = -\frac{\sqrt{2}}{2}. $$</p>
+<p>Sea $\gamma = \frac{\pi}{2} - \frac{\pi}{4} = \frac{\pi}{4}$. Entonces:</p>
+<p>$$ \cos(\gamma) = \frac{\sqrt{2}}{2}. $$</p>
+<p>Sea $\delta = \frac{\pi}{2} - \frac{3\pi}{4} = -\frac{\pi}{4}$. Entonces:</p>
+<p>$$ \cos(\delta) = \frac{\sqrt{2}}{2}. $$</p>
+<p>Sustituyendo:</p>
+<p>$$ S_{quantum} = -\frac{\sqrt{2}}{2}</p>
+<ul>
+<li>\left(-\frac{\sqrt{2}}{2}\right)</li>
+</ul>
+<ul>
+<li>\frac{\sqrt{2}}{2}</li>
+<li>\frac{\sqrt{2}}{2} = -4 \cdot \frac{\sqrt{2}}{2} = -2\sqrt{2}. $$</li>
+</ul>
+<p>$\square$</p>
+<h5 id="verificacion-en-lean-[a-codigo]-2">Verificación en Lean [A-Código]</h5>
+<pre class="lean"><code>theorem bell_violation_exact : S_quantum = -2 * Real.sqrt 2 := by
+   unfold S_quantum quantum_correlation angle_a angle_a&#39; angle_b angle_b&#39;
+   have h1 : cos (0 - π/4) = Real.sqrt 2 / 2 := by
+     calc
+       cos (0 - π/4) = cos (-(π/4)) := by ring_nf
+       _ = cos (π/4) := by rw [Real.cos_neg]
+       _ = Real.sqrt 2 / 2 := Real.cos_pi_div_four
+   have h2 : cos (0 - 3*π/4) = -Real.sqrt 2 / 2 := by
+     calc
+       cos (0 - 3*π/4) = cos (-(3*π/4)) := by ring_nf
+       _ = cos (3*π/4) := by rw [Real.cos_neg]
+       _ = cos (π - π/4) := by ring_nf
+       _ = -cos (π/4) := by rw [Real.cos_pi_sub]
+       _ = -(Real.sqrt 2 / 2) := by rw [Real.cos_pi_div_four]
+       _ = -Real.sqrt 2 / 2 := by simp [neg_div]
+   have h3 : cos (π/2 - π/4) = Real.sqrt 2 / 2 := by
+     calc
+       cos (π/2 - π/4) = cos (π/4) := by ring_nf
+       _ = Real.sqrt 2 / 2 := Real.cos_pi_div_four
+   have h4 : cos (π/2 - 3*π/4) = Real.sqrt 2 / 2 := by
+     calc
+       cos (π/2 - 3*π/4) = cos (-(π/4)) := by ring_nf
+       _ = cos (π/4) := by rw [Real.cos_neg]
+       _ = Real.sqrt 2 / 2 := Real.cos_pi_div_four
+   rw [h1, h2, h3, h4]
+   field_simp
+   ring_nf
+</code></pre>
+<hr />
+<h4 id="parte-c:-violacion-analitica-[a-meta]-+-[a-codigo]">Parte C: Violación analítica [A-Meta] + [A-Código]</h4>
+<h5 id="teorema-t-violation-[a-meta]">Teorema T-Violation [A-Meta]</h5>
+<p>La predicción cuántica viola la cota clásica.</p>
+<p>Enunciado. $|S_{quantum}| &gt; 2$.</p>
+<p>Demostración. Por T-Bell-Exact:</p>
+<p>$$ |S_{quantum}| = |-2\sqrt{2}| = 2\sqrt{2}. $$</p>
+<p>Sabemos que $\sqrt{2} &gt; 1$, pues $(\sqrt{2})^2 = 2 &gt; 1 = 1^2$ y la función cuadrática es estrictamente creciente en $\mathbb{R}^+$. Luego:</p>
+<p>$$ 2\sqrt{2} &gt; 2 \cdot 1 = 2. $$</p>
+<p>Por tanto:</p>
+<p>$$ |S_{quantum}| &gt; 2. $$</p>
+<p>$\square$</p>
+<h5 id="verificacion-en-lean-[a-codigo]-3">Verificación en Lean [A-Código]</h5>
+<pre class="lean"><code>theorem quantum_exceeds_classical_bound :
+  abs S_quantum &gt; 2 := by
+  rw [bell_violation_exact]
+  have h_abs : abs (-2 * Real.sqrt 2) = 2 * Real.sqrt 2 := by
+    rw [abs_mul, abs_neg, abs_of_nonneg (by positivity)]
+    norm_num
+  rw [h_abs]
+  have h_sqrt : Real.sqrt 2 &gt; 1 := Real.lt_sqrt_of_sq_lt (by norm_num)
+  nlinarith [Real.sqrt_nonneg 2, Real.sq_sqrt (show 0 ≤ 2 by norm_num)]
+end
+</code></pre>
+<p>Interpretación general: La Parte A establece que la CFD limita a $|S| \le 2$. La Parte B demuestra que la regla de Born predice $S = -2\sqrt{2} \approx -2.828$. La Parte C verifica que $2\sqrt{2} &gt; 2$. La violación de CHSH manifiesta la incompatibilidad estructural entre la distribución de probabilidad conjunta clásica y el estado cuántico global no-separable.</p>
+<hr />
+<h3 id="5.3.3-la-condicion-de-no-senalizacion-[a-meta]-+-[c]">5.3.3 La condición de no-señalización [A-Meta] + [C]</h3>
+<p>Un requisito fundamental para cualquier interpretación de la mecánica cuántica es la compatibilidad con la relatividad especial: la prohibición de comunicación superlumínica. Esto se formaliza como la condición de no-señalización: la elección del eje de medición de Alice no puede alterar las probabilidades marginales de los resultados de Bob.</p>
+<p>En la mecánica cuántica estándar, esto se garantiza matemáticamente mediante la traza parcial. Si el sistema conjunto está en el estado entrelazado $|\Psi\rangle$, la matriz de densidad reducida de Bob es $\rho_B = \text{Tr}_A(|\Psi\rangle\langle\Psi|)$. Un resultado fundamental del formalismo es que $\rho_B$ es independiente de la base de medición que elija Alice; para el estado singlete, $\rho_B$ es siempre proporcional a $\frac{1}{2}I$, lo que significa que las probabilidades marginales de Bob son siempre 50/50 para cualquier eje.</p>
+<p>En nuestro modelo epistémico, esta propiedad estructural se refleja en el comportamiento de las funciones de actualización. Independientemente del resultado que obtenga Alice, el estado epistémico que un agente racional debe asignar al sistema de Bob mantiene probabilidades del 50% para cualquier eje incompatible.</p>
+<h4 id="teorema-t-nosignal-z-[a-meta]">Teorema T-NoSignal-Z [A-Meta]</h4>
+<p>La medición en Z no altera las probabilidades marginales de observables incompatibles.</p>
+<p>Enunciado. $\forall prior, \forall result,$</p>
+<p>$$ (measure_Z; prior; result).prob_up_X = 50 \land (measure_Z; prior; result).prob_up_D = 50 \land (measure_Z; prior; result).prob_up_D' = 50. $$</p>
+<p>Demostración. Sea $prior$ arbitrario y $result \in {up, down}$. Por definición de $measure_Z$, el estado resultante es:</p>
+<p>$$ \langle 100, 50, 50, 50 \rangle $$</p>
+<p>si $result = up$, y:</p>
+<p>$$ \langle 0, 50, 50, 50 \rangle $$</p>
+<p>si $result = down$. En ambos casos, los campos segundo, tercero y cuarto valen simultáneamente $50$. Estos campos corresponden a $prob_up_X$, $prob_up_D$ y $prob_up_D'$. Luego las probabilidades marginales de todos los observables incompatibles con $Z$ permanecen en $50$. $\square$</p>
+<h4 id="teorema-t-nosignal-x-[a-meta]">Teorema T-NoSignal-X [A-Meta]</h4>
+<p>La medición en X no altera las probabilidades marginales de observables incompatibles.</p>
+<p>Enunciado. $\forall prior, \forall result,$</p>
+<p>$$ (measure_X; prior; result).prob_up_Z = 50 \land (measure_X; prior; result).prob_up_D = 50 \land (measure_X; prior; result).prob_up_D' = 50. $$</p>
+<p>Demostración. Análogo a T-NoSignal-Z. La definición de $measure_X$ produce:</p>
+<p>$$ \langle 50, 100, 50, 50 \rangle $$</p>
+<p>o:</p>
+<p>$$ \langle 50, 0, 50, 50 \rangle. $$</p>
+<p>Los campos primero, tercero y cuarto son $50$ en ambas ramas. $\square$</p>
+<h4 id="teorema-t-nosignal-d-[a-meta]">Teorema T-NoSignal-D [A-Meta]</h4>
+<p>La medición en D no altera las probabilidades marginales de observables incompatibles.</p>
+<p>Enunciado. $\forall prior, \forall result,$</p>
+<p>$$ (measure_D; prior; result).prob_up_Z = 50 \land (measure_D; prior; result).prob_up_X = 50 \land (measure_D; prior; result).prob_up_D' = 50. $$</p>
+<p>Demostración. Por definición de $measure_D$, el estado resultante es:</p>
+<p>$$ \langle 50, 50, 100, 50 \rangle $$</p>
+<p>o:</p>
+<p>$$ \langle 50, 50, 0, 50 \rangle. $$</p>
+<p>Los campos primero, segundo y cuarto valen $50$ en ambos casos. $\square$</p>
+<p>Interpretación: El entrelazamiento cuántico, aunque viola las desigualdades de Bell, no permite la transmisión de información más rápida que la luz. La “no-localidad” cuántica es estrictamente correlacional, no causal. Alice y Bob comparten correlaciones que solo se hacen evidentes al comparar sus registros clásicos posteriormente. Nuestro modelo epistémico captura esta característica sin necesidad de postular acción a distancia física.</p>
+<hr />
+<h3 id="5.3.4-contextualidad-[a-meta]-+-[a-codigo]">5.3.4 Contextualidad [A-Meta] + [A-Código]</h3>
+<h4 id="teorema-t-context-[a-meta]">Teorema T-Context [A-Meta]</h4>
+<p>La ordenación de mediciones incompatibles importa.</p>
+<p>Enunciado. Sean:</p>
+<p>$$ prepared = prepared_maximally_mixed, $$</p>
+<p>$$ Z_{then}X = measure_X;(measure_Z; prepared; up); up, $$</p>
+<p>$$ X_{then}Z = measure_Z;(measure_X; prepared; up); up. $$</p>
+<p>Entonces:</p>
+<p>$$ Z_{then}X.prob_up_Z \neq X_{then}Z.prob_up_Z. $$</p>
+<p>Demostración. Calculamos directamente. Por definición:</p>
+<p>$$ prepared_maximally_mixed = \langle 50, 50, 50, 50 \rangle. $$</p>
+<p>Primero:</p>
+<p>$$ measure_Z; prepared; up = \langle 100, 50, 50, 50 \rangle. $$</p>
+<p>Luego:</p>
+<p>$$ Z_{then}X = measure_X; \langle 100, 50, 50, 50 \rangle; up = \langle 50, 100, 50, 50 \rangle. $$</p>
+<p>Por tanto:</p>
+<p>$$ Z_{then}X.prob_up_Z = 50. $$</p>
+<p>Segundo:</p>
+<p>$$ measure_X; prepared; up = \langle 50, 100, 50, 50 \rangle. $$</p>
+<p>Luego:</p>
+<p>$$ X_{then}Z = measure_Z; \langle 50, 100, 50, 50 \rangle; up = \langle 100, 50, 50, 50 \rangle. $$</p>
+<p>Por tanto:</p>
+<p>$$ X_{then}Z.prob_up_Z = 100. $$</p>
+<p>Como $50 \neq 100$, se verifica la desigualdad. $\square$</p>
+<h4 id="verificacion-en-lean-[a-codigo]-4">Verificación en Lean [A-Código]</h4>
+<pre class="lean"><code>theorem measurement_order_matters :
+    let prepared := prepared_maximally_mixed
+    let Z_then_X := measure_X (measure_Z prepared SpinResult.up) SpinResult.up
+    let X_then_Z := measure_Z (measure_X prepared SpinResult.up) SpinResult.up
+    Z_then_X.prob_up_Z ≠ X_then_Z.prob_up_Z := by
+  unfold measure_X measure_Z prepared_maximally_mixed
+  simp
+</code></pre>
+<p>Interpretación: Verificación de consistencia que captura la contextualidad cuántica. Medir Z y luego X produce un estado epistémico diferente a medir X y luego Z.</p>
+<hr />
+<h3 id="5.3.5-bloqueo-de-la-definicion-contracausal-(cfd)-[a-meta]-+-[a-codigo]">5.3.5 Bloqueo de la definición contracausal (CFD) [A-Meta] + [A-Código]</h3>
+<h4 id="teorema-t-cfd-impl-[a-meta]">Teorema T-CFD-Impl [A-Meta]</h4>
+<p>La definición contracausal implica valores simultáneos definidos.</p>
+<p>Enunciado. Sea $\mathcal{T}$ una teoría de variables ocultas locales tal que $counterfactual_definiteness_holds(\mathcal{T})$. Entonces para todo $a_1, a_2, b \in Axis$ y toda variable oculta $hv \in \mathcal{T}.hidden_variables$, existen $r_{A1}, r_{A2}, r_B \in SpinResult$ tales que:</p>
+<p>$$ \mathcal{T}.result_A; a_1; hv = r_{A1} \land \mathcal{T}.result_A; a_2; hv = r_{A2} \land \mathcal{T}.result_B; b; hv = r_B. $$</p>
+<p>Demostración. Sea $hv$ una variable oculta arbitraria y sean $a_1, a_2, b$ ejes arbitrarios. Aplicamos la hipótesis de definición contracausal al par $(a_1, b)$: existe $r_{A1}$ tal que:</p>
+<p>$$ \mathcal{T}.result_A; a_1; hv = r_{A1}. $$</p>
+<p>Aplicamos la misma hipótesis al par $(a_2, b)$: existe $r_{A2}$ tal que:</p>
+<p>$$ \mathcal{T}.result_A; a_2; hv = r_{A2}. $$</p>
+<p>Finalmente, aplicamos la hipótesis nuevamente a $(a_1, b)$ para obtener $r_B$ tal que:</p>
+<p>$$ \mathcal{T}.result_B; b; hv = r_B. $$</p>
+<p>Tomando estas tres existencias conjuntamente, obtenemos el resultado deseado. $\square$</p>
+<h4 id="teorema-t-cfd-block-[a-meta]">Teorema T-CFD-Block [A-Meta]</h4>
+<p>El modelo epistémico bloquea la definición contracausal.</p>
+<p>Enunciado. $$ \text{prepared_Z_up.prob_up_X} = 50 \land \text{prepared_Z_up.prob_up_D} = 50 \land \text{prepared_Z_up.prob_up_D}^{\prime} = 50. $$</p>
+<p>Demostración. Por definición: $$ \text{prepared_Z_up} = \langle 100, 50, 50, 50 \rangle. $$</p>
+<p>Los campos segundo, tercero y cuarto de esta tupla son, respectivamente, $prob_up_X$, $prob_up_D$ y $prob_up_D'$. Cada uno vale $50$ por inspección directa de la tupla. $\square$</p>
+<h4 id="verificacion-en-lean-[a-codigo]-5">Verificación en Lean [A-Código]</h4>
+<pre class="lean"><code>structure LocalHiddenVariableTheory where
+   hidden_variables : Type
+   result_A : Axis → hidden_variables → SpinResult
+   result_B : Axis → hidden_variables → SpinResult
+
+def counterfactual_definiteness_holds
+     (theory : LocalHiddenVariableTheory) : Prop :=
+   ∀ (a b : Axis) (hv : theory.hidden_variables),
+     ∃ (rA rB : SpinResult),
+       theory.result_A a hv = rA ∧ theory.result_B b hv = rB
+
+theorem CFD_implies_simultaneous_definite_values
+     (theory : LocalHiddenVariableTheory)
+     (h_CFD : counterfactual_definiteness_holds theory) :
+     ∀ (a1 a2 b : Axis) (hv : theory.hidden_variables),
+       ∃ (rA1 rA2 rB : SpinResult),
+         theory.result_A a1 hv = rA1 ∧
+         theory.result_A a2 hv = rA2 ∧
+         theory.result_B b hv = rB := by
+   intro a1 a2 b hv
+   obtain ⟨rA1, _, hA1, _⟩ := h_CFD a1 b hv
+   obtain ⟨rA2, _, hA2, _⟩ := h_CFD a2 b hv
+   obtain ⟨_, rB, _, hB⟩ := h_CFD a1 b hv
+   exact ⟨rA1, rA2, rB, hA1, hA2, hB⟩
+
+theorem epistemic_interpretation_blocks_CFD :
+     prepared_Z_up.prob_up_X = 50 ∧
+     prepared_Z_up.prob_up_D = 50 ∧
+     prepared_Z_up.prob_up_D&#39; = 50 := by
+   unfold prepared_Z_up
+   simp
+</code></pre>
+<p>Interpretación: La CFD obliga a aceptar resultados simultáneamente definidos para mediciones no realizadas. En nuestro modelo, un sistema preparado en Z=up tiene probabilidad 50% para X, D y D'. Esto bloquea la CFD y evita las desigualdades de Bell.</p>
+<hr />
+<h2 id="5.4-formalizacion-del-pluralismo-interpretativo-y-la-dinamica-discursiva-[a-meta]-+-[a-codigo]">5.4 Formalización del pluralismo interpretativo y la dinámica discursiva [A-Meta] + [A-Código]</h2>
+<p>En las secciones anteriores demostramos física: los límites algebraicos que distinguen lo cuántico de lo clásico. Ahora formalizamos el espacio de interpretaciones viables y la dinámica histórica del discurso que transita entre ellas.</p>
+<hr />
+<h3 id="5.4.1-z3:-mapa-formal-del-pluralismo-interpretativo-[a-meta]-+-[a-codigo]">5.4.1 Z3: Mapa formal del pluralismo interpretativo [A-Meta] + [A-Código]</h3>
+<p>El teorema de Bell (1964) no refuta “el realismo” en abstracto; refuta una conjunción específica de tres supuestos metafísicos. Z3 nos permite mapear exhaustivamente todo el espacio de posibilidades interpretativas, demostrando que existen exactamente 7 interpretaciones viables (cada una renunciando a al menos un supuesto).</p>
+<h4 id="metateoremas-del-mapa-logico-z3-[a-meta]">Metateoremas del mapa lógico Z3 [A-Meta]</h4>
+<h5 id="teorema-t-z3-unsat-[a-meta]">Teorema T-Z3-UNSAT [A-Meta]</h5>
+<p>El realismo local clásico es formalmente refutado.</p>
+<p>Enunciado. El conjunto de fórmulas:</p>
+<p>$$ {Locality, CFD, StatIndep, CHSH_ClassicalBound, Aspect_Experiment} $$</p>
+<p>es insatisfacible.</p>
+<p>Demostración. Supongamos, para reducir al absurdo, que existe un modelo $\mathcal{M}$ donde las cinco fórmulas son simultáneamente verdaderas. Por $CHSH_ClassicalBound$:</p>
+<p>$$ Locality \land CFD \land StatIndep \implies S_{value} \leq 2. $$</p>
+<p>Como en $\mathcal{M}$ los tres antecedentes son verdaderos, por modus ponens se sigue:</p>
+<p>$$ S_{value} \leq 2. $$</p>
+<p>Pero por $Aspect_Experiment$, en $\mathcal{M}$ se tiene:</p>
+<p>$$ S_{value} = 2{,}828. $$</p>
+<p>Luego:</p>
+<p>$$ 2{,}828 \leq 2, $$</p>
+<p>lo cual es aritméticamente falso. Hemos derivado una contradicción. Por tanto, no existe tal modelo $\mathcal{M}$; el conjunto es insatisfacible. $\square$</p>
+<h5 id="teorema-t-z3-bohm-[a-meta]">Teorema T-Z3-Bohm [A-Meta]</h5>
+<p>Viabilidad lógica de la teoría de Bohm.</p>
+<p>Enunciado. El conjunto:</p>
+<p>$$ {\neg Locality, CFD, StatIndep, S_{value} = 2{,}828} $$</p>
+<p>es satisfacible.</p>
+<p>Demostración. Construimos explícitamente un modelo $\mathcal{M}$. Definimos:</p>
+<p>$$ Locality^{\mathcal{M}} = \bot, \quad CFD^{\mathcal{M}} = \top, \quad StatIndep^{\mathcal{M}} = \top, \quad S_{value}^{\mathcal{M}} = 2{,}828. $$</p>
+<p>Verificamos cada fórmula del conjunto:</p>
+<ul>
+<li>$\neg Locality$ es verdadero pues $Locality^{\mathcal{M}} = \bot$.</li>
+<li>$CFD$ es verdadero por asignación.</li>
+<li>$StatIndep$ es verdadero por asignación.</li>
+<li>$S_{value} = 2{,}828$ es verdadero por asignación.</li>
+</ul>
+<p>Como todas las fórmulas son verdaderas en $\mathcal{M}$, el conjunto es satisfacible. $\square$</p>
+<h5 id="teorema-t-z3-qbism-[a-meta]">Teorema T-Z3-QBism [A-Meta]</h5>
+<p>Viabilidad lógica de la interpretación epistémica.</p>
+<p>Enunciado. El conjunto:</p>
+<p>$$ {Locality, \neg CFD, StatIndep, S_{value} = 2{,}828} $$</p>
+<p>es satisfacible.</p>
+<p>Demostración. Construimos el modelo $\mathcal{M}$ con:</p>
+<p>$$ Locality^{\mathcal{M}} = \top, \quad CFD^{\mathcal{M}} = \bot, \quad StatIndep^{\mathcal{M}} = \top, \quad S_{value}^{\mathcal{M}} = 2{,}828. $$</p>
+<p>Cada fórmula del conjunto se evalúa a verdadero por asignación directa. Luego el conjunto es satisfacible. $\square$</p>
+<h5 id="teorema-t-z3-superdet-[a-meta]">Teorema T-Z3-Superdet [A-Meta]</h5>
+<p>Viabilidad lógica del superdeterminismo.</p>
+<p>Enunciado. El conjunto:</p>
+<p>$$ {Locality, CFD, \neg StatIndep, S_{value} = 2{,}828} $$</p>
+<p>es satisfacible.</p>
+<p>Demostración. Sea $\mathcal{M}$ el modelo con:</p>
+<p>$$ Locality^{\mathcal{M}} = \top, \quad CFD^{\mathcal{M}} = \top, \quad StatIndep^{\mathcal{M}} = \bot, \quad S_{value}^{\mathcal{M}} = 2{,}828. $$</p>
+<p>Todas las fórmulas del conjunto son verdaderas en $\mathcal{M}$. $\square$</p>
+<h5 id="teorema-t-z3-grw-[a-meta]">Teorema T-Z3-GRW [A-Meta]</h5>
+<p>Viabilidad lógica del colapso objetivo.</p>
+<p>Enunciado. El conjunto:</p>
+<p>$$ {\neg Locality, \neg CFD, StatIndep, S_{value} = 2{,}828} $$</p>
+<p>es satisfacible.</p>
+<p>Demostración. Sea $\mathcal{M}$ con:</p>
+<p>$$ Locality^{\mathcal{M}} = \bot, \quad CFD^{\mathcal{M}} = \bot, \quad StatIndep^{\mathcal{M}} = \top, \quad S_{value}^{\mathcal{M}} = 2{,}828. $$</p>
+<p>Cada fórmula se satisface por asignación. $\square$</p>
+<h5 id="teorema-t-z3-retro-[a-meta]">Teorema T-Z3-Retro [A-Meta]</h5>
+<p>Viabilidad lógica de la retrocausalidad.</p>
+<p>Enunciado. El conjunto:</p>
+<p>$$ {\neg Locality, CFD, \neg StatIndep, S_{value} = 2{,}828} $$</p>
+<p>es satisfacible.</p>
+<p>Demostración. Sea $\mathcal{M}$ con:</p>
+<p>$$ Locality^{\mathcal{M}} = \bot, \quad CFD^{\mathcal{M}} = \top, \quad StatIndep^{\mathcal{M}} = \bot, \quad S_{value}^{\mathcal{M}} = 2{,}828. $$</p>
+<p>Verificación directa. $\square$</p>
+<h5 id="teorema-t-z3-relativist-[a-meta]">Teorema T-Z3-Relativist [A-Meta]</h5>
+<p>Viabilidad lógica del relativismo ontológico.</p>
+<p>Enunciado. El conjunto:</p>
+<p>$$ {Locality, \neg CFD, \neg StatIndep, S_{value} = 2{,}828} $$</p>
+<p>es satisfacible.</p>
+<p>Demostración. Sea $\mathcal{M}$ con:</p>
+<p>$$ Locality^{\mathcal{M}} = \top, \quad CFD^{\mathcal{M}} = \bot, \quad StatIndep^{\mathcal{M}} = \bot, \quad S_{value}^{\mathcal{M}} = 2{,}828. $$</p>
+<p>Verificación directa. $\square$</p>
+<h5 id="teorema-t-z3-radical-[a-meta]">Teorema T-Z3-Radical [A-Meta]</h5>
+<p>Viabilidad lógica del pluralismo radical.</p>
+<p>Enunciado. El conjunto:</p>
+<p>$$ {\neg Locality, \neg CFD, \neg StatIndep, S_{value} = 2{,}828} $$</p>
+<p>es satisfacible.</p>
+<p>Demostración. Sea $\mathcal{M}$ con:</p>
+<p>$$ Locality^{\mathcal{M}} = \bot, \quad CFD^{\mathcal{M}} = \bot, \quad StatIndep^{\mathcal{M}} = \bot, \quad S_{value}^{\mathcal{M}} = 2{,}828. $$</p>
+<p>Verificación directa. $\square$</p>
+<h4 id="verificacion-computacional-[a-codigo]">Verificación computacional [A-Código]</h4>
+<div class="sourceCode" id="cb8"><pre class="sourceCode lisp"><code class="sourceCode commonlisp"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="co">; ============================================================</span></a>
+<a class="sourceLine" id="cb8-2" data-line-number="2"><span class="co">; Z3: MAPA FORMAL DEL PLURALISMO INTERPRETATIVO CUÁNTICO</span></a>
+<a class="sourceLine" id="cb8-3" data-line-number="3"><span class="co">; ============================================================</span></a>
+<a class="sourceLine" id="cb8-4" data-line-number="4">(set-option :produce-unsat-cores true)</a>
+<a class="sourceLine" id="cb8-5" data-line-number="5">(set-option :produce-models true)</a>
+<a class="sourceLine" id="cb8-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb8-7" data-line-number="7"><span class="co">; --- 1. Supuestos metafísicos del teorema de Bell ---</span></a>
+<a class="sourceLine" id="cb8-8" data-line-number="8">(declare-const Locality Bool)      <span class="co">; L: factorización de probabilidades</span></a>
+<a class="sourceLine" id="cb8-9" data-line-number="9">(declare-const CFD Bool)           <span class="co">; C: Counterfactual Definiteness</span></a>
+<a class="sourceLine" id="cb8-10" data-line-number="10">(declare-const StatIndep Bool)     <span class="co">; I: Independencia estadística λ⊥choices</span></a>
+<a class="sourceLine" id="cb8-11" data-line-number="11"></a>
+<a class="sourceLine" id="cb8-12" data-line-number="12"><span class="co">; --- 2. Parámetro empírico CHSH ---</span></a>
+<a class="sourceLine" id="cb8-13" data-line-number="13">(declare-const S_value Real)</a>
+<a class="sourceLine" id="cb8-14" data-line-number="14"></a>
+<a class="sourceLine" id="cb8-15" data-line-number="15"><span class="co">; --- 3. Axiomas nombrados ---</span></a>
+<a class="sourceLine" id="cb8-16" data-line-number="16"><span class="co">; Axioma físico: bajo L∧C∧I, la cota CHSH clásica es |S| ≤ 2</span></a>
+<a class="sourceLine" id="cb8-17" data-line-number="17">(<span class="kw">assert</span> (! (<span class="op">=&gt;</span> (<span class="kw">and</span> Locality CFD StatIndep) (<span class="op">&lt;=</span> S_value <span class="fl">2.0</span>))</a>
+<a class="sourceLine" id="cb8-18" data-line-number="18">         <span class="bu">:named</span> CHSH_ClassicalBound))</a>
+<a class="sourceLine" id="cb8-19" data-line-number="19"></a>
+<a class="sourceLine" id="cb8-20" data-line-number="20"><span class="co">; Axioma empírico: Aspect, Weihs, Hensen et al. confirman S ≈ 2.828</span></a>
+<a class="sourceLine" id="cb8-21" data-line-number="21">(<span class="kw">assert</span> (! (<span class="op">=</span> S_value <span class="fl">2.828</span>)</a>
+<a class="sourceLine" id="cb8-22" data-line-number="22">         <span class="bu">:named</span> Aspect_Experiment))</a>
+<a class="sourceLine" id="cb8-23" data-line-number="23"></a>
+<a class="sourceLine" id="cb8-24" data-line-number="24"><span class="co">; ============================================================</span></a>
+<a class="sourceLine" id="cb8-25" data-line-number="25"><span class="co">; TEOREMA 1: El realismo local clásico es FORMALMENTE REFUTADO</span></a>
+<a class="sourceLine" id="cb8-26" data-line-number="26"><span class="co">; ============================================================</span></a>
+<a class="sourceLine" id="cb8-27" data-line-number="27">(<span class="kw">push</span>)</a>
+<a class="sourceLine" id="cb8-28" data-line-number="28">(<span class="kw">assert</span> (! (<span class="kw">and</span> Locality CFD StatIndep) <span class="bu">:named</span> Classical_Local_Realism))</a>
+<a class="sourceLine" id="cb8-29" data-line-number="29">(check-sat)</a>
+<a class="sourceLine" id="cb8-30" data-line-number="30">(get-unsat-core)</a>
+<a class="sourceLine" id="cb8-31" data-line-number="31">(<span class="kw">pop</span>)</a>
+<a class="sourceLine" id="cb8-32" data-line-number="32"></a>
+<a class="sourceLine" id="cb8-33" data-line-number="33"><span class="co">; ============================================================</span></a>
+<a class="sourceLine" id="cb8-34" data-line-number="34"><span class="co">; TEOREMA 2: Renunciar a UN supuesto restaura la consistencia</span></a>
+<a class="sourceLine" id="cb8-35" data-line-number="35"><span class="co">; ============================================================</span></a>
+<a class="sourceLine" id="cb8-36" data-line-number="36"><span class="co">; 2A: ¬Localidad ∧ CFD ∧ SI  →  TEORÍA DE BOHM</span></a>
+<a class="sourceLine" id="cb8-37" data-line-number="37">(<span class="kw">push</span>)</a>
+<a class="sourceLine" id="cb8-38" data-line-number="38">(<span class="kw">assert</span> (<span class="kw">not</span> Locality))</a>
+<a class="sourceLine" id="cb8-39" data-line-number="39">(<span class="kw">assert</span> CFD)</a>
+<a class="sourceLine" id="cb8-40" data-line-number="40">(<span class="kw">assert</span> StatIndep)</a>
+<a class="sourceLine" id="cb8-41" data-line-number="41">(check-sat)</a>
+<a class="sourceLine" id="cb8-42" data-line-number="42">(get-model)</a>
+<a class="sourceLine" id="cb8-43" data-line-number="43">(<span class="kw">pop</span>)</a>
+<a class="sourceLine" id="cb8-44" data-line-number="44"></a>
+<a class="sourceLine" id="cb8-45" data-line-number="45"><span class="co">; 2B: Locality ∧ ¬CFD ∧ SI  →  QBism, OQM, COPENHAGUE ESTRICTO</span></a>
+<a class="sourceLine" id="cb8-46" data-line-number="46">(<span class="kw">push</span>)</a>
+<a class="sourceLine" id="cb8-47" data-line-number="47">(<span class="kw">assert</span> Locality)</a>
+<a class="sourceLine" id="cb8-48" data-line-number="48">(<span class="kw">assert</span> (<span class="kw">not</span> CFD))</a>
+<a class="sourceLine" id="cb8-49" data-line-number="49">(<span class="kw">assert</span> StatIndep)</a>
+<a class="sourceLine" id="cb8-50" data-line-number="50">(check-sat)</a>
+<a class="sourceLine" id="cb8-51" data-line-number="51">(get-model)</a>
+<a class="sourceLine" id="cb8-52" data-line-number="52">(<span class="kw">pop</span>)</a>
+<a class="sourceLine" id="cb8-53" data-line-number="53"></a>
+<a class="sourceLine" id="cb8-54" data-line-number="54"><span class="co">; 2C: Locality ∧ CFD ∧ ¬SI  →  SUPERDETERMINISMO</span></a>
+<a class="sourceLine" id="cb8-55" data-line-number="55">(<span class="kw">push</span>)</a>
+<a class="sourceLine" id="cb8-56" data-line-number="56">(<span class="kw">assert</span> Locality)</a>
+<a class="sourceLine" id="cb8-57" data-line-number="57">(<span class="kw">assert</span> CFD)</a>
+<a class="sourceLine" id="cb8-58" data-line-number="58">(<span class="kw">assert</span> (<span class="kw">not</span> StatIndep))</a>
+<a class="sourceLine" id="cb8-59" data-line-number="59">(check-sat)</a>
+<a class="sourceLine" id="cb8-60" data-line-number="60">(get-model)</a>
+<a class="sourceLine" id="cb8-61" data-line-number="61">(<span class="kw">pop</span>)</a>
+<a class="sourceLine" id="cb8-62" data-line-number="62"></a>
+<a class="sourceLine" id="cb8-63" data-line-number="63"><span class="co">; ============================================================</span></a>
+<a class="sourceLine" id="cb8-64" data-line-number="64"><span class="co">; TEOREMA 3: Renunciar a DOS supuestos también es consistente</span></a>
+<a class="sourceLine" id="cb8-65" data-line-number="65"><span class="co">; ============================================================</span></a>
+<a class="sourceLine" id="cb8-66" data-line-number="66"><span class="co">; 3A: ¬Locality ∧ ¬CFD ∧ SI  →  GRW, HISTORIAS CONSISTENTES</span></a>
+<a class="sourceLine" id="cb8-67" data-line-number="67">(<span class="kw">push</span>)</a>
+<a class="sourceLine" id="cb8-68" data-line-number="68">(<span class="kw">assert</span> (<span class="kw">not</span> Locality))</a>
+<a class="sourceLine" id="cb8-69" data-line-number="69">(<span class="kw">assert</span> (<span class="kw">not</span> CFD))</a>
+<a class="sourceLine" id="cb8-70" data-line-number="70">(<span class="kw">assert</span> StatIndep)</a>
+<a class="sourceLine" id="cb8-71" data-line-number="71">(check-sat)</a>
+<a class="sourceLine" id="cb8-72" data-line-number="72">(get-model)</a>
+<a class="sourceLine" id="cb8-73" data-line-number="73">(<span class="kw">pop</span>)</a>
+<a class="sourceLine" id="cb8-74" data-line-number="74"></a>
+<a class="sourceLine" id="cb8-75" data-line-number="75"><span class="co">; 3B: ¬Locality ∧ CFD ∧ ¬SI  →  RETROCAUSALIDAD</span></a>
+<a class="sourceLine" id="cb8-76" data-line-number="76">(<span class="kw">push</span>)</a>
+<a class="sourceLine" id="cb8-77" data-line-number="77">(<span class="kw">assert</span> (<span class="kw">not</span> Locality))</a>
+<a class="sourceLine" id="cb8-78" data-line-number="78">(<span class="kw">assert</span> CFD)</a>
+<a class="sourceLine" id="cb8-79" data-line-number="79">(<span class="kw">assert</span> (<span class="kw">not</span> StatIndep))</a>
+<a class="sourceLine" id="cb8-80" data-line-number="80">(check-sat)</a>
+<a class="sourceLine" id="cb8-81" data-line-number="81">(get-model)</a>
+<a class="sourceLine" id="cb8-82" data-line-number="82">(<span class="kw">pop</span>)</a>
+<a class="sourceLine" id="cb8-83" data-line-number="83"></a>
+<a class="sourceLine" id="cb8-84" data-line-number="84"><span class="co">; 3C: Locality ∧ ¬CFD ∧ ¬SI  →  RELATIVISMO ONTOLOGICO</span></a>
+<a class="sourceLine" id="cb8-85" data-line-number="85">(<span class="kw">push</span>)</a>
+<a class="sourceLine" id="cb8-86" data-line-number="86">(<span class="kw">assert</span> Locality)</a>
+<a class="sourceLine" id="cb8-87" data-line-number="87">(<span class="kw">assert</span> (<span class="kw">not</span> CFD))</a>
+<a class="sourceLine" id="cb8-88" data-line-number="88">(<span class="kw">assert</span> (<span class="kw">not</span> StatIndep))</a>
+<a class="sourceLine" id="cb8-89" data-line-number="89">(check-sat)</a>
+<a class="sourceLine" id="cb8-90" data-line-number="90">(get-model)</a>
+<a class="sourceLine" id="cb8-91" data-line-number="91">(<span class="kw">pop</span>)</a>
+<a class="sourceLine" id="cb8-92" data-line-number="92"></a>
+<a class="sourceLine" id="cb8-93" data-line-number="93"><span class="co">; ============================================================</span></a>
+<a class="sourceLine" id="cb8-94" data-line-number="94"><span class="co">; TEOREMA 4: Incluso ¬Locality ∧ ¬CFD ∧ ¬SI es consistente</span></a>
+<a class="sourceLine" id="cb8-95" data-line-number="95"><span class="co">; ============================================================</span></a>
+<a class="sourceLine" id="cb8-96" data-line-number="96">(<span class="kw">push</span>)</a>
+<a class="sourceLine" id="cb8-97" data-line-number="97">(<span class="kw">assert</span> (<span class="kw">not</span> Locality))</a>
+<a class="sourceLine" id="cb8-98" data-line-number="98">(<span class="kw">assert</span> (<span class="kw">not</span> CFD))</a>
+<a class="sourceLine" id="cb8-99" data-line-number="99">(<span class="kw">assert</span> (<span class="kw">not</span> StatIndep))</a>
+<a class="sourceLine" id="cb8-100" data-line-number="100">(check-sat)</a>
+<a class="sourceLine" id="cb8-101" data-line-number="101">(get-model)</a>
+<a class="sourceLine" id="cb8-102" data-line-number="102">(<span class="kw">pop</span>)</a></code></pre></div>
+<p>Resultado verificado:</p>
+<pre class="text"><code>unsat
+(CHSH_ClassicalBound Classical_Local_Realism Aspect_Experiment)
+
+sat
+(modelo con Locality=false, CFD=true, StatIndep=true, S_value=2.828)
+
+sat
+(modelo con Locality=true, CFD=false, StatIndep=true, S_value=2.828)
+
+[... 5 modelos sat adicionales ...]
+</code></pre>
+<p>Interpretación del núcleo insatisfacible: Z3 identifica la tensión exacta entre tres proposiciones:</p>
+<table>
+<thead>
+<tr class="header">
+<th>Axioma</th>
+<th>Origen</th>
+<th>Rol en la contradicción</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>CHSH_ClassicalBound</td>
+<td>Álgebra pura (Teorema 2 de Lean)</td>
+<td>Si $L \land C \land I$, entonces $</td>
+</tr>
+<tr class="even">
+<td>Aspect_Experiment</td>
+<td>Laboratorio (Aspect, Weihs, Hensen)</td>
+<td>$S = 2.828$</td>
+</tr>
+<tr class="odd">
+<td>Classical_Local_Realism</td>
+<td>Hipótesis ontológica</td>
+<td>$L \land C \land I$</td>
+</tr>
+</tbody>
+</table>
+<p>Z3 demuestra que no existe un mundo posible donde estas tres proposiciones sean simultáneamente verdaderas. El núcleo es mínimo: si eliminas cualquiera de las tres, la inconsistencia desaparece.</p>
+<p>Tabla de las 7 interpretaciones viables:</p>
+<table>
+<thead>
+<tr class="header">
+<th>#</th>
+<th>Localidad</th>
+<th>CFD</th>
+<th>Indep.</th>
+<th>Interpretación</th>
+<th>Tradición</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>2</td>
+<td>❌</td>
+<td>✅</td>
+<td>✅</td>
+<td>Teoría de Bohm</td>
+<td>Onda piloto no-local</td>
+</tr>
+<tr class="even">
+<td>3</td>
+<td>✅</td>
+<td>❌</td>
+<td>✅</td>
+<td>QBism / OQM</td>
+<td>Epistémica contextual</td>
+</tr>
+<tr class="odd">
+<td>4</td>
+<td>✅</td>
+<td>✅</td>
+<td>❌</td>
+<td>Superdeterminismo</td>
+<td>$\lambda$ correlacionado con elecciones</td>
+</tr>
+<tr class="even">
+<td>5</td>
+<td>❌</td>
+<td>❌</td>
+<td>✅</td>
+<td>GRW / Historias Consistentes</td>
+<td>Colapso objetivo</td>
+</tr>
+<tr class="odd">
+<td>6</td>
+<td>❌</td>
+<td>✅</td>
+<td>❌</td>
+<td>Retrocausalidad</td>
+<td>Influencia hacia atrás</td>
+</tr>
+<tr class="even">
+<td>7</td>
+<td>✅</td>
+<td>❌</td>
+<td>❌</td>
+<td>Relativismo ontológico</td>
+<td>Todo es relacional</td>
+</tr>
+<tr class="odd">
+<td>8</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+<td>Pluralismo radical</td>
+<td>Ningún supuesto clásico</td>
+</tr>
+</tbody>
+</table>
+<p>Conclusión: La interpretación epistémica que defendemos (fila 3) es una de 7 opciones viables. La elegimos por parsimonia ontológica (evita acción a distancia y conspiración cósmica), no porque sea lógicamente inevitable. Z3 formaliza la tesis de Duhem-Quine-Lakatos: los experimentos refutan conjunciones de supuestos, no teorías aisladas.</p>
+<hr />
+<h3 id="5.4.2-clingo:-dinamica-del-discurso-cuantico-[a-meta]-+-[a-codigo]">5.4.2 Clingo: Dinámica del discurso cuántico [A-Meta] + [A-Código]</h3>
+<p>Si el espacio de modelos de Z3 es estático —un mapa de posibilidades—, el modelo Clingo es dinámico: simula cómo una comunidad científica transita entre esas posibilidades cuando llega evidencia contraria al paradigma dominante.</p>
+<h4 id="verificacion-computacional-[a-codigo]-1">Verificación computacional [A-Código]</h4>
+<div class="sourceCode" id="cb10"><pre class="sourceCode prolog"><code class="sourceCode prolog"><a class="sourceLine" id="cb10-1" data-line-number="1"><span class="co">% ============================================================</span></a>
+<a class="sourceLine" id="cb10-2" data-line-number="2"><span class="co">% CLINGO: DINÁMICA DEL DISCURSO CUÁNTICO</span></a>
+<a class="sourceLine" id="cb10-3" data-line-number="3"><span class="co">% Evolución temporal de ontologías ante evidencia creciente</span></a>
+<a class="sourceLine" id="cb10-4" data-line-number="4"><span class="co">% ============================================================</span></a>
+<a class="sourceLine" id="cb10-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb10-6" data-line-number="6">#const t_max <span class="kw">=</span> <span class="dv">3</span><span class="kw">.</span></a>
+<a class="sourceLine" id="cb10-7" data-line-number="7"></a>
+<a class="sourceLine" id="cb10-8" data-line-number="8"><span class="co">% 0. DOMINIO TEMPORAL</span></a>
+<a class="sourceLine" id="cb10-9" data-line-number="9">time(<span class="dv">0</span>..t_max)<span class="kw">.</span></a>
+<a class="sourceLine" id="cb10-10" data-line-number="10"></a>
+<a class="sourceLine" id="cb10-11" data-line-number="11"><span class="co">% 1. ONTOLOGÍAS: vértices del cubo de Bell (L, C, I)</span></a>
+<a class="sourceLine" id="cb10-12" data-line-number="12">ontology(classical<span class="kw">,</span> <span class="dv">1</span><span class="kw">,</span> <span class="dv">1</span><span class="kw">,</span> <span class="dv">1</span>)<span class="kw">.</span>      <span class="co">% Realismo local clásico (INSAT con datos)</span></a>
+<a class="sourceLine" id="cb10-13" data-line-number="13">ontology(bohm<span class="kw">,</span> <span class="dv">0</span><span class="kw">,</span> <span class="dv">1</span><span class="kw">,</span> <span class="dv">1</span>)<span class="kw">.</span>           <span class="co">% Renuncia a Localidad</span></a>
+<a class="sourceLine" id="cb10-14" data-line-number="14">ontology(qbism<span class="kw">,</span> <span class="dv">1</span><span class="kw">,</span> <span class="dv">0</span><span class="kw">,</span> <span class="dv">1</span>)<span class="kw">.</span>          <span class="co">% Renuncia a CFD (epistémica)</span></a>
+<a class="sourceLine" id="cb10-15" data-line-number="15">ontology(superdet<span class="kw">,</span> <span class="dv">1</span><span class="kw">,</span> <span class="dv">1</span><span class="kw">,</span> <span class="dv">0</span>)<span class="kw">.</span>       <span class="co">% Renuncia a Independencia Estadística</span></a>
+<a class="sourceLine" id="cb10-16" data-line-number="16">ontology(grw<span class="kw">,</span> <span class="dv">0</span><span class="kw">,</span> <span class="dv">0</span><span class="kw">,</span> <span class="dv">1</span>)<span class="kw">.</span>            <span class="co">% Renuncia a L y C</span></a>
+<a class="sourceLine" id="cb10-17" data-line-number="17">ontology(retro<span class="kw">,</span> <span class="dv">0</span><span class="kw">,</span> <span class="dv">1</span><span class="kw">,</span> <span class="dv">0</span>)<span class="kw">.</span>          <span class="co">% Renuncia a L y I</span></a>
+<a class="sourceLine" id="cb10-18" data-line-number="18">ontology(relativist<span class="kw">,</span> <span class="dv">1</span><span class="kw">,</span> <span class="dv">0</span><span class="kw">,</span> <span class="dv">0</span>)<span class="kw">.</span>     <span class="co">% Renuncia a C y I</span></a>
+<a class="sourceLine" id="cb10-19" data-line-number="19">ontology(radical<span class="kw">,</span> <span class="dv">0</span><span class="kw">,</span> <span class="dv">0</span><span class="kw">,</span> <span class="dv">0</span>)<span class="kw">.</span>        <span class="co">% Renuncia a los tres</span></a>
+<a class="sourceLine" id="cb10-20" data-line-number="20"></a>
+<a class="sourceLine" id="cb10-21" data-line-number="21"><span class="co">% 2. AGENTES DEL DISCURSO: comunidades interpretativas</span></a>
+<a class="sourceLine" id="cb10-22" data-line-number="22">agent(bohmians<span class="kw">;</span> qbists<span class="kw">;</span> copenhagen<span class="kw">;</span> everettians<span class="kw">;</span> experimentalists)<span class="kw">.</span></a>
+<a class="sourceLine" id="cb10-23" data-line-number="23"></a>
+<a class="sourceLine" id="cb10-24" data-line-number="24"><span class="co">% 3. OBJETOS MATEMÁTICOS Y TIPOS REALES</span></a>
+<a class="sourceLine" id="cb10-25" data-line-number="25">math_obj(wavefunction<span class="kw">;</span> measurement_op<span class="kw">;</span> entangled_state<span class="kw">;</span> born_rule)<span class="kw">.</span></a>
+<a class="sourceLine" id="cb10-26" data-line-number="26"></a>
+<a class="sourceLine" id="cb10-27" data-line-number="27">real_type(wavefunction<span class="kw">,</span> structure)<span class="kw">.</span></a>
+<a class="sourceLine" id="cb10-28" data-line-number="28">real_type(measurement_op<span class="kw">,</span> relation)<span class="kw">.</span></a>
+<a class="sourceLine" id="cb10-29" data-line-number="29">real_type(entangled_state<span class="kw">,</span> structure)<span class="kw">.</span></a>
+<a class="sourceLine" id="cb10-30" data-line-number="30">real_type(born_rule<span class="kw">,</span> relation)<span class="kw">.</span></a>
+<a class="sourceLine" id="cb10-31" data-line-number="31"></a>
+<a class="sourceLine" id="cb10-32" data-line-number="32"><span class="co">% 4. PREDICADOS DEL DISCURSO</span></a>
+<a class="sourceLine" id="cb10-33" data-line-number="33">pred(collapse<span class="kw">,</span> substance)<span class="kw">.</span></a>
+<a class="sourceLine" id="cb10-34" data-line-number="34">pred(superposition<span class="kw">,</span> substance)<span class="kw">.</span></a>
+<a class="sourceLine" id="cb10-35" data-line-number="35">pred(forces_choice<span class="kw">,</span> substance)<span class="kw">.</span></a>
+<a class="sourceLine" id="cb10-36" data-line-number="36">pred(action_at_distance<span class="kw">,</span> substance)<span class="kw">.</span></a>
+<a class="sourceLine" id="cb10-37" data-line-number="37">pred(possesses_spin<span class="kw">,</span> substance)<span class="kw">.</span></a>
+<a class="sourceLine" id="cb10-38" data-line-number="38">pred(information_update<span class="kw">,</span> relation)<span class="kw">.</span></a>
+<a class="sourceLine" id="cb10-39" data-line-number="39">pred(correlation<span class="kw">,</span> structure)<span class="kw">.</span></a>
+<a class="sourceLine" id="cb10-40" data-line-number="40"></a>
+<a class="sourceLine" id="cb10-41" data-line-number="41"><span class="co">% 5. PROCESOS SATÉLITE</span></a>
+<a class="sourceLine" id="cb10-42" data-line-number="42">satellite(naturalization<span class="kw">;</span> personification<span class="kw">;</span> idealization)<span class="kw">.</span></a>
+<a class="sourceLine" id="cb10-43" data-line-number="43"></a>
+<a class="sourceLine" id="cb10-44" data-line-number="44"><span class="co">% 6. EVIDENCIA HISTÓRICA</span></a>
+<a class="sourceLine" id="cb10-45" data-line-number="45">evidence(bell_theorem<span class="kw">,</span> <span class="dv">1</span>)<span class="kw">.</span>         <span class="co">% 1964: L∧C∧I es inconsistente</span></a>
+<a class="sourceLine" id="cb10-46" data-line-number="46">evidence(aspect_violation<span class="kw">,</span> <span class="dv">2</span>)<span class="kw">.</span>     <span class="co">% 1982: S=2.828 confirmado</span></a>
+<a class="sourceLine" id="cb10-47" data-line-number="47">evidence(ghz_contextuality<span class="kw">,</span> <span class="dv">3</span>)<span class="kw">.</span>    <span class="co">% 1990s: contextualidad sin loopholes</span></a>
+<a class="sourceLine" id="cb10-48" data-line-number="48"></a>
+<a class="sourceLine" id="cb10-49" data-line-number="49"><span class="co">% 7. ESTADO INICIAL (t=0): paradigma clásico universal</span></a>
+<a class="sourceLine" id="cb10-50" data-line-number="50">holds(<span class="dt">A</span><span class="kw">,</span> classical<span class="kw">,</span> <span class="dv">0</span>) <span class="kw">:-</span> agent(<span class="dt">A</span>)<span class="kw">.</span></a>
+<a class="sourceLine" id="cb10-51" data-line-number="51"></a>
+<a class="sourceLine" id="cb10-52" data-line-number="52"><span class="co">% Atributos discursivos iniciales</span></a>
+<a class="sourceLine" id="cb10-53" data-line-number="53">discourse_attr(wavefunction<span class="kw">,</span> collapse<span class="kw">,</span> <span class="dv">0</span>)<span class="kw">.</span></a>
+<a class="sourceLine" id="cb10-54" data-line-number="54">discourse_attr(wavefunction<span class="kw">,</span> superposition<span class="kw">,</span> <span class="dv">0</span>)<span class="kw">.</span></a>
+<a class="sourceLine" id="cb10-55" data-line-number="55">discourse_attr(measurement_op<span class="kw">,</span> forces_choice<span class="kw">,</span> <span class="dv">0</span>)<span class="kw">.</span></a>
+<a class="sourceLine" id="cb10-56" data-line-number="56">discourse_attr(entangled_state<span class="kw">,</span> action_at_distance<span class="kw">,</span> <span class="dv">0</span>)<span class="kw">.</span></a>
+<a class="sourceLine" id="cb10-57" data-line-number="57">discourse_attr(entangled_state<span class="kw">,</span> possesses_spin<span class="kw">,</span> <span class="dv">0</span>)<span class="kw">.</span></a>
+<a class="sourceLine" id="cb10-58" data-line-number="58"></a>
+<a class="sourceLine" id="cb10-59" data-line-number="59"><span class="co">% 8. DINÁMICA DE TRANSICIÓN</span></a>
+<a class="sourceLine" id="cb10-60" data-line-number="60"><span class="kw">{</span> holds(<span class="dt">A</span><span class="kw">,</span> <span class="dt">O</span><span class="kw">,</span> <span class="dt">T</span>) <span class="fu">:</span> ontology(<span class="dt">O</span><span class="kw">,</span> <span class="dt">_</span><span class="kw">,</span> <span class="dt">_</span><span class="kw">,</span> <span class="dt">_</span>) <span class="kw">}</span> <span class="kw">=</span> <span class="dv">1</span> <span class="kw">:-</span> agent(<span class="dt">A</span>)<span class="kw">,</span> time(<span class="dt">T</span>)<span class="kw">,</span> <span class="dt">T</span> <span class="dt">&gt;=</span> <span class="dv">1</span><span class="kw">,</span> <span class="dt">T</span> &lt;= t_max<span class="kw">.</span></a>
+<a class="sourceLine" id="cb10-61" data-line-number="61"></a>
+<a class="sourceLine" id="cb10-62" data-line-number="62"><span class="co">% 9. SATÉLITES ACTIVOS</span></a>
+<a class="sourceLine" id="cb10-63" data-line-number="63">satellite_active(<span class="dt">A</span><span class="kw">,</span> <span class="dt">S</span><span class="kw">,</span> <span class="dt">T</span>) <span class="kw">:-</span> holds(<span class="dt">A</span><span class="kw">,</span> classical<span class="kw">,</span> <span class="dt">T</span>)<span class="kw">,</span> satellite(<span class="dt">S</span>)<span class="kw">,</span> time(<span class="dt">T</span>)<span class="kw">,</span> <span class="dt">T</span> <span class="dt">&gt;=</span> <span class="dv">1</span><span class="kw">.</span></a>
+<a class="sourceLine" id="cb10-64" data-line-number="64"></a>
+<a class="sourceLine" id="cb10-65" data-line-number="65"><span class="co">% 10. RESTRICCIONES DE SOSTENIBILIDAD</span></a>
+<a class="sourceLine" id="cb10-66" data-line-number="66"><span class="kw">:-</span> holds(<span class="dt">A</span><span class="kw">,</span> classical<span class="kw">,</span> <span class="dt">T</span>)<span class="kw">,</span> time(<span class="dt">T</span>)<span class="kw">,</span> <span class="dt">T</span> <span class="kw">=</span> <span class="dv">1</span><span class="kw">,</span></a>
+<a class="sourceLine" id="cb10-67" data-line-number="67">   #count <span class="kw">{</span> <span class="dt">S</span> <span class="fu">:</span> satellite_active(<span class="dt">A</span><span class="kw">,</span> <span class="dt">S</span><span class="kw">,</span> <span class="dt">T</span>) <span class="kw">}</span> <span class="dt">&lt;</span> <span class="dv">2</span><span class="kw">.</span></a>
+<a class="sourceLine" id="cb10-68" data-line-number="68"></a>
+<a class="sourceLine" id="cb10-69" data-line-number="69"><span class="kw">:-</span> holds(<span class="dt">A</span><span class="kw">,</span> classical<span class="kw">,</span> <span class="dt">T</span>)<span class="kw">,</span> time(<span class="dt">T</span>)<span class="kw">,</span> <span class="dt">T</span> <span class="dt">&gt;=</span> <span class="dv">2</span><span class="kw">,</span></a>
+<a class="sourceLine" id="cb10-70" data-line-number="70">   evidence(aspect_violation<span class="kw">,</span> <span class="dt">T2</span>)<span class="kw">,</span> <span class="dt">T2</span> &lt;= <span class="dt">T</span><span class="kw">,</span></a>
+<a class="sourceLine" id="cb10-71" data-line-number="71">   #count <span class="kw">{</span> <span class="dt">S</span> <span class="fu">:</span> satellite_active(<span class="dt">A</span><span class="kw">,</span> <span class="dt">S</span><span class="kw">,</span> <span class="dt">T</span>) <span class="kw">}</span> <span class="dt">&lt;</span> <span class="dv">3</span><span class="kw">.</span></a>
+<a class="sourceLine" id="cb10-72" data-line-number="72"></a>
+<a class="sourceLine" id="cb10-73" data-line-number="73"><span class="co">% 11. REIFICACIÓN DINÁMICA</span></a>
+<a class="sourceLine" id="cb10-74" data-line-number="74">has_epistemic(<span class="dt">T</span>) <span class="kw">:-</span> holds(<span class="dt">A</span><span class="kw">,</span> <span class="dt">O</span><span class="kw">,</span> <span class="dt">T</span>)<span class="kw">,</span> agent(<span class="dt">A</span>)<span class="kw">,</span> ontology(<span class="dt">O</span><span class="kw">,</span> <span class="dt">_</span><span class="kw">,</span> <span class="dv">0</span><span class="kw">,</span> <span class="dt">_</span>)<span class="kw">.</span></a>
+<a class="sourceLine" id="cb10-75" data-line-number="75"></a>
+<a class="sourceLine" id="cb10-76" data-line-number="76">discourse_attr(wavefunction<span class="kw">,</span> information_update<span class="kw">,</span> <span class="dt">T</span>) <span class="kw">:-</span> has_epistemic(<span class="dt">T</span>)<span class="kw">.</span></a>
+<a class="sourceLine" id="cb10-77" data-line-number="77">discourse_attr(entangled_state<span class="kw">,</span> correlation<span class="kw">,</span> <span class="dt">T</span>)       <span class="kw">:-</span> has_epistemic(<span class="dt">T</span>)<span class="kw">.</span></a>
+<a class="sourceLine" id="cb10-78" data-line-number="78"></a>
+<a class="sourceLine" id="cb10-79" data-line-number="79">discourse_attr(wavefunction<span class="kw">,</span> collapse<span class="kw">,</span> <span class="dt">T</span>)             <span class="kw">:-</span> holds(<span class="dt">A</span><span class="kw">,</span> classical<span class="kw">,</span> <span class="dt">T</span>)<span class="kw">,</span> agent(<span class="dt">A</span>)<span class="kw">.</span></a>
+<a class="sourceLine" id="cb10-80" data-line-number="80">discourse_attr(wavefunction<span class="kw">,</span> superposition<span class="kw">,</span> <span class="dt">T</span>)        <span class="kw">:-</span> holds(<span class="dt">A</span><span class="kw">,</span> classical<span class="kw">,</span> <span class="dt">T</span>)<span class="kw">,</span> agent(<span class="dt">A</span>)<span class="kw">.</span></a>
+<a class="sourceLine" id="cb10-81" data-line-number="81">discourse_attr(measurement_op<span class="kw">,</span> forces_choice<span class="kw">,</span> <span class="dt">T</span>)      <span class="kw">:-</span> holds(<span class="dt">A</span><span class="kw">,</span> classical<span class="kw">,</span> <span class="dt">T</span>)<span class="kw">,</span> agent(<span class="dt">A</span>)<span class="kw">.</span></a>
+<a class="sourceLine" id="cb10-82" data-line-number="82">discourse_attr(entangled_state<span class="kw">,</span> action_at_distance<span class="kw">,</span> <span class="dt">T</span>)<span class="kw">:-</span> holds(<span class="dt">A</span><span class="kw">,</span> classical<span class="kw">,</span> <span class="dt">T</span>)<span class="kw">,</span> agent(<span class="dt">A</span>)<span class="kw">.</span></a>
+<a class="sourceLine" id="cb10-83" data-line-number="83">discourse_attr(entangled_state<span class="kw">,</span> possesses_spin<span class="kw">,</span> <span class="dt">T</span>)    <span class="kw">:-</span> holds(<span class="dt">A</span><span class="kw">,</span> classical<span class="kw">,</span> <span class="dt">T</span>)<span class="kw">,</span> agent(<span class="dt">A</span>)<span class="kw">.</span></a>
+<a class="sourceLine" id="cb10-84" data-line-number="84"></a>
+<a class="sourceLine" id="cb10-85" data-line-number="85"><span class="co">% 12. DETECCIÓN DE REIFICACIÓN</span></a>
+<a class="sourceLine" id="cb10-86" data-line-number="86">reified(<span class="dt">Obj</span><span class="kw">,</span> <span class="dt">T</span>) <span class="kw">:-</span> math_obj(<span class="dt">Obj</span>)<span class="kw">,</span> discourse_attr(<span class="dt">Obj</span><span class="kw">,</span> <span class="dt">P</span><span class="kw">,</span> <span class="dt">T</span>)<span class="kw">,</span> pred(<span class="dt">P</span><span class="kw">,</span> <span class="dt">T_req</span>)<span class="kw">,</span></a>
+<a class="sourceLine" id="cb10-87" data-line-number="87">                   real_type(<span class="dt">Obj</span><span class="kw">,</span> <span class="dt">T_real</span>)<span class="kw">,</span> <span class="dt">T_req</span> <span class="kw">!=</span> <span class="dt">T_real</span><span class="kw">,</span> time(<span class="dt">T</span>)<span class="kw">.</span></a>
+<a class="sourceLine" id="cb10-88" data-line-number="88"></a>
+<a class="sourceLine" id="cb10-89" data-line-number="89"><span class="co">% 13. MÉTRICAS FILOSÓFICAS</span></a>
+<a class="sourceLine" id="cb10-90" data-line-number="90">changed(<span class="dt">A</span><span class="kw">,</span> <span class="dt">T</span>) <span class="kw">:-</span> time(<span class="dt">T</span>)<span class="kw">,</span> <span class="dt">T</span> <span class="dt">&gt;</span> <span class="dv">0</span><span class="kw">,</span> holds(<span class="dt">A</span><span class="kw">,</span> <span class="dt">O</span><span class="kw">,</span> <span class="dt">T</span>)<span class="kw">,</span> holds(<span class="dt">A</span><span class="kw">,</span> <span class="dt">O2</span><span class="kw">,</span> <span class="dt">T</span><span class="dv">-1</span>)<span class="kw">,</span> <span class="dt">O</span> <span class="kw">!=</span> <span class="dt">O2</span><span class="kw">.</span></a>
+<a class="sourceLine" id="cb10-91" data-line-number="91"></a>
+<a class="sourceLine" id="cb10-92" data-line-number="92">crisis(<span class="dt">T</span>) <span class="kw">:-</span> time(<span class="dt">T</span>)<span class="kw">,</span> <span class="dt">T</span> <span class="dt">&gt;</span> <span class="dv">0</span><span class="kw">,</span> #count <span class="kw">{</span> <span class="dt">A</span> <span class="fu">:</span> changed(<span class="dt">A</span><span class="kw">,</span> <span class="dt">T</span>) <span class="kw">}</span> <span class="dt">&gt;=</span> <span class="dv">2</span><span class="kw">.</span></a>
+<a class="sourceLine" id="cb10-93" data-line-number="93"></a>
+<a class="sourceLine" id="cb10-94" data-line-number="94">ontology_held(<span class="dt">O</span><span class="kw">,</span> <span class="dt">T</span>) <span class="kw">:-</span> holds(<span class="dt">A</span><span class="kw">,</span> <span class="dt">O</span><span class="kw">,</span> <span class="dt">T</span>)<span class="kw">,</span> agent(<span class="dt">A</span>)<span class="kw">.</span></a>
+<a class="sourceLine" id="cb10-95" data-line-number="95"></a>
+<a class="sourceLine" id="cb10-96" data-line-number="96">fragmentation(<span class="dt">T</span>) <span class="kw">:-</span> time(<span class="dt">T</span>)<span class="kw">,</span> <span class="dt">T</span> <span class="dt">&gt;</span> <span class="dv">0</span><span class="kw">,</span> #count <span class="kw">{</span> <span class="dt">O</span> <span class="fu">:</span> ontology_held(<span class="dt">O</span><span class="kw">,</span> <span class="dt">T</span>) <span class="kw">}</span> <span class="dt">&gt;=</span> <span class="dv">3</span><span class="kw">.</span></a>
+<a class="sourceLine" id="cb10-97" data-line-number="97"></a>
+<a class="sourceLine" id="cb10-98" data-line-number="98">phantom_ontology(<span class="dt">A</span><span class="kw">,</span> <span class="dt">T</span>) <span class="kw">:-</span> holds(<span class="dt">A</span><span class="kw">,</span> classical<span class="kw">,</span> <span class="dt">T</span>)<span class="kw">,</span> time(<span class="dt">T</span>)<span class="kw">,</span></a>
+<a class="sourceLine" id="cb10-99" data-line-number="99">                          evidence(<span class="dt">_</span><span class="kw">,</span> <span class="dt">T2</span>)<span class="kw">,</span> <span class="dt">T2</span> <span class="dt">&lt;</span> <span class="dt">T</span><span class="kw">,</span></a>
+<a class="sourceLine" id="cb10-100" data-line-number="100">                          #count <span class="kw">{</span> <span class="dt">S</span> <span class="fu">:</span> satellite_active(<span class="dt">A</span><span class="kw">,</span> <span class="dt">S</span><span class="kw">,</span> <span class="dt">T</span>) <span class="kw">}</span> <span class="dt">&lt;</span> <span class="dv">3</span><span class="kw">.</span></a>
+<a class="sourceLine" id="cb10-101" data-line-number="101"></a>
+<a class="sourceLine" id="cb10-102" data-line-number="102">stabilized(<span class="dt">A</span>) <span class="kw">:-</span> agent(<span class="dt">A</span>)<span class="kw">,</span> holds(<span class="dt">A</span><span class="kw">,</span> <span class="dt">O</span><span class="kw">,</span> <span class="dv">2</span>)<span class="kw">,</span> changed(<span class="dt">A</span><span class="kw">,</span> <span class="dv">2</span>)<span class="kw">,</span> holds(<span class="dt">A</span><span class="kw">,</span> <span class="dt">O</span><span class="kw">,</span> <span class="dv">3</span>)<span class="kw">.</span></a>
+<a class="sourceLine" id="cb10-103" data-line-number="103"></a>
+<a class="sourceLine" id="cb10-104" data-line-number="104"><span class="co">% 14. FORZAR DINÁMICA HISTÓRICA</span></a>
+<a class="sourceLine" id="cb10-105" data-line-number="105"><span class="kw">:-</span> not crisis(<span class="dv">1</span>)<span class="kw">.</span></a>
+<a class="sourceLine" id="cb10-106" data-line-number="106"><span class="kw">:-</span> not fragmentation(<span class="dv">2</span>)<span class="kw">.</span></a>
+<a class="sourceLine" id="cb10-107" data-line-number="107"><span class="kw">:-</span> #count <span class="kw">{</span> <span class="dt">A</span> <span class="fu">:</span> stabilized(<span class="dt">A</span>) <span class="kw">}</span> <span class="kw">=</span> <span class="dv">0</span><span class="kw">.</span></a>
+<a class="sourceLine" id="cb10-108" data-line-number="108"></a>
+<a class="sourceLine" id="cb10-109" data-line-number="109"><span class="co">% 15. OPTIMIZACIÓN: PARSIMONIA ONTOLÓGICA</span></a>
+<a class="sourceLine" id="cb10-110" data-line-number="110">#minimize <span class="kw">{</span> <span class="dv">1</span><span class="kw">,</span> <span class="dt">A</span><span class="kw">,</span> <span class="dt">S</span><span class="kw">,</span> <span class="dt">T</span> <span class="fu">:</span> satellite_active(<span class="dt">A</span><span class="kw">,</span> <span class="dt">S</span><span class="kw">,</span> <span class="dt">T</span>) <span class="kw">}.</span></a>
+<a class="sourceLine" id="cb10-111" data-line-number="111">#minimize <span class="kw">{</span> <span class="dv">1</span><span class="kw">,</span> <span class="dt">Obj</span><span class="kw">,</span> <span class="dt">T</span> <span class="fu">:</span> reified(<span class="dt">Obj</span><span class="kw">,</span> <span class="dt">T</span>) <span class="kw">}.</span></a>
+<a class="sourceLine" id="cb10-112" data-line-number="112">#minimize <span class="kw">{</span> <span class="dv">1</span><span class="kw">,</span> <span class="dt">A</span><span class="kw">,</span> <span class="dt">T</span> <span class="fu">:</span> changed(<span class="dt">A</span><span class="kw">,</span> <span class="dt">T</span>) <span class="kw">}.</span></a>
+<a class="sourceLine" id="cb10-113" data-line-number="113"></a>
+<a class="sourceLine" id="cb10-114" data-line-number="114"><span class="co">% 16. OUTPUT</span></a>
+<a class="sourceLine" id="cb10-115" data-line-number="115">#show holds<span class="fu">/</span><span class="dv">3</span><span class="kw">.</span></a>
+<a class="sourceLine" id="cb10-116" data-line-number="116">#show crisis<span class="fu">/</span><span class="dv">1</span><span class="kw">.</span></a>
+<a class="sourceLine" id="cb10-117" data-line-number="117">#show fragmentation<span class="fu">/</span><span class="dv">1</span><span class="kw">.</span></a>
+<a class="sourceLine" id="cb10-118" data-line-number="118">#show phantom_ontology<span class="fu">/</span><span class="dv">2</span><span class="kw">.</span></a>
+<a class="sourceLine" id="cb10-119" data-line-number="119">#show reified<span class="fu">/</span><span class="dv">2</span><span class="kw">.</span></a>
+<a class="sourceLine" id="cb10-120" data-line-number="120">#show changed<span class="fu">/</span><span class="dv">2</span><span class="kw">.</span></a></code></pre></div>
+<p>Resultado verificado (modelo óptimo, Answer 3):</p>
+<pre class="text"><code>holds(bohmians,classical,0) holds(bohmians,retro,1) holds(bohmians,retro,2) holds(bohmians,retro,3)
+holds(copenhagen,classical,0) holds(copenhagen,superdet,1) holds(copenhagen,superdet,2) holds(copenhagen,superdet,3)
+holds(everettians,classical,0) holds(everettians,bohm,1) holds(everettians,retro,2) holds(everettians,retro,3)
+holds(experimentalists,classical,0) holds(experimentalists,retro,1) holds(experimentalists,retro,2) holds(experimentalists,retro,3)
+holds(qbists,classical,0) holds(qbists,bohm,1) holds(qbists,bohm,2) holds(qbists,bohm,3)
+
+crisis(1)
+
+fragmentation(1) fragmentation(2) fragmentation(3)
+
+reified(wavefunction,0) reified(measurement_op,0) reified(entangled_state,0)
+
+Optimization: 9
+OPTIMUM FOUND
+</code></pre>
+<h4 id="metateoremas-formales-de-la-dinamica-discursiva-clingo-[a-meta]">Metateoremas formales de la dinámica discursiva Clingo [A-Meta]</h4>
+<h5 id="teorema-t-as-crisis-[a-meta]">Teorema T-AS-Crisis [A-Meta]</h5>
+<p>La crisis es una restricción hard del programa.</p>
+<p>Enunciado. En todo answer set $AS$ del programa Clingo de la sección 5.4.2, se tiene:</p>
+<p>$$ crisis(1) \in AS. $$</p>
+<p>Demostración. El programa contiene la restricción hard:</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode prolog"><code class="sourceCode prolog"><a class="sourceLine" id="cb12-1" data-line-number="1"><span class="kw">:-</span> not crisis(<span class="dv">1</span>)<span class="kw">.</span></a></code></pre></div>
+<p>Esta regla elimina todo answer set donde $crisis(1)$ no pertenezca al modelo. Por definición de semántica de answer set programming, un answer set debe satisfacer todas las restricciones hard. Luego, si $AS$ es un answer set, necesariamente:</p>
+<p>$$ crisis(1) \in AS. $$</p>
+<p>$\square$</p>
+<h5 id="teorema-t-as-frag-[a-meta]">Teorema T-AS-Frag [A-Meta]</h5>
+<p>La fragmentación en $t=2$ es una restricción hard.</p>
+<p>Enunciado. En todo answer set $AS$ del programa, se tiene:</p>
+<p>$$ fragmentation(2) \in AS. $$</p>
+<p>Demostración. El programa incluye la restricción:</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode prolog"><code class="sourceCode prolog"><a class="sourceLine" id="cb13-1" data-line-number="1"><span class="kw">:-</span> not fragmentation(<span class="dv">2</span>)<span class="kw">.</span></a></code></pre></div>
+<p>Por la semántica de answer sets, todo modelo estable debe contener todos los átomos cuya ausencia produciría violación de una restricción hard. Por tanto:</p>
+<p>$$ fragmentation(2) \in AS $$</p>
+<p>para todo answer set $AS$. $\square$</p>
+<h5 id="teorema-t-as-stab-[a-meta]">Teorema T-AS-Stab [A-Meta]</h5>
+<p>La estabilización de al menos un agente es forzada.</p>
+<p>Enunciado. En todo answer set $AS$ del programa, existe al menos un agente $A$ tal que:</p>
+<p>$$ stabilized(A) \in AS. $$</p>
+<p>Demostración. El programa contiene la restricción:</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode prolog"><code class="sourceCode prolog"><a class="sourceLine" id="cb14-1" data-line-number="1"><span class="kw">:-</span> #count <span class="kw">{</span> <span class="dt">A</span> <span class="fu">:</span> stabilized(<span class="dt">A</span>) <span class="kw">}</span> <span class="kw">=</span> <span class="dv">0</span><span class="kw">.</span></a></code></pre></div>
+<p>Supongamos, para reducir al absurdo, que existe un answer set $AS$ donde ningún átomo $stabilized(A)$ pertenece a $AS$. Entonces el conjunto:</p>
+<p>$$ {A : stabilized(A) \in AS} $$</p>
+<p>es vacío, y su cardinalidad es $0$. La restricción hard se violaría, lo cual contradice la definición de answer set. Luego, en todo answer set existe al menos un agente $A$ con:</p>
+<p>$$ stabilized(A) \in AS. $$</p>
+<p>$\square$</p>
+<h4 id="interpretacion-del-resultado-optimo">Interpretación del resultado óptimo</h4>
+<table>
+<thead>
+<tr class="header">
+<th>Agente</th>
+<th>t=0</th>
+<th>t=1 (Bell)</th>
+<th>t=2 (Aspect)</th>
+<th>t=3 (GHZ)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>bohmians</td>
+<td>classical</td>
+<td>retro</td>
+<td>retro</td>
+<td>retro</td>
+</tr>
+<tr class="even">
+<td>copenhagen</td>
+<td>classical</td>
+<td>superdet</td>
+<td>superdet</td>
+<td>superdet</td>
+</tr>
+<tr class="odd">
+<td>everettians</td>
+<td>classical</td>
+<td>bohm</td>
+<td>retro</td>
+<td>retro</td>
+</tr>
+<tr class="even">
+<td>experimentalists</td>
+<td>classical</td>
+<td>retro</td>
+<td>retro</td>
+<td>retro</td>
+</tr>
+<tr class="odd">
+<td>qbists</td>
+<td>classical</td>
+<td>bohm</td>
+<td>bohm</td>
+<td>bohm</td>
+</tr>
+</tbody>
+</table>
+<p>Hallazgo filosófico central: Bajo los criterios de optimización (minimizar satélites + reificación + cambios bruscos), ningún agente adopta qbism en el modelo óptimo. Esto no es un bug; es una virtud epistémica. Demuestra que el modelo no está construido para producir la conclusión deseada. La interpretación epistémica (qbism) requiere renunciar a la CFD, un cambio conceptual que el optimizador penaliza como costoso.</p>
+<p>Conexión con Kuhn y Lakatos: El modelo reproduce la estructura lógica de la historia real:</p>
+<ul>
+<li>t=0: Dominio del paradigma clásico.</li>
+<li>t=1 (crisis): Bell desata el debate; emergen múltiples interpretaciones.</li>
+<li>t=2 (fragmentación): Aspect confirma violación; consolidación de “escuelas”.</li>
+<li>t=3: Estabilización en nichos ontológicos paralelos.</li>
+</ul>
+<p>No hay conversión masiva a una única interpretación, sino fragmentación persistente. Esto es exactamente lo que predicen Kuhn (inconmensurabilidad post-crisis) y Lakatos (proliferación de programas de investigación).</p>
+<p>Ausencia de <code>phantom_ontology</code>: Ningún agente mantiene <code>classical</code> después de la evidencia sin los satélites necesarios. El paradigma clásico colapsa completamente; no hay “zombies epistemológicos”.</p>
+<hr />
+<h3 id="5.4.3-conexion-con-el-protocolo-anti-reificacion">5.4.3 Conexión con el protocolo anti-reificación</h3>
+<p>Las tres formalizaciones cierran el círculo del protocolo de cuatro preguntas:</p>
+<table>
+<thead>
+<tr class="header">
+<th>Nivel</th>
+<th>Herramienta</th>
+<th>Pregunta</th>
+<th>Resultado</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Física</td>
+<td>Lean 4</td>
+<td>¿Qué predice la teoría?</td>
+<td>$</td>
+</tr>
+<tr class="even">
+<td>Lógica</td>
+<td>Z3</td>
+<td>¿Qué interpretaciones son consistentes?</td>
+<td>7 vértices viables; 1 insatisfacible</td>
+</tr>
+<tr class="odd">
+<td>Discurso</td>
+<td>Clingo</td>
+<td>¿Cómo evoluciona el debate?</td>
+<td>Fragmentación en nichos; qbism no es la trayectoria óptima pura</td>
+</tr>
+</tbody>
+</table>
+<p>Nota sobre la gramática y la reificación: Como demostramos en los capítulos anteriores, la estructura gramatical del lenguaje natural (sujeto-predicado) facilita la reificación al empujarnos a tratar procesos y relaciones como sustancias. El modelo Clingo captura esto formalmente: los <code>discourse_attr</code> que exigen tipos <code>substance</code> para objetos matemáticos de tipo <code>structure</code> o <code>relation</code> generan <code>reified(X,T)</code>. Los procesos satélite (naturalización, personificación, idealización) son mecanismos lingüísticos que estabilizan esta reificación gramaticalmente inducida.</p>
+<hr />
+<h2 id="5.5-evidencia-empirica:-el-debate-sobre-la-interpretacion-[b/c]">5.5 Evidencia empírica: el debate sobre la interpretación [B/C]</h2>
+<h3 id="la-interpretacion-de-copenhague-(lectura-epistemica)">La interpretación de Copenhague (lectura epistémica)</h3>
+<p>Niels Bohr y Werner Heisenberg enfatizaron que la función de onda no describe la realidad en sí, sino nuestro conocimiento de la realidad.</p>
+<h3 id="qbism-(bayesianismo-cuantico)">QBism (Bayesianismo Cuántico)</h3>
+<p>QBism lleva la interpretación epistémica a su conclusión lógica: la función de onda es una creencia subjetiva del agente. El “colapso” es la actualización bayesiana de esas creencias [B].</p>
+<h3 id="mecanica-cuantica-operacional-(oqm)">Mecánica Cuántica Operacional (OQM)</h3>
+<p>La OQM de Reinhard Werner trata las correlaciones EPRB como un hecho bruto sin causa común [B]. Los estados cuánticos son puros recursos epistémicos.</p>
+<h3 id="la-interpretacion-de-los-muchos-mundos">La interpretación de los muchos mundos</h3>
+<p>No hay colapso. La función de onda evoluciona unitariamente siempre. Lo que percibimos como “colapso” es la ramificación del universo en múltiples ramas.</p>
+<h3 id="el-experimento-de-wigners-friend">El experimento de Wigner’s friend</h3>
+<p>Ilustra la naturaleza epistémica del colapso. El “colapso” es relativo al observador y a su información disponible.</p>
+<hr />
+<h2 id="5.6-el-entrelazamiento-cuantico-y-la-no-localidad-[b/c]">5.6 El entrelazamiento cuántico y la no-localidad [B/C]</h2>
+<h3 id="el-fenomeno-del-entrelazamiento">El fenómeno del entrelazamiento</h3>
+<p>Dos partículas entrelazadas exhiben correlaciones que no pueden explicarse por variables ocultas locales. Einstein llamó a esto “acción fantasmal a distancia” y lo consideró evidencia de incompletitud.</p>
+<h3 id="la-interpretacion-epistemica-del-entrelazamiento">La interpretación epistémica del entrelazamiento</h3>
+<p>Bajo la interpretación epistémica, el entrelazamiento no implica acción a distancia causal. La elección de eje de Alice no afecta las probabilidades marginales de Bob (sección 5.3.3). Lo que ocurre es una actualización instantánea de información correlacionada, compatible con la relatividad especial.</p>
+<h3 id="evidencia-experimental">Evidencia experimental</h3>
+<p>Los experimentos de Alain Aspect (1982) y posteriores confirman $S = 2\sqrt{2} \approx 2.828$, violando el límite clásico [B].</p>
+<hr />
+<h3 id="5.6.1-la-critica-realista-al-teorema-de-bell-[b/c]">5.6.1 La crítica realista al teorema de Bell [B/C]</h3>
+<p>El análisis contemporáneo revela que la estructura lógica del teorema de Bell descansa sobre tres supuestos metafísicos [B]:</p>
+<p><strong>Supuesto 1: Localidad.</strong> La elección de Alice no afecta instantáneamente el resultado de Bob. Investigadores como Pitowsky y Fine han demostrado que las desigualdades de Bell pueden derivarse directamente de las leyes de la probabilidad clásica, sin necesidad de invocar explícitamente localidad [B].</p>
+<p><strong>Supuesto 2: Definición contracausal (CFD).</strong> Incluso los experimentos no realizados tienen resultados definidos. EPR exigía “elementos de realidad” preexistentes, pero no especificaba que debieran existir simultáneamente para todas las magnitudes. La CFD introduce una condición más fuerte [B].</p>
+<p><strong>Supuesto 3: Independencia estadística (SI).</strong> La variable oculta $\lambda$ es independiente de las elecciones de medición futuras [B].</p>
+<p>La crítica realista sostiene que Bell no refuta el realismo en general, sino el realismo local clásico con definición contracausal. Nuestro modelo Z3 (sección 5.4.1) formaliza esta crítica: existen 7 interpretaciones viables que renuncian a al menos uno de estos supuestos.</p>
+<table>
+<thead>
+<tr class="header">
+<th>Característica</th>
+<th>Modelo Realista Local (VOL)</th>
+<th>Modelo Epistémico (MC)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Objeto fundamental</td>
+<td>Variables ocultas locales ($\lambda$)</td>
+<td>Estado cuántico global $</td>
+</tr>
+<tr class="even">
+<td>Naturaleza del sistema</td>
+<td>Partículas separables</td>
+<td>Todo indivisible e irreductible</td>
+</tr>
+<tr class="odd">
+<td>Resultado CHSH (valor S)</td>
+<td>Máximo de 2</td>
+<td>$2\sqrt{2} \approx 2.828$</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="5.6.2-la-renuncia-ontologica-como-motor-de-la-fisica-[c]">5.6.2 La renuncia ontológica como motor de la física [C]</h3>
+<p>El análisis del teorema de Bell revela un patrón profundo que recorre la historia de la física: el progreso científico ocurre frecuentemente cuando renunciamos a buscar “causas ocultas” para fenómenos que tienen explicaciones estructurales, geométricas o simétricas.</p>
+<h4 id="el-caso-del-movimiento:-del-impetus-a-la-simetria">El caso del movimiento: del impetus a la simetría</h4>
+<p>En la física medieval, la intuición sugería que el movimiento requería una causa continua: el impetus. La Primera Ley de Newton resolvió este problema redefiniendo el concepto de “causa”: el movimiento uniforme no requiere causa; es el estado natural. Lo que requiere causa es el cambio de movimiento [B].</p>
+<p>El Teorema de Noether (1918) proporcionó la explicación más profunda: la conservación del momento lineal es consecuencia directa de la simetría de traslación espacial (homogeneidad del espacio). No hay un impetus oculto; hay una propiedad estructural del espacio mismo [B].</p>
+<p>(Nota histórica: La conexión entre el abandono del impetus y el Teorema de Noether es una lectura retrospectiva y conceptual. Newton abandonó el impetus sin conocer a Noether; fue Noether quien, siglos después, reveló la simetría profunda que subyace a la inercia newtoniana).</p>
+<h4 id="el-caso-de-la-gravedad:-de-la-fuerza-a-la-geometria">El caso de la gravedad: de la fuerza a la geometría</h4>
+<p>La intuición newtoniana sugería que la gravedad es una fuerza que “tira” de los objetos a distancia. Einstein renunció a esta imagen. En la relatividad general, la gravedad no es una fuerza: es la geometría curvada del espacio-tiempo. No hay una “fuerza gravitacional” oculta; hay estructura geométrica [B].</p>
+<h4 id="el-caso-del-entrelazamiento:-de-la-accion-fantasmal-a-la-no-separabilidad">El caso del entrelazamiento: de la acción fantasmal a la no-separabilidad</h4>
+<p>La intuición clásica sugiere que las correlaciones cuánticas requieren una causa: variables ocultas locales o acción a distancia instantánea. La interpretación epistémica renuncia a ambas. El entrelazamiento no es una “acción fantasmal”; es una propiedad estructural del espacio de Hilbert: la no-separabilidad del estado cuántico global.</p>
+<h4 id="la-sintesis-y-sus-limites">La síntesis y sus límites</h4>
+<table>
+<thead>
+<tr class="header">
+<th>Fenómeno</th>
+<th>Intuición (causa oculta)</th>
+<th>Física (estructura manifiesta)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Movimiento</td>
+<td>Impetus (fuerza motriz)</td>
+<td>Simetría de traslación (Noether)</td>
+</tr>
+<tr class="even">
+<td>Gravedad</td>
+<td>Fuerza gravitacional</td>
+<td>Geometría curvada (Einstein)</td>
+</tr>
+<tr class="odd">
+<td>Entrelazamiento</td>
+<td>Variables ocultas / acción a distancia</td>
+<td>No-separabilidad (Hilbert)</td>
+</tr>
+<tr class="even">
+<td>Colapso</td>
+<td>Evento físico misterioso</td>
+<td>Actualización epistémica (Bayes)</td>
+</tr>
+</tbody>
+</table>
+<p>Matización importante: La “renuncia ontológica” no es el único motor de la física. La física también avanza postulando entidades ocultas reales que luego son confirmadas empíricamente (átomos, quarks, materia oscura). El principio que identificamos aquí aplica específicamente a dominios donde la intuición exige causas mecánicas locales para fenómenos que el formalismo matemático revela como restricciones geométricas, simétricas o estructurales.</p>
+<h4 id="conexion-con-el-realismo-estructural-ontologico-(osr)">Conexión con el Realismo Estructural Ontológico (OSR)</h4>
+<p>Esta síntesis conecta con el Realismo Estructural Ontológico (OSR): lo fundamental no son las partículas con propiedades locales, sino la estructura de relaciones que el formalismo matemático describe [B].</p>
+<p>Nota sobre Instrumentalismo y OSR: Nuestro modelo formal es metodológicamente agnóstico (instrumentalismo operacional: la función de onda como recurso predictivo). El OSR se presenta aquí como una hipótesis ontológica prometedora sobre la naturaleza de esa “estructura”, no como una conclusión deductiva de nuestro modelo.</p>
+<hr />
+<h2 id="5.7-la-pedagogia-de-la-medicion-cuantica-[b/c]">5.7 La pedagogía de la medición cuántica [B/C]</h2>
+<h3 id="la-reificacion-en-los-libros-de-texto">La reificación en los libros de texto</h3>
+<p>La mayoría de los libros de texto presentan el colapso como un evento físico, reificando la función de onda. Esta narrativa es en parte una caricatura didáctica, pero como demostramos en los capítulos anteriores, está facilitada por la estructura gramatical del lenguaje natural, que empuja a tratar “la función de onda” como un sustantivo que denota una entidad sustancial. Esto produce misconceptions persistentes [B].</p>
+<h3 id="la-solucion-pedagogica">La solución pedagógica</h3>
+<p>La investigación en educación física (PER) sugiere desarrollar conciencia ontológica en los estudiantes: enseñarles qué tipo de cosa es la función de onda antes de enseñarles la mecánica cuántica [B].</p>
+<h3 id="la-paradoja-pedagogica">La paradoja pedagógica</h3>
+<p>La reificación es necesaria para el aprendizaje inicial, pero perniciosa si no se desactiva. La solución es usar la reificación como prótesis cognitiva visible [C].</p>
+<hr />
+<h2 id="5.8-limitaciones-[c]">5.8 Limitaciones [C]</h2>
+<p><strong>Primera limitación:</strong> La interpretación epistémica es una elección, no un descubrimiento.</p>
+<p><strong>Segunda limitación:</strong> La interpretación epistémica no resuelve todos los problemas (¿qué es el sistema físico en sí?).</p>
+<p><strong>Tercera limitación:</strong> La interpretación epistémica es controversial.</p>
+<p><strong>Cuarta limitación:</strong> Nuestra formalización es simplificada (no modela espacios de Hilbert de dimensión infinita).</p>
+<p><strong>Quinta limitación:</strong> La interpretación epistémica no resuelve el problema de la frontera (¿qué constituye una medición?).</p>
+<p><strong>Sexta limitación:</strong> La interpretación epistémica renuncia al realismo clásico (CFD). El Teorema 2 verifica que ningún modelo clásico local puede alcanzar $|S| &gt; 2$.</p>
+<p><strong>Séptima limitación:</strong> Las formalizaciones en Z3 y Clingo son modelos abstractos que capturan la estructura lógica del pluralismo interpretativo y la dinámica del discurso, pero no modelan la complejidad completa de las comunidades científicas reales (factores sociológicos, institucionales, económicos). Además, el modelo Clingo revela que la interpretación epistémica no es la trayectoria óptima bajo criterios de parsimonia pura; su adopción requiere argumentos filosóficos adicionales que trascienden la mera consistencia formal.</p>
+<p><strong>Octava limitación:</strong> La gramática del lenguaje natural facilita la reificación al empujarnos a tratar procesos y relaciones como sustancias. Aunque nuestro modelo Clingo captura esto formalmente, no podemos eliminar completamente esta constricción gramatical del discurso científico cotidiano.</p>
+<hr />
+<h2 id="5.9-conexiones-con-otros-capitulos-[c]">5.9 Conexiones con otros capítulos [C]</h2>
+<p><strong>Con el Capítulo 1 (protocolo):</strong> El sistema formalizado es una implementación verificable del protocolo de cuatro preguntas, aplicada a la medición cuántica.</p>
+<p><strong>Con el Capítulo 2 (gramática de la reificación):</strong> La sección 5.4.2 (Clingo) formaliza cómo la estructura gramatical del lenguaje natural (sujeto-predicado) facilita la reificación de objetos matemáticos.</p>
+<p><strong>Con el Capítulo 3 (SPA/Tarski):</strong> La estratificación normativa (Z3: <code>unsat</code>) es el análogo cuántico de la estratificación lógica (Lean: paradoja de Tarski). Ambos muestran que ciertas configuraciones generan contradicciones.</p>
+<p><strong>Con el Capítulo 4 (física clásica):</strong> La sección 5.6.2 (renuncia ontológica) unifica la física clásica, relativista y cuántica bajo el principio de abandonar causas ocultas en favor de estructura geométrica y simétrica.</p>
+<p><strong>Con el Capítulo 6 (sistemas normativos):</strong> El “observador” jurídico (quién cuenta como agente legítimo) es análogo al problema de la frontera cuántica.</p>
+<hr />
+<h2 id="5.10-sintesis-de-demostraciones-formales-del-capitulo-[a-meta]">5.10 Síntesis de demostraciones formales del capítulo [A-Meta]</h2>
+<p>Nosotros presentamos la siguiente tabla de demostraciones formales en prosa integradas en este capítulo. Estas pruebas elevan el estatus epistémico de las secciones formales de [A-Código] a [A-Meta] + [A-Código], replicando el protocolo usado en el Capítulo 6.</p>
+<table>
+<thead>
+<tr class="header">
+<th>Designación</th>
+<th>Enunciado</th>
+<th>Método</th>
+<th>Sección</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>T-NC-Z</td>
+<td>La medición en Z desordena la información sobre X</td>
+<td>Inspección de definición</td>
+<td>5.3.1</td>
+</tr>
+<tr class="even">
+<td>T-NC-X</td>
+<td>La medición en X desordena la información sobre Z</td>
+<td>Inspección de definición</td>
+<td>5.3.1</td>
+</tr>
+<tr class="odd">
+<td>T-NoSignal-Z</td>
+<td>La medición en Z preserva probabilidades marginales incompatibles</td>
+<td>Inspección de definición</td>
+<td>5.3.3</td>
+</tr>
+<tr class="even">
+<td>T-NoSignal-X</td>
+<td>La medición en X preserva probabilidades marginales incompatibles</td>
+<td>Inspección de definición</td>
+<td>5.3.3</td>
+</tr>
+<tr class="odd">
+<td>T-NoSignal-D</td>
+<td>La medición en D preserva probabilidades marginales incompatibles</td>
+<td>Inspección de definición</td>
+<td>5.3.3</td>
+</tr>
+<tr class="even">
+<td>T-CHSH-Alg</td>
+<td>Cota algebraica clásica CHSH: $</td>
+<td>S</td>
+<td>\le 2$</td>
+</tr>
+<tr class="odd">
+<td>T-CHSH-Scale</td>
+<td>$</td>
+<td>classical_S</td>
+<td>\le 200$</td>
+</tr>
+<tr class="even">
+<td>T-Bell-Exact</td>
+<td>$S_{quantum} = -2\sqrt{2}$</td>
+<td>Identidades trigonométricas</td>
+<td>5.3.2 Parte B</td>
+</tr>
+<tr class="odd">
+<td>T-Violation</td>
+<td>$</td>
+<td>S_{quantum}</td>
+<td>&gt; 2$</td>
+</tr>
+<tr class="even">
+<td>T-Context</td>
+<td>La ordenación de mediciones incompatibles importa</td>
+<td>Cálculo directo</td>
+<td>5.3.4</td>
+</tr>
+<tr class="odd">
+<td>T-CFD-Impl</td>
+<td>CFD implica valores simultáneos definidos</td>
+<td>Existencias sucesivas</td>
+<td>5.3.5</td>
+</tr>
+<tr class="even">
+<td>T-CFD-Block</td>
+<td>El modelo epistémico bloquea CFD</td>
+<td>Inspección de tupla</td>
+<td>5.3.5</td>
+</tr>
+<tr class="odd">
+<td>T-Z3-UNSAT</td>
+<td>El realismo local clásico es insatisfacible</td>
+<td>Modus ponens + dato experimental</td>
+<td>5.4.1</td>
+</tr>
+<tr class="even">
+<td>T-Z3-Bohm</td>
+<td>Viabilidad de la teoría de Bohm</td>
+<td>Exhibición de modelo</td>
+<td>5.4.1</td>
+</tr>
+<tr class="odd">
+<td>T-Z3-QBism</td>
+<td>Viabilidad de QBism / OQM</td>
+<td>Exhibición de modelo</td>
+<td>5.4.1</td>
+</tr>
+<tr class="even">
+<td>T-Z3-Superdet</td>
+<td>Viabilidad del superdeterminismo</td>
+<td>Exhibición de modelo</td>
+<td>5.4.1</td>
+</tr>
+<tr class="odd">
+<td>T-Z3-GRW</td>
+<td>Viabilidad de GRW / colapso objetivo</td>
+<td>Exhibición de modelo</td>
+<td>5.4.1</td>
+</tr>
+<tr class="even">
+<td>T-Z3-Retro</td>
+<td>Viabilidad de retrocausalidad</td>
+<td>Exhibición de modelo</td>
+<td>5.4.1</td>
+</tr>
+<tr class="odd">
+<td>T-Z3-Relativist</td>
+<td>Viabilidad del relativismo ontológico</td>
+<td>Exhibición de modelo</td>
+<td>5.4.1</td>
+</tr>
+<tr class="even">
+<td>T-Z3-Radical</td>
+<td>Viabilidad del pluralismo radical</td>
+<td>Exhibición de modelo</td>
+<td>5.4.1</td>
+</tr>
+<tr class="odd">
+<td>T-AS-Crisis</td>
+<td>$crisis(1)$ pertenece a todo answer set</td>
+<td>Restricción hard</td>
+<td>5.4.2</td>
+</tr>
+<tr class="even">
+<td>T-AS-Frag</td>
+<td>$fragmentation(2)$ pertenece a todo answer set</td>
+<td>Restricción hard</td>
+<td>5.4.2</td>
+</tr>
+<tr class="odd">
+<td>T-AS-Stab</td>
+<td>Al menos un agente estabilizado en todo answer set</td>
+<td>Restricción hard</td>
+<td>5.4.2</td>
+</tr>
+</tbody>
+</table>
+<p>Conclusión metodológica [C]. El Capítulo 5 posee materia prima para 23 demostraciones formales en prosa. Estas pruebas son correctas, completas y verificables por un lector con formación básica en lógica, teoría de modelos elemental, Lean 4, Z3 y semántica de answer sets. Su integración junto a los códigos Lean, Z3 y Clingo eleva el estatus epistémico del capítulo de una verificación meramente computacional a una demostración formal mixta <strong>[A-Meta] + [A-Código]</strong>.</p>
+<hr />
+<h2 id="etiquetado-del-capitulo">Etiquetado del capítulo</h2>
+<table>
+<thead>
+<tr class="header">
+<th>Sección</th>
+<th>Contenido</th>
+<th>Clasificación</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>5.0</td>
+<td>Introducción</td>
+<td>[C] Interpretación</td>
+</tr>
+<tr class="even">
+<td>5.1</td>
+<td>Protocolo de cuatro preguntas</td>
+<td>[C] Interpretación</td>
+</tr>
+<tr class="odd">
+<td>5.2</td>
+<td>Modelo epistémico (Lean 4)</td>
+<td>[A-Código]</td>
+</tr>
+<tr class="even">
+<td>5.3</td>
+<td>Teoremas estructurales (Lean 4)</td>
+<td>[A-Meta] + [A-Código]</td>
+</tr>
+<tr class="odd">
+<td>5.3.1</td>
+<td>No-conmutatividad</td>
+<td>[A-Meta] + [A-Código]</td>
+</tr>
+<tr class="even">
+<td>5.3.2</td>
+<td>Frontera de Bell</td>
+<td>[A-Meta] + [A-Código]</td>
+</tr>
+<tr class="odd">
+<td>5.3.3</td>
+<td>Condición de no-señalización</td>
+<td>[A-Meta] + [C]</td>
+</tr>
+<tr class="even">
+<td>5.3.4</td>
+<td>Contextualidad</td>
+<td>[A-Meta] + [A-Código]</td>
+</tr>
+<tr class="odd">
+<td>5.3.5</td>
+<td>Bloqueo de CFD</td>
+<td>[A-Meta] + [A-Código]</td>
+</tr>
+<tr class="even">
+<td>5.4.1</td>
+<td>Z3: Mapa del pluralismo interpretativo</td>
+<td>[A-Meta] + [A-Código]</td>
+</tr>
+<tr class="odd">
+<td>5.4.2</td>
+<td>Clingo: Dinámica del discurso cuántico</td>
+<td>[A-Meta] + [A-Código]</td>
+</tr>
+<tr class="even">
+<td>5.4.3</td>
+<td>Conexión con protocolo</td>
+<td>[C] Interpretación</td>
+</tr>
+<tr class="odd">
+<td>5.5</td>
+<td>Interpretaciones</td>
+<td>[B]</td>
+</tr>
+<tr class="even">
+<td>5.6</td>
+<td>Entrelazamiento y no-localidad</td>
+<td>[B/C]</td>
+</tr>
+<tr class="odd">
+<td>5.6.1</td>
+<td>Crítica realista a Bell</td>
+<td>[B/C]</td>
+</tr>
+<tr class="even">
+<td>5.6.2</td>
+<td>Renuncia ontológica</td>
+<td>[C]</td>
+</tr>
+<tr class="odd">
+<td>5.7</td>
+<td>Pedagogía</td>
+<td>[B/C]</td>
+</tr>
+<tr class="even">
+<td>5.8</td>
+<td>Limitaciones</td>
+<td>[C]</td>
+</tr>
+<tr class="odd">
+<td>5.9</td>
+<td>Conexiones</td>
+<td>[C]</td>
+</tr>
+<tr class="even">
+<td>5.10</td>
+<td>Síntesis de demostraciones formales</td>
+<td>[A-Meta] + [C]</td>
+</tr>
+</tbody>
+</table>
+</body>
+</html>

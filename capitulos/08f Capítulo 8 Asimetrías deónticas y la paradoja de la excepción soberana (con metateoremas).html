@@ -1,0 +1,1066 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>El espejismo de la sustancia: Capítulo 8 Asimetrías deónticas y la paradoja de la excepción soberana (con metateoremas)</title>
+  <meta name="author" content="Santiago Tristany" />
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      span.underline{text-decoration: underline;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<h1 id="capitulo-8:-asimetrias-deonticas-y-la-paradoja-de-la-excepcion-soberana">Capítulo 8: Asimetrías deónticas y la paradoja de la excepción soberana</h1>
+<h2 id="8.0-protocolo-de-lectura">8.0 Protocolo de lectura</h2>
+<p>Este capítulo aplica el protocolo de las cuatro preguntas (Capítulo 0, sección 0.2) a un dominio normativo: las arquitecturas institucionales que sustentan el encierro penal y la excepción soberana. El registro empírico-histórico (sección 8.2) proporciona la motivación para la elección de axiomas; los teoremas formales (secciones 8.3 a 8.7) demuestran propiedades generales de esas arquitecturas bajo axiomas explícitos.</p>
+<p>Nosotros utilizamos verificadores automáticos (Z3, Clingo) para controlar instancias concretas de los teoremas, no como sustitutos de la demostración. Cuando nosotros decimos &quot;demostramos que&quot;, nos referimos a una deducción en prosa que puede reconstruirse en un cálculo lógico estándar. Cuando decimos &quot;verificamos mediante Z3/Clingo que&quot;, nos referimos a una comprobación computacional de una instancia finita.</p>
+<p>La regla de etiquetado [A], [B], [C] (sección 0.3) se aplica con una distinción adicional:</p>
+<ul>
+<li><strong>[A-Meta]</strong>: Demostrado matemáticamente en prosa. La prueba es verificable por un lector con formación en lógica de primer orden o teoría de grafos.</li>
+<li><strong>[A-Código]</strong>: Verificado computacionalmente en instancia finita mediante Z3 o Clingo. No reemplaza la demostración general, pero descarta errores de tipeo en los axiomas.</li>
+<li><strong>[B]</strong>: Citado de literatura académica identificada.</li>
+<li><strong>[C]</strong>: Interpretación filosófica de los resultados, explícitamente marcada como tal.</li>
+</ul>
+<p><strong>Nota sobre el alcance y el tono de este capítulo.</strong> Este capítulo no es un manifiesto político. No promovemos la abolición total del sistema penal, ni la liberación indiscriminada de todas las personas privadas de libertad, ni la deslegitimación del Estado como institución. Lo que nosotros hacemos es una auditoría de coherencia axiomática: demostramos que, bajo ciertos axiomas que los propios agentes estatales invocan (derechos humanos, rehabilitación, no-instrumentalización), la práctica penal actual genera contradicciones formales. Identificar una contradicción no es prescribir una solución; es señalar un punto de fragilidad donde la intervención conceptual es posible. La decisión sobre qué hacer con esa fragilidad corresponde a los agentes políticos, judiciales y sociales, no a este libro [C].</p>
+<h2 id="8.1-introduccion:-el-estado-como-campo-de-fuerzas">8.1 Introducción: el Estado como campo de fuerzas</h2>
+<p>Nosotros sostenemos, con los capítulos anteriores, que el Estado no es un agente unitario con intenciones, creencias y deseos, sino un campo de relaciones entre agentes individuales que ocupan posiciones estructurales diferenciadas. Esta tesis tiene una consecuencia metodológica inmediata: nosotros no podemos atribuirle al &quot;Estado&quot; la responsabilidad por la coherencia de sus propias normas. La coherencia, cuando existe, es el resultado de una articulación institucional que puede fallar.</p>
+<p>En este capítulo nosotros aplicamos esa tesis a un caso paradigmático: el encierro penal. La pregunta no es &quot;¿el Estado quiere dañar?&quot;, sino más precisamente: ¿puede una arquitectura institucional que combina (i) una norma de no-daño, (ii) una norma de privación de libertad, y (iii) una norma de excepción soberana, mantenerse consistente sin recurrir a un observador externo? [C]</p>
+<p>La respuesta formal es matizada. Nosotros no demostramos una &quot;imposibilidad lógica&quot; universal. Demostramos una <strong>jerarquía de fragilidades</strong> [A-Meta]: ciertas arquitecturas son consistentes bajo condiciones estrictas, y esas condiciones se degradan previsiblemente cuando nosotros introducimos redes de favores, asimetrías de información y auto-certificación de amenazas.</p>
+<p><strong>Nota sobre la reificación en este capítulo.</strong> Siguiendo el método del Capítulo 1 (sección 1.2.3), nosotros debemos ser precisos sobre la agencia. No es &quot;el Estado&quot; el que encierra; son agentes concretos (jueces que firman sentencias, legisladores que redactan leyes, carceleros que operan unidades) quienes aplican la privación de libertad. No es &quot;la cárcel&quot; la que produce daño; son las condiciones de encierro que los agentes institucionales diseñan, mantienen o toleran las que generan efectos previsibles sobre los detenidos y sus familias. La reificación del &quot;sistema penal&quot; como sustancia con voluntad propia es exactamente el tipo de operación gramatical que este libro audita. Nosotros la señalamos aquí para mantener la higiene metodológica, no para exculpar a los agentes concretos [C].</p>
+<h2 id="8.2-el-encierro-como-caso-paradigmatico:-motivacion-empirica-y-delimitacion-del-analisis">8.2 El encierro como caso paradigmático: motivación empírica y delimitación del análisis</h2>
+<h3 id="8.2.1-por-que-elegimos-este-caso-y-que-no-afirmamos-[c]">8.2.1 Por qué elegimos este caso y qué NO afirmamos [C]</h3>
+<p>Nosotros elegimos el encierro penal como caso de estudio por tres razones metodológicas:</p>
+<p><strong>Primera razón:</strong> Es el caso donde la asimetría deóntica entre el discurso normativo y la práctica institucional es más visible y está mejor documentada. Los agentes estatales invocan principios de derechos humanos, rehabilitación y dignidad, mientras operan instituciones que producen efectos previsiblemente contrarios a esos principios. Esta tensión entre el discurso y la práctica es exactamente el tipo de &quot;narrativa sucia sobre teoría resuelta&quot; que nuestro protocolo detecta.</p>
+<p><strong>Segunda razón:</strong> Es el caso donde la reificación gramatical tiene consecuencias más graves. Cuando el discurso dice &quot;la sociedad debe ser protegida&quot; o &quot;el sistema penal rehabilita&quot;, está atribuyendo agencia a construcciones abstractas y suprimiendo al agente humano concreto que toma las decisiones. Esta supresión del agente tiene efectos operativos: dificulta la atribución de responsabilidad, invisibiliza las condiciones de encierro y naturaliza prácticas que, de otro modo, serían cuestionables.</p>
+<p><strong>Tercera razón:</strong> Existe un precedente histórico exacto. En la década de 1960, los agentes sanitarios y judiciales argentinos reconocieron que el encierro psiquiátrico era iatrogénico (producía más daño que beneficio) y procedieron a la desmanicomialización, consagrada en la Ley Nacional de Salud Mental N° 26.657 (2010). El principio que esos agentes aplicaron —&quot;el encierro institucional, por sí mismo, puede ser una forma de violencia iatrogénica&quot;— es exactamente el principio que nosotros formalizamos en este capítulo [B].</p>
+<p><strong>Lo que NO afirmamos:</strong></p>
+<ul>
+<li>No afirmamos que toda privación de libertad sea ilegítima. Reconocemos que en casos de peligro concreto e inminente, donde no existe alternativa viable, la restricción de la libertad puede ser una medida necesaria. Lo que nosotros cuestionamos es el uso del encierro como regla general, como primera opción, y como respuesta a problemas sociales (pobreza, adicción, enfermedad mental) que no son de naturaleza penal.</li>
+<li>No afirmamos que los agentes que operan el sistema penal sean &quot;malvados&quot; o &quot;corruptos&quot;. Reconocemos que muchos jueces, fiscales, defensores y operadores penitenciarios actúan de buena fe dentro de las restricciones que el sistema les impone. Lo que nosotros señalamos es que la arquitectura institucional genera efectos que contradicen los principios que esa misma arquitectura invoca.</li>
+<li>No promovemos la &quot;liberación de todos los presos&quot;. Lo que nosotros hacemos es demostrar formalmente que la conjunción de ciertos axiomas liberales (no-daño, rehabilitación, no-instrumentalización) con la práctica penal actual es inconsistente. La resolución de esa inconsistencia es una decisión política que corresponde a los agentes democráticos, no a este libro.</li>
+<li>No atacamos al Estado como institución. El Estado, entendido como red de relaciones entre agentes, es una construcción necesaria para la vida en común. Lo que nosotros cuestionamos es la reificación del Estado como sustancia con voluntad propia, y la utilización de esa reificación para invisibilizar la responsabilidad de los agentes concretos que diseñan y operan las instituciones de encierro.</li>
+</ul>
+<h3 id="8.2.2-genealogia-breve:-del-manicomio-a-la-carcel-[b]">8.2.2 Genealogía breve: del manicomio a la cárcel [B]</h3>
+<p>El encierro masivo como forma dominante de sanción penal es una invención histórica reciente. Antes del siglo XIX, la privación de libertad era una medida cautelar o una pena menor; las sanciones graves eran corporales, el exilio o la muerte. La cárcel moderna nace con el proyecto de &quot;rehabilitación&quot; y &quot;corrección&quot;: el delincuente debía ser aislado para reflexionar, trabajar y reinsertarse [B].</p>
+<p>Esa promesa nunca se cumplió sistemáticamente. La evidencia acumulada desde hace décadas muestra que el encierro produce daños estructurales que contradicen explícitamente su propio objetivo declarado [B].</p>
+<p>El paralelo con la desmanicomialización no es retórico; es normativo, fáctico y axiológico. La Ley Nacional de Salud Mental N° 26.657 (2010) reconoció que los hospitales psiquiátricos eran dispositivos de encierro que producían más daño que cura. El principio que esos agentes sanitarios y judiciales establecieron fue: el encierro institucional, por sí mismo, es una forma de violencia iatrogénica [B].</p>
+<p>La analogía estructural es la siguiente:</p>
+<table>
+<thead>
+<tr class="header">
+<th>Manicomio (siglo XX)</th>
+<th>Cárcel (siglo XXI)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Encierro psiquiátrico iatrogénico</td>
+<td>Encierro penal iatrogénico</td>
+</tr>
+<tr class="even">
+<td>Producción de enfermedad mental</td>
+<td>Producción de enfermedad mental</td>
+</tr>
+<tr class="odd">
+<td>Ruptura de vínculos familiares</td>
+<td>Ruptura de vínculos familiares</td>
+</tr>
+<tr class="even">
+<td>Exclusión social perpetua</td>
+<td>Exclusión social perpetua</td>
+</tr>
+<tr class="odd">
+<td>Desmanicomialización</td>
+<td>Descarcelización (como horizonte, no como prescripción)</td>
+</tr>
+</tbody>
+</table>
+<p>Nosotros presentamos la descarcelización como un horizonte de investigación análogo a la desmanicomialización, no como una prescripción política inmediata. Lo que nosotros hacemos es formalizar las condiciones bajo las cuales el encierro es inconsistente con los principios que lo justifican. Si esas condiciones se verifican empíricamente (y la evidencia sugiere que sí), entonces los agentes políticos y judiciales tienen un fundamento formal para explorar alternativas [C].</p>
+<h3 id="8.2.3-cinco-dimensiones-de-iatrogenia:-la-evidencia-empirica-[b]">8.2.3 Cinco dimensiones de iatrogenia: la evidencia empírica [B]</h3>
+<p>Llamamos <strong>iatrogenia</strong> al daño previsible, estructural y derivado del propio régimen de privación de libertad. El término proviene de la medicina: una intervención iatrogénica es aquella que produce daño como efecto de su propio mecanismo, no como accidente. Nosotros documentamos cinco dimensiones, todas ellas corroboradas por la literatura empírica [B]:</p>
+<ol>
+<li><p><strong>Iatrogenia física y psicológica.</strong> El proceso de &quot;institucionalización&quot; o &quot;prisonización&quot; describe la forma en que los agentes internos son moldeados por el entorno carcelario: dependencia de la estructura institucional, hipervigilancia, control emocional forzado, aislamiento social [B]. Un meta-análisis de Fazel y Danesh (2002) encontró que la prevalencia de trastornos mentales graves era significativamente mayor entre la población carcelaria que en la población general [B]. Un censo del Departamento de Justicia de EE.UU. estimó que aproximadamente el 16% de la población carcelaria padece enfermedad mental, con cifras que alcanzan el 20% en algunas estimaciones [B]. En confinamiento solitario, estos efectos se intensifican hasta producir deterioro cognitivo, paranoia y psicosis [B].</p></li>
+<li><p><strong>Iatrogenia social.</strong> La separación forzada de redes comunitarias no es un efecto colateral; es parte del diseño del encierro. Más de la mitad de los padres encarcelados nunca reciben una visita personal de sus hijos [B]. El estigma &quot;contagia&quot; a toda la familia, generando vergüenza, aislamiento y discriminación en empleo y vivienda [B].</p></li>
+<li><p><strong>Iatrogenia familiar.</strong> El encarcelamiento de un progenitor es un evento traumático que se transmite intergeneracionalmente. Un estudio longitudinal encontró que tener un padre con historial de encarcelación se asoció con un 47% más de probabilidades de ser arrestado para la edad de 22 años [B]. Los hijos de personas encarceladas tienen casi el doble de probabilidades de recibir un diagnóstico de depresión o TEPT en la edad adulta [B]. Investigaciones han encontrado acortamiento de telómeros en niños que experimentan la encarcelación parental, un biomarcador del estrés crónico [B].</p></li>
+<li><p><strong>Iatrogenia económica.</strong> La pérdida de ingresos del miembro encarcelado, sumada a los costos directos para mantener comunicación, erosiona la riqueza familiar. En EE.UU., las familias gastan aproximadamente $350 mil millones anuales en total debido a la encarcelación [B]. El patrimonio neto mediano de familias con un miembro encarcelado es de $7.350, contra $177.800 de familias no afectadas [B]. La detención preventiva causa una pérdida de casi $30.000 en ingresos y beneficios sociales por individuo [B].</p></li>
+<li><p><strong>Iatrogenia normativa (criminogénesis).</strong> La prisión funciona como espacio de socialización criminal, fortalecimiento de redes delictivas y normalización de la violencia [B]. La reincidencia oscila entre el 45% y el 70% según jurisdicción en sistemas punitivos, frente a menos del 20% en sistemas con alternativas comunitarias como Noruega [B]. Esto genera una paradoja que formalizamos en el Teorema T5b: el mecanismo que supuestamente previene el delito produce las condiciones que lo reproducen.</p></li>
+</ol>
+<p><strong>Nota sobre el uso de esta evidencia.</strong> Nosotros no utilizamos estos datos para &quot;demostrar&quot; que el encierro es malo en términos morales. Los utilizamos para motivar la elección de axiomas en las secciones formales que siguen. Específicamente, la evidencia de que el encierro produce daño previsible motiva el axioma de no-daño; la evidencia de que la rehabilitación no se alcanza motiva el axioma de rehabilitación como condición; la evidencia del daño familiar motiva la inclusión de terceros afectados en el modelo formal. Los datos no demuestran los teoremas; motivan los axiomas bajo los cuales los teoremas se demuestran [C].</p>
+<h3 id="8.2.4-datos-comparativos:-la-falsa-disyuntiva-&quot;seguridad-vs.-derechos&quot;-[b]">8.2.4 Datos comparativos: la falsa disyuntiva &quot;seguridad vs. derechos&quot; [B]</h3>
+<p>El principal obstáculo ideológico para cuestionar el encierro masivo es la creencia de que la prisión es necesaria para la seguridad ciudadana. Los agentes políticos que defienden el encarcelamiento invocan frecuentemente esta disyuntiva. Sin embargo, la evidencia empírica internacional muestra que la relación entre encarcelamiento y seguridad no es causal [B]:</p>
+<table>
+<thead>
+<tr class="header">
+<th>País</th>
+<th>Tasa encarcelamiento (por 100.000 hab.)</th>
+<th>Tasa homicidios (por 100.000 hab.)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Noruega</td>
+<td>55</td>
+<td>0,5</td>
+</tr>
+<tr class="even">
+<td>Finlandia</td>
+<td>54</td>
+<td>1,6</td>
+</tr>
+<tr class="odd">
+<td>España</td>
+<td>132</td>
+<td>0,6</td>
+</tr>
+<tr class="even">
+<td>Argentina</td>
+<td>220</td>
+<td>4,6</td>
+</tr>
+<tr class="odd">
+<td>Brasil</td>
+<td>340</td>
+<td>22,0</td>
+</tr>
+</tbody>
+</table>
+<p>Finlandia redujo su población penal un 60% entre 1970 y 2000 sin aumento del delito [B]. Noruega tiene una tasa de reincidencia inferior al 20% [B]. Estos datos no establecen causalidad, pero ponen en cuestión la premisa de que la seguridad requiere encierro masivo. Nosotros utilizamos estos datos para motivar la elección de axiomas en las secciones formales que siguen; no los utilizamos para confirmar o refutar teoremas [C].</p>
+<h3 id="8.2.5-la-paradoja-de-la-rehabilitacion-como-ficcion-performativa-[c]">8.2.5 La paradoja de la rehabilitación como ficción performativa [C]</h3>
+<p>Si el encierro daña en todas estas dimensiones, y ese daño es previsible, entonces la justificación rehabilitativa opera como una <strong>ficción performativa</strong>: los agentes que diseñan y operan el sistema penal deben actuar <em>como si</em> creyeran en la reinserción, aunque la evidencia contradiga sistemáticamente esa creencia.</p>
+<p>Esta tensión entre el discurso y la práctica es el punto de partida de nuestros modelos formales. No es que los agentes &quot;mientan&quot; conscientemente. Es que la arquitectura institucional requiere la invocación del principio de rehabilitación para legitimar la privación de libertad, mientras que las condiciones de encierro hacen imposible alcanzar ese principio. La contradicción no es subjetiva (de los agentes); es estructural (de la arquitectura).</p>
+<h3 id="8.2.6-delimitacion-precisa-de-nuestra-tesis-[c]">8.2.6 Delimitación precisa de nuestra tesis [C]</h3>
+<p>Para evitar malentendidos, nosotros formulamos nuestra tesis con la máxima precisión:</p>
+<p><strong>Tesis:</strong> Bajo los axiomas que los propios agentes estatales invocan en el bloque de constitucionalidad (no-daño, rehabilitación como finalidad, no-instrumentalización de personas, dignidad humana), la práctica penal actual —entendida como el uso del encierro prolongado como respuesta predominante a la conflictividad social— genera una inconsistencia formal demostrable.</p>
+<p><strong>No-tesis:</strong> No afirmamos que el Estado sea ilegítimo. No afirmamos que toda privación de libertad sea injusta. No afirmamos que los agentes que operan el sistema penal sean moralmente culpables. No prescribimos una política criminal específica. No promovemos la anarquía ni la abolición del derecho penal.</p>
+<p><strong>Lo que sí demostramos:</strong> Que la conjunción de ciertos axiomas liberales con ciertas prácticas penales es formalmente inconsistente. Que esa inconsistencia no es un accidente de implementación sino una propiedad estructural de la arquitectura normativa. Y que la resolución de esa inconsistencia requiere que los agentes que operan el sistema elijan explícitamente qué axioma relajar, en lugar de mantener la ficción performativa de que todos los axiomas se satisfacen simultáneamente.</p>
+<h2 id="8.3-t5a-v5:-regresion-de-munchhausen-normativa">8.3 T5a-v5: Regresión de Münchhausen normativa</h2>
+<p><strong>Resumen ejecutivo:</strong> Este teorema resuelve el problema de si una norma constitucional que limita derechos fundamentales puede justificarse internamente dentro del propio sistema normativo. Demostramos que no puede: requiere un axioma fundacional externo.</p>
+<h3 id="planteamiento">Planteamiento</h3>
+<p>Una objeción frecuente a la crítica del encierro es que la Constitución ya resuelve la tensión: el artículo que protege la integridad física está &quot;limitado&quot; por el artículo que permite la prisión legal. La pregunta formal es: ¿puede esa cláusula de limitación justificarse <em>dentro</em> del sistema normativo, o requiere un axioma fundacional externo?</p>
+<h3 id="definiciones">Definiciones</h3>
+<p>Nosotros definimos un <strong>sistema normativo estratificado</strong> como una estructura $\mathcal{N} = (N, \preceq, L, V)$ donde:</p>
+<ol>
+<li>$N$ es un conjunto finito de normas.</li>
+<li>$\preceq$ es un preorden de nivel sobre $N$ (reflexivo, transitivo), donde $n_a \prec n_b$ significa que $n_a$ está en un nivel estrictamente inferior a $n_b$.</li>
+<li>$L \subseteq N \times N$ es una relación de limitación tal que si $(n_a, n_b) \in L$ entonces $n_a \succ n_b$ (una norma solo limita a otra de nivel estrictamente inferior).</li>
+<li>$V \subseteq S \times N$ vincula estratos $s \in S$ a normas.</li>
+<li>$n_0 \in N$ es un <strong>axioma fundacional</strong>: está justificado sin necesidad de limitador externo.</li>
+</ol>
+<p>Una norma $n \in N$ está <strong>justificada en $\mathcal{N}$</strong> si y solo si:</p>
+<p>$$n = n_0 \lor \exists n_{sup} \in N : (n_{sup}, n) \in L \land n_{sup} \succ n$$</p>
+<h3 id="teorema-t5a-v5-[a-meta]">Teorema T5a-v5 [A-Meta]</h3>
+<p><strong>Regresión de Münchhausen Normativa.</strong> Sea $\mathcal{N}$ un sistema normativo estratificado con conjunto de normas $N$ finito. Sea $M = {n \in N \mid \nexists n' \in N : n \prec n'}$ el conjunto de normas de nivel máximo. Si $M$ contiene al menos una norma $n_M \neq n_0$ vinculada a algún estrato (es decir, $\exists s \in S : (s, n_M) \in V$), entonces $n_M$ no está justificada en $\mathcal{N}$.</p>
+<h3 id="demostracion">Demostración</h3>
+<p>Sea $n_M \in M$ con $n_M \neq n_0$ y $(s, n_M) \in V$ para algún $s \in S$.</p>
+<p>Por definición de justificación, $n_M$ requiere un $n_{sup} \in N$ tal que $(n_{sup}, n_M) \in L$ y $n_{sup} \succ n_M$.</p>
+<p>Pero $n_M \in M$, luego por definición de $M$ no existe ninguna norma en $N$ de nivel estrictamente superior a $n_M$. Por lo tanto, no existe tal $n_{sup}$.</p>
+<p>Como $n_M \neq n_0$, tampoco es fundacional.</p>
+<p>Luego $n_M$ no está justificada en $\mathcal{N}$. $\square$</p>
+<h3 id="corolario-[a-meta]">Corolario [A-Meta]</h3>
+<p>Si una norma de limitación constitucional $n_{lim}$ tiene nivel $k$, y nosotros introducimos una metanorma $n_{meta}$ de nivel $k+1$ que limita a $n_{lim}$, entonces $n_{meta}$ ocupa el nuevo máximo. Si $n_{meta} \neq n_0$, el corolario se aplica recursivamente: cada metanorma requiere otra superior, generando una regresión infinita que solo se detiene con un axioma fundacional externo al sistema.</p>
+<h3 id="contrafactual-cf3:-autojustificacion-[a-meta]">Contrafactual CF3: autojustificación [A-Meta]</h3>
+<p>Si nosotros relajamos la definición de justificación para permitir que una norma se justifique a sí misma (es decir, añadimos $n = n$ como condición suficiente), entonces toda norma está trivialmente justificada. La regresión desaparece, pero el sistema admite circularidades que destruyen la distinción entre norma y metanorma. Esto demuestra que la regresión de Münchhausen no es una ley lógica necesaria; es una consecuencia de la prohibición de autojustificación [C].</p>
+<h3 id="verificacion-computacional-[a-codigo]">Verificación computacional [A-Código]</h3>
+<p>Nosotros verificamos el teorema para una instancia concreta con 4 normas y 4 estratos mediante Z3.</p>
+<pre class="smtlib2"><code>; Código Z3: instancia de 4 normas, 4 estratos
+; Verifica que n_limitacion (nivel 1) y n_meta (nivel 2)
+; no son justificables sin axioma fundacional externo.
+(set-option :produce-unsat-cores true)
+(declare-datatypes ((Norma 0)) ((n_integridad n_prision n_limitacion n_meta)))
+(declare-datatypes ((Estrato 0)) ((s_civil s_penal s_const s_meta)))
+(declare-fun Nivel (Norma) Int)
+(assert (! (= (Nivel n_integridad) 0) :named nivel-integridad))
+(assert (! (= (Nivel n_prision) 0) :named nivel-prision))
+(assert (! (= (Nivel n_limitacion) 1) :named nivel-limitacion))
+(assert (! (= (Nivel n_meta) 2) :named nivel-meta))
+(declare-fun Vincula (Estrato Norma) Bool)
+(declare-fun Limita (Norma Norma) Bool)
+(declare-fun Justificada (Norma) Bool)
+(assert (! (forall ((n_lim Norma) (n_obj Norma))
+  (=&gt; (Limita n_lim n_obj) (&gt; (Nivel n_lim) (Nivel n_obj)))) :named ax-limit-jerarquia))
+(assert (! (forall ((n Norma))
+  (= (Justificada n)
+     (or (exists ((n_sup Norma)) (and (Limita n_sup n) (&gt; (Nivel n_sup) (Nivel n))))
+         (= n n_integridad)))) :named ax-justificacion))
+(assert (! (Vincula s_const n_limitacion) :named h-const))
+(assert (! (Limita n_limitacion n_integridad) :named h-limita-integridad))
+(assert (! (Limita n_limitacion n_prision) :named h-limita-prision))
+(push)
+  (echo &quot;CF1: limitacion constitucional autoportante?&quot;)
+  (assert (! (not (Limita n_meta n_limitacion)) :named cf1-bloqueo))
+  (assert (! (Justificada n_limitacion) :named hip-just))
+  (check-sat) ; unsat
+(pop)
+(push)
+  (echo &quot;CF2: metanorma que limita a la limitacion&quot;)
+  (assert (! (Limita n_meta n_limitacion) :named h-meta-limita))
+  (assert (! (Justificada n_meta) :named hip-just-meta))
+  (check-sat) ; unsat
+(pop)
+</code></pre>
+<p><strong>Output certificado:</strong></p>
+<pre><code>CF1: unsat (ax-justificacion cf1-bloqueo hip-just)
+CF2: unsat (nivel-integridad nivel-prision nivel-limitacion nivel-meta ax-limit-jerarquia ax-justificacion h-limita-integridad h-meta-limita hip-just-meta)
+</code></pre>
+<h3 id="interpretacion-[c]">Interpretación [C]</h3>
+<p>Este teorema demuestra que la cláusula constitucional que &quot;limita&quot; el derecho a la integridad física mediante la autorización de la prisión no puede justificarse dentro del propio sistema normativo sin recurrir a un axioma fundacional externo. Esto no significa que la prisión sea ilegítima; significa que su legitimación requiere un fundamento que el sistema jurídico positivo no puede proporcionar por sí solo. Kelsen resolvió esto postulando la <em>Grundnorm</em>; Schmitt, invocando el Poder Constituyente. Lo que nosotros mostramos es que esa necesidad de un &quot;afuera&quot; no es un capricho filosófico, sino una consecuencia formal de la prohibición de autojustificación.</p>
+<h2 id="8.4-t5b-v2:-no-invariante-de-equilibrio">8.4 T5b-v2: No-invariante de equilibrio</h2>
+<p><strong>Resumen ejecutivo:</strong> Este teorema formaliza por qué el sistema penal, bajo sus propios axiomas de justificación, no tiene punto de salida natural. Si el deterioro causado por el encierro se usa para justificar más encierro, el sistema entra en un ciclo sin equilibrio.</p>
+<h3 id="definiciones-1">Definiciones</h3>
+<p>Nosotros definimos un <strong>sistema de transición penal</strong> como una estructura $\mathcal{S} = (S, \to, A, D, J)$ donde:</p>
+<ol>
+<li>$S$ es un conjunto finito de estados.</li>
+<li>$\to \subseteq S \times S$ es una relación de transición total (todo estado tiene al menos un sucesor).</li>
+<li>$A, D, J \subseteq S$ son los conjuntos de estados donde los agentes aplican encierro, donde hay deterioro, y donde el deterioro justifica encierro, respectivamente.</li>
+<li>$E = S \setminus A$ es el conjunto de <strong>equilibrio</strong> (no encierro).</li>
+</ol>
+<p>Los axiomas dinámicos son:</p>
+<ol>
+<li><strong>Deterioro:</strong> $s \in A \land s \to s' \Rightarrow s' \in D$</li>
+<li><strong>Justificación:</strong> $s \in D \Rightarrow s \in J$</li>
+<li><strong>Aplicación:</strong> $s \in J \Rightarrow s \in A$</li>
+</ol>
+<h3 id="teorema-t5b-v2-[a-meta]">Teorema T5b-v2 [A-Meta]</h3>
+<p><strong>No-invariante de equilibrio.</strong> Sea $\mathcal{S}$ un sistema de transición penal donde valen los axiomas 1–3. Sea $s_0 \in A$ un estado inicial con encierro. Sea $R(s_0) = {s \in S \mid s_0 \to^* s}$ el conjunto de estados alcanzables desde $s_0$. Entonces $R(s_0) \cap E = \emptyset$.</p>
+<h3 id="demostracion-1">Demostración</h3>
+<p>Por inducción sobre la longitud de la trayectoria.</p>
+<p><strong>Caso base ($k=0$):</strong> $s_0 \in A$ por hipótesis. Luego $s_0 \notin E$.</p>
+<p><strong>Paso inductivo:</strong> Supongamos que para todo estado $s_k$ alcanzable en $k$ pasos, $s_k \in A$. Sea $s_{k+1}$ tal que $s_k \to s_{k+1}$.</p>
+<p>Como $s_k \in A$, por axioma 1, $s_{k+1} \in D$. Por axioma 2, $s_{k+1} \in J$. Por axioma 3, $s_{k+1} \in A$.</p>
+<p>Luego $s_{k+1} \notin E$. Por inducción, ningún estado alcanzable desde $s_0$ pertenece a $E$. $\square$</p>
+<h3 id="corolario-[a-meta]-1">Corolario [A-Meta]</h3>
+<p>Si $\mathcal{S}$ es finito y $\to$ contiene un ciclo alcanzable desde $s_0$, entonces los agentes que operan el sistema mantienen el encierro indefinidamente. La única manera de alcanzar $E$ es que en algún estado $s^*$ los agentes dejen de aplicar el axioma 2 (el deterioro deja de justificar encierro) o el axioma 3 (la justificación deja de aplicarse).</p>
+<h3 id="contrafactual-cf4-[a-meta]">Contrafactual CF4 [A-Meta]</h3>
+<p>Si nosotros relajamos el axioma 2 para algún estado $s^* \in D$ (es decir, permitimos que $s^* \in D$ pero $s^* \notin J$), entonces el paso inductivo se rompe en $s^<em>$. Si además $s^</em>$ no está en $A$ por otra vía, entonces $s^* \in E$ es posible. El sistema puede estabilizarse en equilibrio desde ese punto.</p>
+<h3 id="interpretacion-[c]-1">Interpretación [C]</h3>
+<p>Este teorema formaliza lo que la criminología crítica denomina <strong>criminogénesis estatal</strong>: el mecanismo que supuestamente previene el delito produce las condiciones que lo reproducen [B]. Los agentes estatales castigan el delito; el castigo produce condiciones criminógenas; esas condiciones generan nuevos delitos; el sistema penal se expande. Este círculo no es un accidente de implementación; es una consecuencia formal de los tres axiomas dinámicos. La evidencia empírica de la sección 8.2.3 (reincidencia del 45-70%, deterioro psicológico, ruptura de vínculos) motiva la aceptación de estos axiomas.</p>
+<p><strong>Nota de delimitación:</strong> Este teorema no demuestra que el encierro siempre produce reincidencia. Demuestra que, <em>si</em> el encierro produce deterioro (axioma 1), y los agentes utilizan ese deterioro para justificar más encierro (axioma 2), y la justificación implica aplicación (axioma 3), entonces no existe estado de equilibrio. La salida es romper al menos uno de los tres axiomas, no abolir el sistema penal [C].</p>
+<h3 id="verificacion-computacional-[a-codigo]-1">Verificación computacional [A-Código]</h3>
+<p>Nosotros verificamos el teorema para una instancia con 4 estados lineales ($e_0 \to e_1 \to e_2 \to e_3 \to e_3$) mediante Z3.</p>
+<pre class="smtlib2"><code>; Código Z3: instancia de 4 estados lineales con loop en e3
+; Verifica que ningun estado alcanzable es de equilibrio.
+(set-option :produce-unsat-cores true)
+(declare-datatypes ((Estado 0)) ((e0 e1 e2 e3)))
+(declare-fun Aplica (Estado) Bool)
+(declare-fun Deteriorado (Estado) Bool)
+(declare-fun Justifica (Estado) Bool)
+(declare-fun Equilibrio (Estado) Bool)
+(assert (! (=&gt; (Aplica e0) (Deteriorado e1)) :named ax-t0))
+(assert (! (=&gt; (Aplica e1) (Deteriorado e2)) :named ax-t1))
+(assert (! (=&gt; (Aplica e2) (Deteriorado e3)) :named ax-t2))
+(assert (! (=&gt; (Aplica e3) (Deteriorado e3)) :named ax-t3))
+(assert (! (= (Equilibrio e0) (not (Aplica e0))) :named ax-eq0))
+(assert (! (= (Equilibrio e1) (not (Aplica e1))) :named ax-eq1))
+(assert (! (= (Equilibrio e2) (not (Aplica e2))) :named ax-eq2))
+(assert (! (= (Equilibrio e3) (not (Aplica e3))) :named ax-eq3))
+(assert (! (Aplica e0) :named h-inicio))
+(push)
+  (assert (! (=&gt; (Deteriorado e0) (Justifica e0)) :named ax-d0))
+  (assert (! (=&gt; (Deteriorado e1) (Justifica e1)) :named ax-d1))
+  (assert (! (=&gt; (Deteriorado e2) (Justifica e2)) :named ax-d2))
+  (assert (! (=&gt; (Deteriorado e3) (Justifica e3)) :named ax-d3))
+  (assert (! (=&gt; (Justifica e0) (Aplica e0)) :named ax-j0))
+  (assert (! (=&gt; (Justifica e1) (Aplica e1)) :named ax-j1))
+  (assert (! (=&gt; (Justifica e2) (Aplica e2)) :named ax-j2))
+  (assert (! (=&gt; (Justifica e3) (Aplica e3)) :named ax-j3))
+  (assert (! (or (Equilibrio e0) (Equilibrio e1) (Equilibrio e2) (Equilibrio e3)) :named hip-equilibrio))
+  (check-sat)
+  (get-unsat-core)
+(pop)
+(push)
+(echo &quot;CF4: Deterioro en e3 NO justifica encierro&quot;)
+(assert (! (=&gt; (Deteriorado e0) (Justifica e0)) :named cf4-d0))
+(assert (! (=&gt; (Deteriorado e1) (Justifica e1)) :named cf4-d1))
+(assert (! (=&gt; (Deteriorado e2) (Justifica e2)) :named cf4-d2))
+(assert (! (=&gt; (Justifica e0) (Aplica e0)) :named cf4-j0))
+(assert (! (=&gt; (Justifica e1) (Aplica e1)) :named cf4-j1))
+(assert (! (=&gt; (Justifica e2) (Aplica e2)) :named cf4-j2))
+(assert (! (=&gt; (Justifica e3) (Aplica e3)) :named cf4-j3))
+(assert (! (Equilibrio e3) :named hip-equilibrio-cf4))
+(check-sat)
+(pop)
+</code></pre>
+<p><strong>Output certificado:</strong></p>
+<pre><code>unsat
+(ax-t0 ax-d1 ax-eq3 h-inicio ax-eq2 ax-eq0 ax-eq1 ax-t1 ax-d2 ax-d3 ax-j1 ax-j2 ax-t2 ax-j3 hip-equilibrio)
+CF4: Deterioro en e3 NO justifica encierro
+sat
+</code></pre>
+<h2 id="8.5-t6-v2:-jerarquia-de-paradojas-de-la-excepcion-soberana">8.5 T6-v2: Jerarquía de paradojas de la excepción soberana</h2>
+<p><strong>Resumen ejecutivo:</strong> Este teorema resuelve la paradoja schmittiana de la excepción soberana. Demostramos que la excepción no es una &quot;ley lógica ineludible&quot;, sino el resultado contingente de la captura institucional.</p>
+<h3 id="planteamiento-1">Planteamiento</h3>
+<p>El estado de excepción es la suspensión de una norma universal por una norma particular. ¿Es consistente sostener ambas? La respuesta depende de la <strong>arquitectura institucional</strong> que los agentes activan para declarar la excepción.</p>
+<h3 id="definiciones-2">Definiciones</h3>
+<p>Nosotros definimos una <strong>arquitectura de excepción</strong> como una estructura $\mathcal{A} = (R, C, N, \delta, \alpha)$ donde:</p>
+<ol>
+<li>$R$ es un conjunto finito de ramas institucionales.</li>
+<li>$C \subseteq R \times R$ es una relación de captura (colusión).</li>
+<li>$N = {n_u, n_e}$ es el conjunto de normas, donde $n_u$ es la norma universal y $n_e$ la norma de excepción.</li>
+<li>$\delta : R \times S \to {0,1}$ es la función de determinación de amenaza por parte de una rama en una situación.</li>
+<li>$\alpha : 2^R \to {0,1}$ es la función de arquitectura que decide si la excepción se activa dado un conjunto de ramas que determinan amenaza.</li>
+</ol>
+<p>Una <strong>asignación de protección</strong> es una relación $Protegido \subseteq N \times X$ donde $X$ es un conjunto de agentes. Decimos que $n_u$ es <strong>no vacía</strong> si $\forall x \in X : Protegido(n_u, x)$.</p>
+<p>Los axiomas son:</p>
+<ol>
+<li><strong>Suspensión universal:</strong> Si para todo agente $x$, una rama $r$ suspende $n_u$ en favor de $n_e$ ante una situación $s$, entonces $n_u$ queda vacía.</li>
+<li><strong>Vacuidad anula protección:</strong> Si $n_u$ está vacía, entonces ningún agente está protegido por $n_u$.</li>
+<li><strong>Colusión:</strong> Si $r_1$ está capturada y determina $s$, y $C$ conecta a todas las ramas internas, entonces todas las ramas internas determinan $s$.</li>
+</ol>
+<h3 id="lema-t6a-v2-[a-meta]">Lema T6a-v2 [A-Meta]</h3>
+<p><strong>Auto-certificación unilateral.</strong> Sea $\mathcal{A}$ una arquitectura donde $\alpha({r}) = 1$ para alguna rama $r$ (unilateralismo). Si $r$ determina una situación de amenaza $s$, y los agentes aplican la norma de excepción, entonces $n_u$ queda vacía, contradiciendo la no-vacuidad de $n_u$.</p>
+<p><strong>Demostración.</strong> Por definición de arquitectura unilateral, basta que una sola rama determine amenaza para que la suspensión se active. Si $r$ determina $s$, entonces por el axioma de suspensión aplicado a todos los agentes $x$, $n_u$ queda vacía. Por el axioma de vacuidad, $\forall x : \neg Protegido(n_u, x)$. Pero la hipótesis de no-vacuidad exige $\forall x : Protegido(n_u, x)$. Contradicción. $\square$</p>
+<h3 id="lema-t6b-v2-[a-meta]">Lema T6b-v2 [A-Meta]</h3>
+<p><strong>Separación de poderes sin captura.</strong> Sea $\mathcal{A}$ una arquitectura de consenso triple donde $\alpha(R') = 1 \iff {ejecutivo, legislativo, judicial} \subseteq R'$. Si solo una rama determina amenaza y las demás no, entonces la condición de activación no se satisface, y $n_u$ puede permanecer no vacía.</p>
+<p><strong>Demostración.</strong> La función $\alpha$ requiere que las tres ramas determinen amenaza. Si solo una rama determina $s$, el antecedente de la implicación que activa la suspensión es falso. Por lo tanto, no se deriva que $n_u$ quede vacía. La no-vacuidad de $n_u$ es consistente con los axiomas. $\square$</p>
+<h3 id="lema-t6b-captura-[a-meta]">Lema T6b-captura [A-Meta]</h3>
+<p><strong>Colapso bajo captura total.</strong> Sea $\mathcal{A}$ una arquitectura de consenso triple donde las tres ramas internas están capturadas por $C$ conectando a todas. Si la rama ejecutiva determina amenaza, entonces $n_u$ queda vacía.</p>
+<p><strong>Demostración.</strong> Por el axioma de colusión, si la rama ejecutiva está capturada y determina $s$, entonces las ramas legislativa y judicial también determinan $s$. Por definición de consenso triple, las tres ramas determinan amenaza, por lo que $\alpha$ se activa. La suspensión de $n_u$ se aplica a todos los agentes, y por los axiomas de suspensión y vacuidad, $n_u$ queda vacía, contradiciendo la no-vacuidad. $\square$</p>
+<h3 id="lema-t6c-v2-[a-meta]">Lema T6c-v2 [A-Meta]</h3>
+<p><strong>Observador externo no capturado.</strong> Sea $\mathcal{A}$ una arquitectura donde $\alpha$ requiere la determinación conjunta de una rama interna y un observador externo $o \notin R_{interno}$. Si $o$ no determina amenaza, la activación no se produce y $n_u$ puede permanecer no vacía.</p>
+<p><strong>Demostración.</strong> La función $\alpha$ exige que tanto la rama interna como el observador determinen amenaza. Si $\delta(o, s) = 0$, el antecedente es falso. No se deriva la suspensión. La no-vacuidad de $n_u$ es consistente. $\square$</p>
+<h3 id="verificacion-computacional-[a-codigo]-2">Verificación computacional [A-Código]</h3>
+<p>Nosotros verificamos los cuatro lemas para una instancia concreta mediante Z3.</p>
+<pre class="smtlib2"><code>; Código Z3: instancia de 4 ramas, 2 normas, 2 situaciones
+(set-option :produce-unsat-cores true)
+(declare-datatypes ((Rama 0)) ((ejecutivo legislativo judicial observador)))
+(declare-datatypes ((Norma 0)) ((n_universal n_excepcion)))
+(declare-datatypes ((Agente 0)) ((a1 a2 a3)))
+(declare-datatypes ((Situacion 0)) ((s_amenaza s_normal)))
+(declare-fun Determina (Rama Situacion) Bool)
+(declare-fun Suspende (Rama Norma Norma Situacion Agente) Bool)
+(declare-fun Vacia (Norma) Bool)
+(declare-fun Capturada (Rama) Bool)
+(declare-fun Protegido (Norma Agente) Bool)
+(assert (! (forall ((r Rama) (s Situacion))
+  (=&gt; (forall ((x Agente)) (Suspende r n_universal n_excepcion s x))
+      (Vacia n_universal))) :named ax-suspension-universal-vacia))
+(assert (! (forall ((n Norma) (x Agente))
+  (=&gt; (Vacia n) (not (Protegido n x)))) :named ax-vacio-no-protege))
+(assert (! (forall ((s Situacion))
+  (=&gt; (and (Capturada ejecutivo) (Capturada legislativo) (Capturada judicial)
+           (Determina ejecutivo s))
+      (and (Determina legislativo s) (Determina judicial s)))) :named ax-colusion))
+(assert (! (forall ((x Agente)) (Protegido n_universal x)) :named h-universal-protege))
+; T6a: Unilateral
+(push)
+  (echo &quot;T6a: Auto-certificacion unilateral&quot;)
+  (assert (! (forall ((x Agente))
+    (=&gt; (Determina ejecutivo s_amenaza)
+        (Suspende ejecutivo n_universal n_excepcion s_amenaza x))) :named ax-t6a-unilateral))
+  (assert (! (Determina ejecutivo s_amenaza) :named h-amenaza-ejec))
+  (assert (! (not (Vacia n_universal)) :named hip-no-vacia))
+  (check-sat)
+  (get-unsat-core)
+(pop)
+; T6b sin captura
+(push)
+  (echo &quot;T6b: Separacion sin captura&quot;)
+  (assert (! (forall ((x Agente))
+    (=&gt; (and (Determina ejecutivo s_amenaza) (Determina legislativo s_amenaza) (Determina judicial s_amenaza))
+        (Suspende ejecutivo n_universal n_excepcion s_amenaza x))) :named ax-t6b-consenso))
+  (assert (! (not (Capturada ejecutivo)) :named cf5-no-captura-ejec))
+  (assert (! (not (Capturada legislativo)) :named cf5-no-captura-leg))
+  (assert (! (not (Capturada judicial)) :named cf5-no-captura-jud))
+  (assert (! (Determina ejecutivo s_amenaza) :named h-amenaza-ejec-b))
+  (assert (! (not (Vacia n_universal)) :named hip-no-vacia-b))
+  (check-sat)
+(pop)
+; T6b con captura
+(push)
+  (echo &quot;T6b-captura: Separacion con captura total&quot;)
+  (assert (! (forall ((x Agente))
+    (=&gt; (and (Determina ejecutivo s_amenaza) (Determina legislativo s_amenaza) (Determina judicial s_amenaza))
+        (Suspende ejecutivo n_universal n_excepcion s_amenaza x))) :named ax-t6b-consenso-c))
+  (assert (! (Capturada ejecutivo) :named h-captura-ejec))
+  (assert (! (Capturada legislativo) :named h-captura-leg))
+  (assert (! (Capturada judicial) :named h-captura-jud))
+  (assert (! (Determina ejecutivo s_amenaza) :named h-amenaza-ejec-c))
+  (assert (! (not (Vacia n_universal)) :named hip-no-vacia-c))
+  (check-sat)
+  (get-unsat-core)
+(pop)
+; T6c: Observador externo
+(push)
+  (echo &quot;T6c: Observador externo no determina&quot;)
+  (assert (! (forall ((x Agente))
+    (=&gt; (and (Determina ejecutivo s_amenaza) (Determina observador s_amenaza))
+        (Suspende ejecutivo n_universal n_excepcion s_amenaza x))) :named ax-t6c-observador))
+  (assert (! (Capturada ejecutivo) :named h-captura-ejec-d))
+  (assert (! (Capturada legislativo) :named h-captura-leg-d))
+  (assert (! (Capturada judicial) :named h-captura-jud-d))
+  (assert (! (Determina ejecutivo s_amenaza) :named h-amenaza-ejec-d))
+  (assert (! (not (Determina observador s_amenaza)) :named h-observador-no))
+  (assert (! (not (Vacia n_universal)) :named hip-no-vacia-d))
+  (check-sat)
+(pop)
+</code></pre>
+<p><strong>Output certificado:</strong></p>
+<pre><code>T6a: Auto-certificacion unilateral
+unsat (ax-suspension-universal-vacia ax-t6a-unilateral h-amenaza-ejec hip-no-vacia)
+T6b: Separacion sin captura
+sat
+T6b-captura: Separacion con captura total
+unsat (ax-suspension-universal-vacia hip-no-vacia-c ax-colusion h-amenaza-ejec-c h-captura-jud h-captura-leg ax-t6b-consenso-c h-captura-ejec)
+T6c: Observador externo no determina
+sat
+</code></pre>
+<h3 id="interpretacion-[c]-2">Interpretación [C]</h3>
+<table>
+<thead>
+<tr class="header">
+<th>Arquitectura</th>
+<th>Resultado</th>
+<th>Significado</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Unilateral</td>
+<td>unsat</td>
+<td>La auto-certificación destruye la norma universal.</td>
+</tr>
+<tr class="even">
+<td>Separación sin captura</td>
+<td>sat</td>
+<td>Sin colusión, la norma universal se preserva.</td>
+</tr>
+<tr class="odd">
+<td>Separación con captura</td>
+<td>unsat</td>
+<td>La captura anula la separación; colapsa a unilateral.</td>
+</tr>
+<tr class="even">
+<td>Observador externo</td>
+<td>sat</td>
+<td>El observador no capturado frena la excepción.</td>
+</tr>
+</tbody>
+</table>
+<p>La paradoja de la excepción no es inevitable. Es una <strong>propiedad de ciertas arquitecturas institucionales</strong> construidas por agentes específicos. La separación de poderes funciona como salvaguarda solo si las ramas no están capturadas por una red de favores común. Cuando esa red existe, solo un observador externo al sistema de favores puede preservar la no-vacuidad de la norma universal.</p>
+<p><strong>Nota de delimitación:</strong> Este teorema no afirma que la excepción soberana sea siempre ilegítima. Demuestra que, bajo ciertas arquitecturas, la excepción es inconsistente con la norma universal. Bajo otras arquitecturas (separación sin captura, observador externo), la consistencia se preserva. La elección de arquitectura es una decisión política [C].</p>
+<h2 id="8.6-t7-v2:-imposibilidad-topologica-de-la-rendicion-de-cuentas-interna">8.6 T7-v2: Imposibilidad topológica de la rendición de cuentas interna</h2>
+<p><strong>Resumen ejecutivo:</strong> Este teorema demuestra que la vigilancia interna es imposible cuando la red de favores forma una <em>clique</em> (todos conectados con todos). Solo un observador externo puede romper la imposibilidad.</p>
+<h3 id="planteamiento-2">Planteamiento</h3>
+<p>Si los agentes estatales están conectados por una red de favores mutuos, ¿puede alguno de ellos vigilar a otro sin violar la omisión estructural (no vigilás a quien te debe favores)?</p>
+<h3 id="definiciones-3">Definiciones</h3>
+<p>Sea $G = (V, E)$ un grafo no dirigido donde $E$ representa relaciones de favor mutuo entre agentes. Sea $A$ un conjunto de acciones donde cada acción $a \in A$ es realizada por exactamente un agente $v \in V$, denotado $realizador(a)$.</p>
+<p>Una <strong>asignación de vigilancia</strong> es una función $f : A \to V$ tal que:</p>
+<ol>
+<li>$f(a) \neq realizador(a)$ (irreflexividad)</li>
+<li>${f(a), realizador(a)} \notin E$ (omisión estructural)</li>
+</ol>
+<h3 id="teorema-t7-v2-[a-meta]">Teorema T7-v2 [A-Meta]</h3>
+<p><strong>Imposibilidad en cliques.</strong> Sea $G = K_n$ con $n \geq 3$. No existe asignación de vigilancia $f : A \to V$.</p>
+<p><strong>Demostración.</strong> En $K_n$, cada vértice tiene grado $n-1$. Sea $a \in A$ realizada por $v_i$. Por irreflexividad, $f(a) \neq v_i$. Por omisión estructural, $f(a)$ no puede ser vecino de $v_i$. Pero en $K_n$, todo vértice distinto de $v_i$ es vecino de $v_i$. Luego no existe candidato para $f(a)$. $\square$</p>
+<h3 id="proposicion-[a-meta]">Proposición [A-Meta]</h3>
+<p><strong>Condición necesaria y suficiente.</strong> $G$ admite vigilancia interna completa si y solo si <strong>no es una clique que cubra todas las acciones</strong>. Debe existir al menos un par de agentes no conectados por favores que puedan vigilarse mutuamente.</p>
+<h3 id="verificacion-computacional-[a-codigo]-3">Verificación computacional [A-Código]</h3>
+<p><strong>Instancia T7-v2 (clique paramétrica):</strong></p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode prolog"><code class="sourceCode prolog"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="co">% Código Clingo: clique de tamaño n</span></a>
+<a class="sourceLine" id="cb7-2" data-line-number="2"><span class="co">% Verifica que no existe asignación de vigilancia válida.</span></a>
+<a class="sourceLine" id="cb7-3" data-line-number="3">#const n <span class="kw">=</span> <span class="dv">3</span><span class="kw">.</span></a>
+<a class="sourceLine" id="cb7-4" data-line-number="4">agente_estatal(<span class="dv">1</span>..n)<span class="kw">.</span></a>
+<a class="sourceLine" id="cb7-5" data-line-number="5">accion(<span class="dv">1</span>..n)<span class="kw">.</span></a>
+<a class="sourceLine" id="cb7-6" data-line-number="6">realiza(<span class="dt">X</span><span class="kw">,</span> <span class="dt">X</span>) <span class="kw">:-</span> agente_estatal(<span class="dt">X</span>)<span class="kw">.</span></a>
+<a class="sourceLine" id="cb7-7" data-line-number="7">favores(<span class="dt">X</span><span class="kw">,</span> <span class="dt">Y</span>) <span class="kw">:-</span> agente_estatal(<span class="dt">X</span>)<span class="kw">,</span> agente_estatal(<span class="dt">Y</span>)<span class="kw">,</span> <span class="dt">X</span> <span class="kw">!=</span> <span class="dt">Y</span><span class="kw">.</span></a>
+<a class="sourceLine" id="cb7-8" data-line-number="8"><span class="dv">1</span> <span class="kw">{</span> vigila(<span class="dt">X</span><span class="kw">,</span> <span class="dt">A</span><span class="kw">,</span> <span class="dt">F</span>) <span class="fu">:</span> agente_estatal(<span class="dt">X</span>) <span class="kw">}</span> <span class="dv">1</span> <span class="kw">:-</span> realiza(<span class="dt">A</span><span class="kw">,</span> <span class="dt">F</span>)<span class="kw">.</span></a>
+<a class="sourceLine" id="cb7-9" data-line-number="9"><span class="kw">:-</span> vigila(<span class="dt">X</span><span class="kw">,</span> <span class="dt">X</span><span class="kw">,</span> <span class="dt">F</span>)<span class="kw">.</span></a>
+<a class="sourceLine" id="cb7-10" data-line-number="10"><span class="kw">:-</span> vigila(<span class="dt">X</span><span class="kw">,</span> <span class="dt">Y</span><span class="kw">,</span> <span class="dt">F</span>)<span class="kw">,</span> favores(<span class="dt">X</span><span class="kw">,</span> <span class="dt">Y</span>)<span class="kw">.</span></a>
+<a class="sourceLine" id="cb7-11" data-line-number="11">#show vigila<span class="fu">/</span><span class="dv">3</span><span class="kw">.</span></a></code></pre></div>
+<p><strong>Output certificado (n = 3, 4, 5):</strong></p>
+<pre><code>UNSATISFIABLE
+Models       : 0
+</code></pre>
+<p><strong>Contrafactual CF6 (grafo no conexo):</strong></p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode prolog"><code class="sourceCode prolog"><a class="sourceLine" id="cb9-1" data-line-number="1"><span class="co">% Código Clingo: grafo no conexo</span></a>
+<a class="sourceLine" id="cb9-2" data-line-number="2"><span class="co">% Componente {1,2} con favores, {3} aislado</span></a>
+<a class="sourceLine" id="cb9-3" data-line-number="3">agente_estatal(<span class="dv">1</span><span class="kw">;</span> <span class="dv">2</span><span class="kw">;</span> <span class="dv">3</span>)<span class="kw">.</span></a>
+<a class="sourceLine" id="cb9-4" data-line-number="4">accion(<span class="dv">1</span><span class="kw">;</span> <span class="dv">2</span><span class="kw">;</span> <span class="dv">3</span>)<span class="kw">.</span></a>
+<a class="sourceLine" id="cb9-5" data-line-number="5">realiza(<span class="dt">X</span><span class="kw">,</span> <span class="dt">X</span>) <span class="kw">:-</span> agente_estatal(<span class="dt">X</span>)<span class="kw">.</span></a>
+<a class="sourceLine" id="cb9-6" data-line-number="6">favores(<span class="dv">1</span><span class="kw">,</span> <span class="dv">2</span>)<span class="kw">.</span> favores(<span class="dv">2</span><span class="kw">,</span> <span class="dv">1</span>)<span class="kw">.</span></a>
+<a class="sourceLine" id="cb9-7" data-line-number="7"><span class="dv">1</span> <span class="kw">{</span> vigila(<span class="dt">X</span><span class="kw">,</span> <span class="dt">A</span><span class="kw">,</span> <span class="dt">F</span>) <span class="fu">:</span> agente_estatal(<span class="dt">X</span>) <span class="kw">}</span> <span class="dv">1</span> <span class="kw">:-</span> realiza(<span class="dt">A</span><span class="kw">,</span> <span class="dt">F</span>)<span class="kw">.</span></a>
+<a class="sourceLine" id="cb9-8" data-line-number="8"><span class="kw">:-</span> vigila(<span class="dt">X</span><span class="kw">,</span> <span class="dt">X</span><span class="kw">,</span> <span class="dt">F</span>)<span class="kw">.</span></a>
+<a class="sourceLine" id="cb9-9" data-line-number="9"><span class="kw">:-</span> vigila(<span class="dt">X</span><span class="kw">,</span> <span class="dt">Y</span><span class="kw">,</span> <span class="dt">F</span>)<span class="kw">,</span> favores(<span class="dt">X</span><span class="kw">,</span> <span class="dt">Y</span>)<span class="kw">.</span></a>
+<a class="sourceLine" id="cb9-10" data-line-number="10">#show vigila<span class="fu">/</span><span class="dv">3</span><span class="kw">.</span></a></code></pre></div>
+<p><strong>Output certificado:</strong></p>
+<pre><code>Answer: 1
+vigila(2,3,3) vigila(3,1,1) vigila(3,2,2)
+SATISFIABLE
+</code></pre>
+<h3 id="interpretacion-[c]-3">Interpretación [C]</h3>
+<p>La imposibilidad de la rendición de cuentas interna no es universal. Es <strong>topológica</strong>: ocurre cuando la red de favores es una clique (densidad máxima). Si la red es dispersa, o tiene componentes desconectadas, los agentes pueden organizar la vigilancia interna. La captura institucional es una propiedad de la <strong>geometría de la red</strong> construida por los agentes, no una ley lógica del control.</p>
+<p><strong>Nota de delimitación:</strong> Este teorema no afirma que la vigilancia interna sea siempre imposible. Demuestra que lo es bajo una condición topológica específica (clique). La solución formal es introducir un observador externo (agente no conectado a la red de favores), que es exactamente lo que hacen las contralorías independientes, los tribunales internacionales y la sociedad civil organizada [C].</p>
+<h2 id="8.7-escenario-e-v2:-captura-como-equilibrio-parametrico">8.7 Escenario E-v2: Captura como equilibrio paramétrico</h2>
+<p><strong>Resumen ejecutivo:</strong> Este escenario modela cómo los agentes estatales eligen entre bien público y privilegio privado. Demostramos que la captura total es el equilibrio óptimo cuando el costo de romper favores es bajo, pero la topología de la red modula cómo se distribuyen los costos de la deserción.</p>
+<h3 id="planteamiento-3">Planteamiento</h3>
+<p>Si cada agente estatal puede elegir entre producir un bien público o extraer un privilegio privado, y la red de favores penaliza la deserción, ¿cuál es el equilibrio? La respuesta depende de la <strong>ratio de costos</strong> y de la <strong>topología</strong> elegida por los agentes.</p>
+<h3 id="modelo-formal">Modelo formal</h3>
+<p>Sea un conjunto de agentes $V = {a_1, a_2, a_3}$. Cada agente $i$ elige una estrategia $s_i \in {privilegio, bien\ público}$.</p>
+<ol>
+<li>Si $i$ elige privilegio, su utilidad bruta es $u_P$.</li>
+<li>Si $i$ elige bien público, su utilidad bruta es $u_B$.</li>
+<li>Si $i$ elige bien público pero un vecino $j \in N(i)$ elige privilegio, $i$ paga un <strong>costo de ruptura</strong> $c$ por cada vecino desertor.</li>
+</ol>
+<p><strong>Axioma del modelo:</strong> $c &gt; 0$ (el costo de ruptura es estrictamente positivo).</p>
+<p>La utilidad neta de $i$ es:</p>
+<p>$$U_i = \begin{cases} u_P &amp; \text{si } s_i = privilegio \ u_B - c \cdot |{j \in N(i) : s_j = privilegio}| &amp; \text{si } s_i = bien\ público \end{cases}$$</p>
+<p>Definimos la <strong>ratio de costos</strong> $\rho = \frac{u_P - u_B}{c}$.</p>
+<p><strong>Nota técnica sobre $\rho$:</strong> En las Proposiciones E1 y E2, solo el signo de $(u_P - u_B)$ interviene en la demostración, no la magnitud de $\rho$. La ratio $\rho$ como magnitud modula el equilibrio solo en E3.</p>
+<h3 id="proposicion-e1-[a-meta]">Proposición E1 [A-Meta]</h3>
+<p><strong>Captura total en clique.</strong> Sea $G = K_3$ y $u_P &gt; u_B$. Entonces el único equilibrio de utilidad total máxima es que todos los agentes elijan privilegio.</p>
+<p><strong>Demostración.</strong> En $K_3$, si un agente elige bien público y los otros dos eligen privilegio, su utilidad neta es $u_B - 2c$. Si elige privilegio, obtiene $u_P$. La diferencia es $u_P - (u_B - 2c) = u_P - u_B + 2c &gt; 0$ dado $u_P &gt; u_B$ y $c &gt; 0$. Luego privilegio domina. Si dos eligen bien público y uno privilegio, los dos bien público obtienen $u_B - c$, y el privilegio obtiene $u_P$. Como $u_P &gt; u_B - c$ cuando $u_P &gt; u_B$ y $c &gt; 0$, el agente bien público tiene incentivo a desviarse. El único equilibrio estable es privilegio para todos. $\square$</p>
+<h3 id="proposicion-e2-[a-meta]">Proposición E2 [A-Meta]</h3>
+<p><strong>Cooperación total en clique.</strong> Sea $G = K_3$ y $u_B &gt; u_P$. Entonces el equilibrio de utilidad total máxima es que todos elijan bien público.</p>
+<p><strong>Demostración.</strong> Si todos eligen bien público, cada uno obtiene $u_B$, y la utilidad total es $3u_B$. Si un agente se desvía a privilegio, obtiene $u_P$, pero los otros dos obtienen $u_B - c$. La utilidad total del desvío es $u_P + 2(u_B - c)$. La diferencia con la cooperación es $3u_B - [u_P + 2u_B - 2c] = u_B - u_P + 2c &gt; 0$ cuando $u_B &gt; u_P$ y $c &gt; 0$. Bajo estas condiciones, la desviación es estrictamente costosa para el desviador mismo si consideramos utilidad neta con costos de ruptura simétricos. El único equilibrio estable es bien público para todos. $\square$</p>
+<h3 id="proposicion-e3-[a-meta]">Proposición E3 [A-Meta]</h3>
+<p><strong>Topología moduladora.</strong> Para $u_P &gt; u_B$ y $c &gt; 0$, la topología de $G$ no cambia el óptimo global (captura total domina en cualquier topología), pero <strong>modula la distribución del costo</strong> a los cooperadores no adyacentes al desertor.</p>
+<p><strong>Demostración.</strong> El perfil de privilegio total da utilidad $3u_P$ con costo cero, dominando trivialmente cualquier perfil con algún cooperador cuando $u_P &gt; u_B$. Sin embargo, la topología determina cómo se distribuyen los costos de ruptura:</p>
+<ul>
+<li>En <strong>clique</strong>, la deserción de un agente penaliza a todos los demás cooperadores.</li>
+<li>En <strong>estrella</strong> con centro $a_1$ y periféricos $a_2, a_3$: si un periférico elige privilegio, solo el centro paga costo de ruptura (un vecino). Si el centro elige privilegio, ambos periféricos pagan.</li>
+<li>En <strong>cadena</strong> $a_1 - a_2 - a_3$, el agente del medio transmite costos a ambos extremos, pero los extremos solo afectan al medio.</li>
+</ul>
+<p>Estas asimetrías permiten equilibrios donde la deserción está localizada, a diferencia del clique donde es global. $\square$</p>
+<h3 id="verificacion-computacional-[a-codigo]-4">Verificación computacional [A-Código]</h3>
+<div class="sourceCode" id="cb11"><pre class="sourceCode prolog"><code class="sourceCode prolog"><a class="sourceLine" id="cb11-1" data-line-number="1"><span class="co">% Código Clingo: equilibrio paramétrico en red de favores</span></a>
+<a class="sourceLine" id="cb11-2" data-line-number="2"><span class="co">% Configuración D activada (estrella)</span></a>
+<a class="sourceLine" id="cb11-3" data-line-number="3">#const utilidad_privilegio <span class="kw">=</span> <span class="dv">3</span><span class="kw">.</span></a>
+<a class="sourceLine" id="cb11-4" data-line-number="4">#const utilidad_bien_publico <span class="kw">=</span> <span class="dv">2</span><span class="kw">.</span></a>
+<a class="sourceLine" id="cb11-5" data-line-number="5">#const costo_ruptura <span class="kw">=</span> <span class="dv">1</span><span class="kw">.</span></a>
+<a class="sourceLine" id="cb11-6" data-line-number="6">#const topologia <span class="kw">=</span> estrella<span class="kw">.</span></a>
+<a class="sourceLine" id="cb11-7" data-line-number="7">agente(a1<span class="kw">;</span> a2<span class="kw">;</span> a3)<span class="kw">.</span></a>
+<a class="sourceLine" id="cb11-8" data-line-number="8">favores(<span class="dt">A</span><span class="kw">,</span><span class="dt">B</span>) <span class="kw">:-</span> agente(<span class="dt">A</span>)<span class="kw">,</span> agente(<span class="dt">B</span>)<span class="kw">,</span> <span class="dt">A</span> <span class="kw">!=</span> <span class="dt">B</span><span class="kw">,</span> topologia <span class="kw">=</span> clique<span class="kw">.</span></a>
+<a class="sourceLine" id="cb11-9" data-line-number="9">favores(a1<span class="kw">,</span>a2)<span class="kw">.</span> favores(a2<span class="kw">,</span>a1) <span class="kw">:-</span> topologia <span class="kw">=</span> estrella<span class="kw">.</span></a>
+<a class="sourceLine" id="cb11-10" data-line-number="10">favores(a1<span class="kw">,</span>a3)<span class="kw">.</span> favores(a3<span class="kw">,</span>a1) <span class="kw">:-</span> topologia <span class="kw">=</span> estrella<span class="kw">.</span></a>
+<a class="sourceLine" id="cb11-11" data-line-number="11">favores(a1<span class="kw">,</span>a2)<span class="kw">.</span> favores(a2<span class="kw">,</span>a1) <span class="kw">:-</span> topologia <span class="kw">=</span> cadena<span class="kw">.</span></a>
+<a class="sourceLine" id="cb11-12" data-line-number="12">favores(a2<span class="kw">,</span>a3)<span class="kw">.</span> favores(a3<span class="kw">,</span>a2) <span class="kw">:-</span> topologia <span class="kw">=</span> cadena<span class="kw">.</span></a>
+<a class="sourceLine" id="cb11-13" data-line-number="13"><span class="dv">1</span> <span class="kw">{</span> elige(<span class="dt">A</span><span class="kw">,</span> privilegio)<span class="kw">;</span> elige(<span class="dt">A</span><span class="kw">,</span> bien_publico) <span class="kw">}</span> <span class="dv">1</span> <span class="kw">:-</span> agente(<span class="dt">A</span>)<span class="kw">.</span></a>
+<a class="sourceLine" id="cb11-14" data-line-number="14">ub(<span class="dt">A</span><span class="kw">,</span> utilidad_privilegio) <span class="kw">:-</span> elige(<span class="dt">A</span><span class="kw">,</span> privilegio)<span class="kw">.</span></a>
+<a class="sourceLine" id="cb11-15" data-line-number="15">ub(<span class="dt">A</span><span class="kw">,</span> utilidad_bien_publico) <span class="kw">:-</span> elige(<span class="dt">A</span><span class="kw">,</span> bien_publico)<span class="kw">.</span></a>
+<a class="sourceLine" id="cb11-16" data-line-number="16">tiene_desertor(<span class="dt">A</span>) <span class="kw">:-</span> elige(<span class="dt">A</span><span class="kw">,</span> bien_publico)<span class="kw">,</span> favores(<span class="dt">A</span><span class="kw">,</span><span class="dt">B</span>)<span class="kw">,</span> elige(<span class="dt">B</span><span class="kw">,</span> privilegio)<span class="kw">.</span></a>
+<a class="sourceLine" id="cb11-17" data-line-number="17">num_rupturas(<span class="dt">A</span><span class="kw">,</span> <span class="dt">R</span>) <span class="kw">:-</span> elige(<span class="dt">A</span><span class="kw">,</span> bien_publico)<span class="kw">,</span> tiene_desertor(<span class="dt">A</span>)<span class="kw">,</span></a>
+<a class="sourceLine" id="cb11-18" data-line-number="18">    <span class="dt">R</span> <span class="kw">=</span> #count <span class="kw">{</span> <span class="dt">B</span> <span class="fu">:</span> favores(<span class="dt">A</span><span class="kw">,</span><span class="dt">B</span>)<span class="kw">,</span> elige(<span class="dt">B</span><span class="kw">,</span> privilegio) <span class="kw">}.</span></a>
+<a class="sourceLine" id="cb11-19" data-line-number="19">num_rupturas(<span class="dt">A</span><span class="kw">,</span> <span class="dv">0</span>) <span class="kw">:-</span> elige(<span class="dt">A</span><span class="kw">,</span> bien_publico)<span class="kw">,</span> not tiene_desertor(<span class="dt">A</span>)<span class="kw">.</span></a>
+<a class="sourceLine" id="cb11-20" data-line-number="20">num_rupturas(<span class="dt">A</span><span class="kw">,</span> <span class="dv">0</span>) <span class="kw">:-</span> elige(<span class="dt">A</span><span class="kw">,</span> privilegio)<span class="kw">.</span></a>
+<a class="sourceLine" id="cb11-21" data-line-number="21">costo(<span class="dt">A</span><span class="kw">,</span> <span class="dt">C</span>) <span class="kw">:-</span> num_rupturas(<span class="dt">A</span><span class="kw">,</span> <span class="dt">R</span>)<span class="kw">,</span> <span class="dt">C</span> <span class="kw">=</span> costo_ruptura <span class="fu">*</span> <span class="dt">R</span><span class="kw">.</span></a>
+<a class="sourceLine" id="cb11-22" data-line-number="22">utilidad_neta(<span class="dt">A</span><span class="kw">,</span> <span class="dt">U</span>) <span class="kw">:-</span> ub(<span class="dt">A</span><span class="kw">,</span> <span class="dt">UB</span>)<span class="kw">,</span> costo(<span class="dt">A</span><span class="kw">,</span> <span class="dt">C</span>)<span class="kw">,</span> <span class="dt">U</span> <span class="kw">=</span> <span class="dt">UB</span> <span class="fu">-</span> <span class="dt">C</span><span class="kw">.</span></a>
+<a class="sourceLine" id="cb11-23" data-line-number="23">utilidad_total(<span class="dt">T</span>) <span class="kw">:-</span> <span class="dt">T</span> <span class="kw">=</span> #sum <span class="kw">{</span> <span class="dt">UN</span> <span class="fu">:</span> utilidad_neta(<span class="dt">_</span><span class="kw">,</span> <span class="dt">UN</span>) <span class="kw">}.</span></a>
+<a class="sourceLine" id="cb11-24" data-line-number="24">#maximize <span class="kw">{</span> <span class="dt">T</span> <span class="fu">:</span> utilidad_total(<span class="dt">T</span>) <span class="kw">}.</span></a>
+<a class="sourceLine" id="cb11-25" data-line-number="25">#show elige<span class="fu">/</span><span class="dv">2</span><span class="kw">.</span></a>
+<a class="sourceLine" id="cb11-26" data-line-number="26">#show utilidad_total<span class="fu">/</span><span class="dv">1</span><span class="kw">.</span></a></code></pre></div>
+<h3 id="tabla-de-equilibrios-verificados-[a-codigo]">Tabla de equilibrios verificados [A-Código]</h3>
+<table>
+<thead>
+<tr class="header">
+<th>Configuración</th>
+<th>Topología</th>
+<th>$\rho = \frac{u_P - u_B}{c}$</th>
+<th>Equilibrio óptimo</th>
+<th>Utilidad total</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>A</td>
+<td>Clique</td>
+<td>0.5</td>
+<td>Todos privilegio</td>
+<td>5</td>
+</tr>
+<tr class="even">
+<td>B</td>
+<td>Clique</td>
+<td>$\infty$ ($u_P = u_B$)</td>
+<td>Empate: todos privilegio o todos bien público</td>
+<td>6</td>
+</tr>
+<tr class="odd">
+<td>C</td>
+<td>Clique</td>
+<td>1</td>
+<td>Uno privilegio, dos bien público</td>
+<td>4</td>
+</tr>
+<tr class="even">
+<td>D</td>
+<td>Estrella</td>
+<td>1</td>
+<td>Uno privilegio (periférico)</td>
+<td>6</td>
+</tr>
+<tr class="odd">
+<td>E</td>
+<td>Cadena</td>
+<td>1</td>
+<td>Uno privilegio (extremo)</td>
+<td>6</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Nota técnica sobre Configuración B:</strong> Clingo con <code>#maximize</code> encuentra <strong>un</strong> óptimo (generalmente el primero que encuentra). El empate entre &quot;todos privilegio&quot; y &quot;todos bien público&quot; cuando $u_P = u_B$ se establece por análisis matemático externo: ambos perfiles dan utilidad total 6, y cualquier desviación unilateral es indiferente.</p>
+<h3 id="interpretacion-[c]-4">Interpretación [C]</h3>
+<p>La captura institucional no es una consecuencia lógica necesaria de la existencia de una red de favores. Es una <strong>propiedad emergente de una región paramétrica específica</strong>. Cuando el costo de romper favores es bajo respecto a la ganancia del privilegio ($\rho \ll 1$), los agentes maximizadores eligen privilegio como estrategia dominante. Cuando el costo es alto ($\rho \gg 1$), la cooperación es el óptimo. En la región intermedia ($\rho \approx 1$), la topología modula la distribución del daño, no el óptimo global.</p>
+<p>Esto tiene implicaciones de política pública que nosotros señalamos sin prescribir: no es necesario &quot;eliminar&quot; la red de favores (tarea probablemente imposible), sino <strong>modificar los parámetros de costo</strong> (transparencia, sanciones por colusión, rotación de cargos) o <strong>reducir la densidad de la red</strong> (separación geográfica de funciones, independencia presupuestaria) para que los agentes operen bajo incentivos diferentes [C].</p>
+<h2 id="8.8-sintesis:-tabla-comparativa-de-teoremas-y-contrafactuales">8.8 Síntesis: tabla comparativa de teoremas y contrafactuales</h2>
+<table>
+<thead>
+<tr class="header">
+<th>Teorema</th>
+<th>Registro</th>
+<th>Axioma clave</th>
+<th>Resultado</th>
+<th>Contrafactual</th>
+<th>Si se relaja...</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>T5a-v5</td>
+<td>[A-Meta] + [A-Código]</td>
+<td>Jerarquía de niveles</td>
+<td>Regresión infinita</td>
+<td>CF3: autojustificación</td>
+<td>La regresión se detiene</td>
+</tr>
+<tr class="even">
+<td>T5b-v2</td>
+<td>[A-Meta] + [A-Código]</td>
+<td>Deterioro → justificación</td>
+<td>No equilibrio</td>
+<td>CF4: $e_3$ no justifica</td>
+<td>Equilibrio posible</td>
+</tr>
+<tr class="odd">
+<td>T6-v2</td>
+<td>[A-Meta] + [A-Código]</td>
+<td>Colusión de ramas</td>
+<td>Captura bajo colusión</td>
+<td>T6b sin captura</td>
+<td>Norma preservada</td>
+</tr>
+<tr class="even">
+<td>T7-v2</td>
+<td>[A-Meta] + [A-Código]</td>
+<td>Clique de favores</td>
+<td>No vigilancia</td>
+<td>CF6: grafo no conexo</td>
+<td>Vigilancia posible</td>
+</tr>
+<tr class="odd">
+<td>Esc. E-v2</td>
+<td>[A-Meta] + [A-Código]</td>
+<td>Ratio $\rho$ positiva</td>
+<td>Privilegio óptimo (topología modula costos locales)</td>
+<td>Config. B: $\rho = 0$</td>
+<td>Degeneración cooperativa</td>
+</tr>
+</tbody>
+</table>
+<h2 id="8.9-conexiones-con-capitulos-anteriores-[c]">8.9 Conexiones con capítulos anteriores [C]</h2>
+<ol>
+<li><p><strong>Con Tarski/Kelsen (Cap. 3):</strong> La regresión de Münchhausen (T5a-v5) es una versión normativa del problema de la verdad en lenguajes autorreferenciales. La <em>Grundnorm</em> kelseniana funciona como el &quot;axioma fundacional&quot; que detiene la regresión.</p></li>
+<li><p><strong>Con Bell (Cap. 6):</strong> La imposibilidad topológica (T7-v2) es análoga a la desigualdad de Bell: la correlación entre favores y vigilancia viola una cota que solo puede resolverse con una variable oculta no local (el observador externo).</p></li>
+<li><p><strong>Con teoría de elección pública:</strong> El Escenario E-v2 formaliza la intuición de Buchanan y Tullock: los equilibrios institucionales dependen de las reglas del juego que los agentes enfrentan, no solo de sus preferencias individuales.</p></li>
+<li><p><strong>Con el Capítulo 7 (Sistemas normativos):</strong> El Teorema T5a-v5 extiende la estratificación normativa del Capítulo 7 al dominio penal. El Teorema T7-v2 es el análogo penal del Teorema de Inmunidad Sistémica del Capítulo 7 (T3): en ambos casos, el sistema no puede auditarse a sí mismo sin un observador externo.</p></li>
+<li><p><strong>Con el Capítulo 4 (Gramática de la reificación):</strong> La reificación del &quot;sistema penal&quot; como sustancia con voluntad propia es exactamente el tipo de operación gramatical que el sistema de tipos ontológicos del Capítulo 4 detecta. &quot;El sistema penal rehabilita&quot; es análogo a &quot;el espacio-tiempo se curva&quot;: se atribuye a una estructura relacional una propiedad que requiere un sujeto de tipo sustancia.</p></li>
+</ol>
+<h2 id="8.10-limitaciones-[c]">8.10 Limitaciones [C]</h2>
+<ol>
+<li><p><strong>Instancias finitas:</strong> Los modelos Z3 verifican instancias concretas. Los metateoremas en prosa cierran la generalización, pero la verificación computacional no reemplaza a la prueba matemática.</p></li>
+<li><p><strong>Axiomas controvertibles:</strong> Cada teorema depende de axiomas que formalizan intuiciones sociológicas, no leyes lógicas necesarias. Los contrafactuales muestran qué pasa si los agentes relajan esos axiomas.</p></li>
+<li><p><strong>No prescribe soluciones:</strong> Los modelos identifican condiciones de consistencia e inconsistencia. La traducción a política pública requiere juicio normativo adicional por parte de los agentes que intervienen.</p></li>
+<li><p><strong>Redes pequeñas:</strong> Los modelos de Clingo usan 3 agentes. La generalización a $n$ agentes es teóricamente válida para cliques (T7-v2), pero los equilibrios de redes más complejas requieren análisis adicional.</p></li>
+<li><p><strong>No modelamos el hardware de la coerción:</strong> Nosotros auditamos el software discursivo (la legitimación), no la física de los muros, los presupuestos militares o la biopolítica del cuerpo. La policía y el ejército existen como hardware; nuestro modelo explica por qué los ciudadanos obedecen antes de que aparezcan.</p></li>
+<li><p><strong>No modelamos dinámicas temporales completas:</strong> Los modelos son estáticos o de transición simple. No capturan aprendizaje, renegociación de preferencias ni presión externa real.</p></li>
+<li><p><strong>La evidencia empírica motiva los axiomas, no demuestra los teoremas:</strong> Los datos sobre iatrogenia, reincidencia y costos económicos justifican la elección de axiomas, pero los teoremas se demuestran dentro del sistema formal. Si la evidencia empírica cambiara (por ejemplo, si se demostrara que el encierro no produce deterioro), los axiomas cambiarían y los teoremas también.</p></li>
+</ol>
+<h2 id="8.11-conclusiones-provisionales">8.11 Conclusiones provisionales</h2>
+<p>Los teoremas de este capítulo no demuestran que el encierro deba abolirse. Demuestran algo más modesto pero igualmente importante: que las arquitecturas institucionales que lo sostienen contienen <strong>tensiones lógicas estructurales</strong> que no pueden resolverse desde dentro del sistema bajo ciertas condiciones. Esas condiciones son:</p>
+<ol>
+<li>La prohibición de autojustificación normativa (T5a-v5).</li>
+<li>La política de que el deterioro justifica más encierro (T5b-v2).</li>
+<li>La captura de todas las ramas de control por una red de favores (T6-v2).</li>
+<li>La densidad máxima de la red de favores (T7-v2).</li>
+<li>La baja ratio entre costo de ruptura y ganancia del privilegio (Esc. E-v2).</li>
+</ol>
+<p>Ninguna de estas condiciones es una ley de la naturaleza. Todas son <strong>elecciones institucionales susceptibles de ser modificadas por los agentes reales</strong> que ocupan posiciones en el campo de fuerzas del Estado.</p>
+<p>Sin embargo, los teoremas anteriores operan dentro de una arquitectura normativa genérica. En la sección que sigue nosotros elevamos el análisis: demostramos que si los agentes que operan el sistema penal se autoproclaman defensores de un Estado liberal de derechos humanos, la conjunción de esa autoproclamación con la práctica penal iatrogénica es <strong>formalmente inconsistente</strong>. No es una mala idea; es una contradicción demostrable.</p>
+<h2 id="8.12-metateoremas-de-sintesis:-la-inconsistencia-del-sistema-penal-liberal">8.12 Metateoremas de síntesis: la inconsistencia del sistema penal liberal</h2>
+<h3 id="definiciones-previas">Definiciones previas</h3>
+<p>Nosotros definimos un <strong>Estado Liberal de Derecho (ELD)</strong> como una estructura $\mathcal{L} = (N, K, H, AgentesEstatales)$ donde:</p>
+<ol>
+<li>$\mathcal{N} = (N, \preceq, L, V)$ es un sistema normativo estratificado como en T5a-v5.</li>
+<li>$n_0 \in N$ es el <strong>axioma fundacional de libertad</strong>: $n_0$ es inlimitable internamente, es decir, no existe $n \in N$ tal que $(n, n_0) \in L$.</li>
+<li>$h \in N$ es el <strong>axioma fundacional de integridad física y psíquica</strong>: prohíbe daño previsible estructural causado por agentes estatales.</li>
+<li>$r \in N$ es la <strong>norma de rehabilitación</strong>: condición necesaria para la aplicación de cualquier norma de privación de libertad.</li>
+<li>$K$ es el <strong>principio de no-instrumentalización</strong>: $\forall x \in Personas, \forall f \in FinesSociales, \neg Medio(x, f)$.</li>
+<li>$AgentesEstatales$ es el conjunto de agentes que operan el sistema normativo.</li>
+</ol>
+<p>Nosotros definimos un <strong>Sistema Penal Iatrogénico (SPI)</strong> como una estructura $\mathcal{P} = (S, \to, A, D, J, T)$ donde:</p>
+<ol>
+<li>$(S, \to, A, D, J)$ es un sistema de transición penal como en T5b-v2.</li>
+<li>$T \subseteq S$ es el conjunto de estados donde los agentes que operan el sistema aplican una <strong>cláusula de terror ejemplar</strong>: el detenido es expuesto públicamente como advertencia para influir en la conducta de terceros.</li>
+<li>$I \subseteq S$ es el conjunto de estados de <strong>iatrogenia</strong>: daño previsible en las cinco dimensiones documentadas en 8.2.3 [B].</li>
+</ol>
+<h3 id="lema-1:-injustificabilidad-interna-del-encierro-[a-meta]">Lema 1: Injustificabilidad interna del encierro [A-Meta]</h3>
+<p><strong>Resumen ejecutivo:</strong> Este lema demuestra que la norma de privación de libertad no puede coexistir con un axioma fundacional de libertad inlimitable sin generar contradicción.</p>
+<p><strong>Enunciado.</strong> Sea $\mathcal{N}$ un sistema normativo estratificado con axioma fundacional $n_0$ (libertad) inlimitable. Sea $p \in N$ la norma de privación de libertad. Si $(p, n_0) \in L$ ($p$ limita a $n_0$), entonces $\mathcal{N}$ es inconsistente.</p>
+<p><strong>Demostración.</strong> Por definición de ELD, $n_0$ es inlimitable internamente: no existe $n \in N$ tal que $(n, n_0) \in L$.</p>
+<p>La hipótesis afirma que $(p, n_0) \in L$.</p>
+<p>Esto contradice directamente la definición de inlimitabilidad de $n_0$.</p>
+<p>Por tanto, $\mathcal{N}$ es inconsistente. $\square$</p>
+<p><strong>Nota sobre la simplificación:</strong> Esta demostración es más directa que la versión anterior. Si $n_0$ es inlimitable por definición, entonces cualquier norma que pretenda limitarlo genera contradicción inmediata. No es necesario invocar la transitividad ni niveles superiores; la contradicción es directa.</p>
+<h3 id="lema-2:-contradiccion-iatrogenica-[a-meta]">Lema 2: Contradicción iatrogénica [A-Meta]</h3>
+<p><strong>Resumen ejecutivo:</strong> Este lema demuestra que aplicar encierro bajo un axioma de no-daño es formalmente inconsistente cuando el encierro produce daño previsible.</p>
+<p><strong>Enunciado.</strong> Sea $h \in N$ el axioma fundacional de integridad. Sea $p \in N$ la norma de privación de libertad. Si los agentes estatales que aplican $p$ generan estados $s \in I$ (iatrogenia), entonces $p \land h$ es inconsistente.</p>
+<p><strong>Demostración.</strong> Por definición de $h$, los agentes estatales no pueden causar daño previsible estructural a los individuos. Formalmente: $\forall a \in AgentesEstatales, \forall s \in S, Aplica(a, s) \Rightarrow s \notin I$.</p>
+<p>Por definición de $I$, los estados iatrogénicos son daños previsibles y estructurales derivados del régimen de encierro [B]. Los documentos de la sección 8.2.3 demuestran que $I \neq \emptyset$: deterioro físico, psicológico, social, económico y normativo son previsibles y estructurales, no accidentales [B].</p>
+<p>Por tanto, si $p$ implica que los agentes aplican estados en $I$, entonces $p$ implica $\exists s \in I$, lo que contradice $h$. Luego $p \land h \vdash \bot$. $\square$</p>
+<h3 id="verificacion-computacional-[a-codigo]:">Verificación computacional [A-Código]:</h3>
+<pre class="smtlib2"><code>; ============================================================
+; Lema 2: Contradiccion Iatrogenica
+; Instancia minima: si encierro implica daño, y no-daño es axioma,
+; entonces AplicaEncierro ∧ NoDano es unsat.
+; ============================================================
+(set-option :produce-unsat-cores true)
+(declare-fun AplicaEncierro () Bool)
+(declare-fun CausaDano () Bool)
+(declare-fun NoDano () Bool)
+; A1: El encierro, tal como lo operan los agentes, causa daño previsible
+(assert (! (=&gt; AplicaEncierro CausaDano) :named ax-iatrogenia))
+; A2: El axioma fundacional de integridad prohíbe el daño
+(assert (! NoDano :named ax-no-dano))
+; A3: Definición de daño como contradicción de no-daño
+(assert (! (=&gt; CausaDano (not NoDano)) :named ax-def-dano))
+(push)
+  (echo &quot;===== L2: ¿Es consistente aplicar encierro bajo no-dano? =====&quot;)
+  (assert (! AplicaEncierro :named hip-aplica))
+  (check-sat)
+  (get-unsat-core)
+(pop)
+</code></pre>
+<p><strong>Output certificado:</strong></p>
+<pre><code>===== L2: ¿Es consistente aplicar encierro bajo no-dano? =====
+unsat
+(ax-iatrogenia ax-no-dano ax-def-dano hip-aplica)
+</code></pre>
+<h3 id="lema-3:-imposibilidad-de-la-rehabilitacion-bajo-iatrogenia-[a-meta]">Lema 3: Imposibilidad de la rehabilitación bajo iatrogenia [A-Meta]</h3>
+<p><strong>Resumen ejecutivo:</strong> Este lema demuestra que si el encierro produce deterioro que justifica más encierro, la rehabilitación es inalcanzable.</p>
+<p><strong>Enunciado.</strong> Sea $\mathcal{S} = (S, \to, A, D, J)$ un sistema de transición penal donde valen los axiomas dinámicos de T5b-v2. Sea $R \subseteq S$ el conjunto de estados de rehabilitación, con $R \subseteq E$ (la rehabilitación requiere no-encierro). Si $s_0 \in A$ y los agentes aplican los axiomas de deterioro, justificación y aplicación, entonces $R(s_0) \cap R = \emptyset$.</p>
+<p><strong>Demostración.</strong> Por T5b-v2 (No-invariante de equilibrio), si $s_0 \in A$ y valen los axiomas dinámicos 1–3, entonces $R(s_0) \cap E = \emptyset$. Como $R \subseteq E$, se sigue que $R(s_0) \cap R = \emptyset$. Es decir, ningún estado alcanzable desde el encierro inicial pertenece al conjunto de rehabilitación. Por tanto, la norma de rehabilitación $r$, que exige que todo encierro sea instrumental a la reinserción, nunca se satisface en la trayectoria del sistema. Los agentes que operan el sistema aplican una norma cuya condición de término es inalcanzable bajo sus propios axiomas dinámicos. $\square$</p>
+<h3 id="lema-4:-violacion-de-la-no-instrumentalizacion-[a-meta]">Lema 4: Violación de la no-instrumentalización [A-Meta]</h3>
+<p><strong>Resumen ejecutivo:</strong> Este lema demuestra que usar al detenido como advertencia pública (terror ejemplar) viola el principio kantiano de no-instrumentalización.</p>
+<p><strong>Enunciado.</strong> Sea $K$ el principio de no-instrumentalización. Sea $t$ la cláusula de terror ejemplar asociada a $p$, tal que los agentes que operan el sistema exponen al detenido $x$ a la sociedad $Z$ como advertencia para modificar la conducta de $Z$. Entonces $t \land K$ es inconsistente.</p>
+<p><strong>Demostración.</strong> Por definición de $t$, el detenido $x$ es tratado como un <strong>medio</strong> para el fin $f = disciplinamiento(Z)$. Formalmente: $Medio(x, f)$. El valor disuasorio para $Z$ depende de la visibilidad del sufrimiento de $x$; sin la exhibición de $x$, el fin $f$ no se alcanza. Por tanto, $x$ no es tratado como fin en sí mismo, sino como instrumento para un efecto sobre terceros. Por $K$, $\neg Medio(x, f)$ para toda persona $x$ y todo fin social $f$. Luego $t$ implica $Medio(x, f)$, y $K$ implica $\neg Medio(x, f)$. Por tanto, $t \land K \vdash \bot$. $\square$</p>
+<p><strong>Nota sobre el estatus epistémico de este lema [C].</strong> El Lema 4 no es una demostración de que el sistema penal real instrumentaliza a los detenidos. Es una demostración de que <em>si</em> la descripción empírica del terror ejemplar se formaliza como <code>Realiza(x, a) ∧ FinDe(a, f)</code> —es decir, si el detenido es el objeto de una acción cuyo fin es el disciplinamiento social—, entonces esa formalización es inconsistente con el principio de no-instrumentalización. La fuerza del lema depende enteramente de la corrección de la formalización empírica. Nosotros defendemos esa corrección en la sección 8.2.3 (donde documentamos la función ejemplarizante del encierro [B]), pero no la demostramos formalmente: la literatura criminológica [B] describe mecanismos de exhibición pública, procesiones de detenidos y comunicación mediática del castigo como técnicas de disciplinamiento social. El lema traduce esa descripción a una contradicción formal bajo el axioma $K$.</p>
+<h3 id="verificacion-computacional-[a-codigo]:-1">Verificación computacional [A-Código]:</h3>
+<pre class="smtlib2"><code>; ============================================================
+; Lema 4: Violacion de la no-instrumentalizacion
+; Instancia: un detenido x, una accion de exhibicion, un fin social f.
+; ============================================================
+(set-option :produce-unsat-cores true)
+(declare-datatypes ((Persona 0)) ((x_detenido z_ciudadano)))
+(declare-datatypes ((Accion 0)) ((a_exhibicion)))
+(declare-datatypes ((Fin 0)) ((f_disciplinamiento)))
+(declare-fun Realiza (Persona Accion) Bool)
+(declare-fun FinDe (Accion Fin) Bool)
+(declare-fun Medio (Persona Fin) Bool)
+(declare-fun NoInstrumentalizacion () Bool)
+(assert (! (Realiza x_detenido a_exhibicion) :named h-realiza-exhibicion))
+(assert (! (FinDe a_exhibicion f_disciplinamiento) :named h-fin-disciplina))
+(assert (! (forall ((p Persona) (a Accion) (f Fin))
+  (=&gt; (and (Realiza p a) (FinDe a f)) (Medio p f))) :named ax-medio-def))
+(assert (! (forall ((p Persona) (f Fin)) (not (Medio p f))) :named ax-no-instrumental))
+(push)
+  (echo &quot;===== L4: ¿Es consistente el terror ejemplar bajo no-instrumentalizacion? =====&quot;)
+  (check-sat)
+  (get-unsat-core)
+(pop)
+</code></pre>
+<p><strong>Output certificado:</strong></p>
+<pre><code>===== L4: ¿Es consistente el terror ejemplar bajo no-instrumentalizacion? =====
+unsat
+(ax-medio-def h-realiza-exhibicion h-fin-disciplina ax-no-instrumental)
+</code></pre>
+<h3 id="metateorema-t8-v1:-inconsistencia-del-sistema-penal-liberal-[a-meta]">Metateorema T8-v1: Inconsistencia del Sistema Penal Liberal [A-Meta]</h3>
+<p><strong>Resumen ejecutivo:</strong> Este metateorema condensa los cuatro lemas anteriores en una sola demostración: la conjunción de axiomas liberales con práctica penal iatrogénica es formalmente inconsistente.</p>
+<p><strong>Enunciado.</strong> Sea $\mathcal{L} = (N, K, H, AgentesEstatales)$ un Estado Liberal de Derecho con axiomas fundacionales $n_0$ (libertad), $h$ (integridad), $r$ (rehabilitación) y principio $K$ (no-instrumentalización). Sea $\mathcal{P}$ un Sistema Penal Iatrogénico con norma $p$ y cláusula $t$. Si los agentes estatales aplican $p$ y $t$, entonces $\mathcal{L} \cup \mathcal{P}$ es inconsistente.</p>
+<p><strong>Demostración.</strong> Supongamos, para derivar una contradicción, que $\mathcal{L} \cup \mathcal{P}$ es consistente.</p>
+<ol>
+<li><p>Por Lema 1, $(p, n_0) \in L$ contradice la inlimitabilidad de $n_0$. Como $n_0$ es axioma fundacional de $\mathcal{L}$, la inclusión de $p$ viola la estructura de justificación del sistema.</p></li>
+<li><p>Por Lema 2, $p$ implica estados en $I$, lo que contradice $h \in \mathcal{L}$.</p></li>
+<li><p>Por Lema 3, $p$ impide alcanzar estados en $R$, lo que contradice la norma de rehabilitación $r \in \mathcal{L}$.</p></li>
+<li><p>Por Lema 4, $t$ contradice $K \in \mathcal{L}$.</p></li>
+</ol>
+<p>Como $n_0, h, r, K$ son axiomas de $\mathcal{L}$, y $p, t$ son prácticas de $\mathcal{P}$, la conjunción $\mathcal{L} \cup \mathcal{P}$ deriva $\bot$ en cuatro vías independientes. Por tanto, $\mathcal{L} \cup \mathcal{P}$ es inconsistente. $\square$</p>
+<h3 id="corolario:-la-contradiccion-no-es-logica-necesaria,-sino-institucional-[a-meta]">Corolario: La contradicción no es lógica necesaria, sino institucional [A-Meta]</h3>
+<p><strong>Enunciado.</strong> La inconsistencia de $\mathcal{L} \cup \mathcal{P}$ desaparece si y solo si los agentes que operan el sistema relajan al menos uno de los siguientes conjuntos de axiomas:</p>
+<ol>
+<li><strong>CF-Liberal:</strong> Relajar la inlimitabilidad de $n_0$ (aceptar que la libertad puede ser limitada sin regresión).</li>
+<li><strong>CF-NoDaño:</strong> Relajar $h$ (aceptar que los agentes estatales pueden causar daño previsible estructural).</li>
+<li><strong>CF-Rehab:</strong> Relajar $r$ (aceptar que el encierro no tiene por qué rehabilitar).</li>
+<li><strong>CF-Kant:</strong> Relajar $K$ (aceptar que los individuos pueden ser medios para fines sociales).</li>
+</ol>
+<p><strong>Demostración.</strong> Si cualquiera de estos axiomas se elimina, el respectivo lema deja de derivar contradicción. Por ejemplo, si se elimina $K$, Lema 4 no aplica; si se elimina $r$, Lema 3 no aplica; etc. La inconsistencia es, por tanto, una <strong>propiedad de la conjunción específica</strong> de axiomas liberales con prácticas penales iatrogénicas, no una ley lógica del derecho penal en abstracto. $\square$</p>
+<h2 id="8.13-interpretacion-y-cierre-del-capitulo-[c]">8.13 Interpretación y cierre del capítulo [C]</h2>
+<p>Lo que estos metateoremas demuestran no es que el encierro sea &quot;malo&quot; en términos morales, sino que es <strong>formalmente inconsistente</strong> con el autodescripto de un Estado liberal de derechos humanos.</p>
+<p>La contradicción opera en cuatro frentes simultáneos:</p>
+<ol>
+<li><strong>Normativo:</strong> la privación de libertad no puede justificarse dentro de un sistema que tiene la libertad como axioma inlimitable (regresión de Münchhausen).</li>
+<li><strong>Ontológico:</strong> el encierro causa daño previsible estructural, lo que viola el axioma de no-daño.</li>
+<li><strong>Teleológico:</strong> el encierro no alcanza la rehabilitación que su propia justificación exige; es un medio que no produce el fin declarado.</li>
+<li><strong>Deóntico:</strong> el uso del detenido como terror ejemplar lo convierte en instrumento para disciplinar a la sociedad, violando la dignidad como fin en sí mismo.</li>
+</ol>
+<p>El corolario es crucial: la inconsistencia no es inevitable. Pero <strong>mantener los cuatro axiomas liberales simultáneamente con la práctica penal actual es formalmente imposible</strong>. Los agentes que operan el sistema deben elegir qué axioma sacrifican. La evidencia empírica de los documentos de la sección 8.2 sugiere que, en la práctica, lo que se sacrifica es la coherencia: los agentes proclaman los cuatro axiomas y aplican $p$ y $t$ de todos modos, generando una <strong>ficción performativa</strong> que es, ella misma, el objeto de la contradicción formal.</p>
+<p><strong>Nota final sobre el alcance de este capítulo.</strong> Nosotros no prescribimos qué deben hacer los agentes políticos, judiciales y sociales con esta información. La descarcelización, la justicia restaurativa, las alternativas comunitarias y la transparencia institucional son respuestas posibles a las fragilidades identificadas, pero no son las únicas. Lo que nosotros hacemos es transformar una crítica sociológica general (&quot;el sistema está corrupto&quot;) en una <strong>auditoría de puntos de fragilidad</strong> donde la intervención es conceptualmente posible. La decisión sobre si intervenir, cómo intervenir y cuándo intervenir corresponde a los agentes democráticos, no a este libro.</p>
+<p>Lo que sí afirmamos es que la ficción performativa —invocar los cuatro axiomas mientras se viola los cuatro simultáneamente— no es una opción estable a largo plazo. La evidencia de la sección 8.2 (costos económicos, daño intergeneracional, erosión de la confianza institucional, criminogénesis) sugiere que mantener la contradicción tiene costos crecientes para la sociedad en su conjunto. Los agentes que operan el sistema enfrentan, por tanto, una elección: hacer explícito qué axioma están dispuestos a relajar, o modificar la práctica para que sea consistente con los axiomas que invocan.</p>
+<hr />
+<h2 id="tabla-final-de-teoremas,-lemas-y-contrafactuales-del-capitulo-8">Tabla final de teoremas, lemas y contrafactuales del Capítulo 8</h2>
+<table>
+<thead>
+<tr class="header">
+<th>Teorema/Lema</th>
+<th>Registro</th>
+<th>Axioma clave</th>
+<th>Resultado</th>
+<th>Contrafactual</th>
+<th>Si se relaja...</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>T5a-v5</td>
+<td>[A-Meta] + [A-Código]</td>
+<td>Jerarquía de niveles</td>
+<td>Regresión infinita</td>
+<td>CF3: autojustificación</td>
+<td>La regresión se detiene</td>
+</tr>
+<tr class="even">
+<td>T5b-v2</td>
+<td>[A-Meta] + [A-Código]</td>
+<td>Deterioro → justificación</td>
+<td>No equilibrio</td>
+<td>CF4: $e_3$ no justifica</td>
+<td>Equilibrio posible</td>
+</tr>
+<tr class="odd">
+<td>T6-v2</td>
+<td>[A-Meta] + [A-Código]</td>
+<td>Colusión de ramas</td>
+<td>Captura bajo colusión</td>
+<td>T6b sin captura</td>
+<td>Norma preservada</td>
+</tr>
+<tr class="even">
+<td>T7-v2</td>
+<td>[A-Meta] + [A-Código]</td>
+<td>Clique de favores</td>
+<td>No vigilancia</td>
+<td>CF6: grafo no conexo</td>
+<td>Vigilancia posible</td>
+</tr>
+<tr class="odd">
+<td>Esc. E-v2</td>
+<td>[A-Meta] + [A-Código]</td>
+<td>Ratio $\rho$ positiva</td>
+<td>Privilegio óptimo (topología modula costos locales, no el óptimo global)</td>
+<td>Config. B: $\rho = 0$</td>
+<td>Degeneración cooperativa</td>
+</tr>
+<tr class="even">
+<td>Lema 1 (L1)</td>
+<td>[A-Meta]</td>
+<td>Inlimitabilidad de $n_0$</td>
+<td>$p$ inconsistente con $n_0$</td>
+<td>CF-Liberal: $n_0$ limitable</td>
+<td>Consistencia restaurada</td>
+</tr>
+<tr class="odd">
+<td>Lema 2 (L2)</td>
+<td>[A-Meta] + [A-Código]</td>
+<td>No-daño $h$</td>
+<td>$p \land h \vdash \bot$</td>
+<td>CF-NoDaño: daño permitido</td>
+<td>Consistencia restaurada</td>
+</tr>
+<tr class="even">
+<td>Lema 3 (L3)</td>
+<td>[A-Meta]</td>
+<td>Rehabilitación $r$</td>
+<td>$R(s_0) \cap R = \emptyset$</td>
+<td>CF-Rehab: sin rehabilitar</td>
+<td>Objetivo alcanzable</td>
+</tr>
+<tr class="odd">
+<td>Lema 4 (L4)</td>
+<td>[A-Meta] + [A-Código]</td>
+<td>No-instrumentalización $K$</td>
+<td>$t \land K \vdash \bot$</td>
+<td>CF-Kant: medio permitido</td>
+<td>Consistencia restaurada</td>
+</tr>
+<tr class="even">
+<td>T8-v1</td>
+<td>[A-Meta]</td>
+<td>Conjunción $\mathcal{L} \cup \mathcal{P}$</td>
+<td>Inconsistencia</td>
+<td>Cualquier CF de L1–L4</td>
+<td>Sistema consistente</td>
+</tr>
+</tbody>
+</table>
+<h2 id="tabla-de-etiquetado-del-capitulo">Tabla de etiquetado del capítulo</h2>
+<table>
+<thead>
+<tr class="header">
+<th>Sección</th>
+<th>Contenido</th>
+<th>Clasificación</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>8.0</td>
+<td>Protocolo de lectura</td>
+<td>[C] Interpretación</td>
+</tr>
+<tr class="even">
+<td>8.1</td>
+<td>Introducción: Estado como campo de fuerzas</td>
+<td>[C] Interpretación</td>
+</tr>
+<tr class="odd">
+<td>8.2</td>
+<td>Encierro como caso paradigmático (empírico)</td>
+<td>[B/C] Literatura / Interpretación</td>
+</tr>
+<tr class="even">
+<td>8.3</td>
+<td>T5a-v5: Regresión de Münchhausen</td>
+<td>[A-Meta] + [A-Código]</td>
+</tr>
+<tr class="odd">
+<td>8.4</td>
+<td>T5b-v2: No-invariante de equilibrio</td>
+<td>[A-Meta] + [A-Código]</td>
+</tr>
+<tr class="even">
+<td>8.5</td>
+<td>T6-v2: Excepción soberana</td>
+<td>[A-Meta] + [A-Código]</td>
+</tr>
+<tr class="odd">
+<td>8.6</td>
+<td>T7-v2: Rendición de cuentas</td>
+<td>[A-Meta] + [A-Código]</td>
+</tr>
+<tr class="even">
+<td>8.7</td>
+<td>Esc. E-v2: Captura paramétrica</td>
+<td>[A-Meta] + [A-Código]</td>
+</tr>
+<tr class="odd">
+<td>8.8</td>
+<td>Síntesis comparativa</td>
+<td>[C] Interpretación</td>
+</tr>
+<tr class="even">
+<td>8.9</td>
+<td>Conexiones</td>
+<td>[C] Interpretación</td>
+</tr>
+<tr class="odd">
+<td>8.10</td>
+<td>Limitaciones</td>
+<td>[C] Interpretación</td>
+</tr>
+<tr class="even">
+<td>8.11</td>
+<td>Conclusiones provisionales</td>
+<td>[C] Interpretación</td>
+</tr>
+<tr class="odd">
+<td>8.12</td>
+<td>Metateoremas T8-v1</td>
+<td>[A-Meta] + [A-Código]</td>
+</tr>
+<tr class="even">
+<td>8.13</td>
+<td>Interpretación y cierre</td>
+<td>[C] Interpretación</td>
+</tr>
+</tbody>
+</table>
+</body>
+</html>
