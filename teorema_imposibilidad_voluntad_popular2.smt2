@@ -1,0 +1,178 @@
+; ============================================================
+; TEOREMA DE IMPOSIBILIDAD DE LA VOLUNTAD POPULAR COHERENTE
+; ============================================================
+; Este script ataca directamente la tesis del Capítulo 7 sobre
+; "soberanía popular" (Sección 7.2, Escenario B en Clingo, T2).
+;
+; El Capítulo 7 afirma, con UN SOLO EJEMPLO en Clingo (3 agentes,
+; 1 tema binario x), que "la intención es una propiedad emergente...
+; ningún agente individual la posee". Eso es una observación trivial:
+; cualquier regla de agregación no unánime produce una salida que
+; no coincide exactamente con ningún input individual.
+;
+; Este script prueba algo MÁS FUERTE, que el Capítulo 7 no prueba
+; ni intenta probar: que NINGUNA regla de agregación razonable
+; (universal, anónima, sistemática, no-impuesta) puede siquiera
+; garantizar que la "voluntad colectiva" resultante sea LÓGICAMENTE
+; COHERENTE (transitiva), aunque cada juez individual sea perfectamente
+; coherente. Esta es la versión de agregación de juicios del teorema
+; de Arrow (1951) / la paradoja de Condorcet, instanciada aquí para
+; n=3 jueces sobre 3 alternativas, y verificada exhaustivamente por
+; Z3, no estipulada por el autor.
+;
+; A diferencia de los "Teoremas" T1-T3 del Capítulo 6/7 (donde la
+; conclusión estaba contenida trivialmente en axiomas escritos ad hoc
+; para producirla), aquí NO fijamos la regla de agregación f de
+; antemano. f0,f1,f2,f3 quedan libres (implícitamente existenciales
+; en el chequeo de satisfacibilidad) y Z3 debe BUSCAR si existe
+; alguna asignación de esas 4 variables que satisfaga la restricción
+; universal sobre TODOS los perfiles posibles de 3 jueces. El
+; resultado (unsat) significa: "no existe tal regla", y esto no fue
+; decidido por el autor del script sino verificado por el solver.
+; ============================================================
+
+(set-option :produce-models true)
+(set-option :produce-unsat-cores true)
+
+; ------------------------------------------------------------
+; 1. LA REGLA DE AGREGACIÓN COMO INCÓGNITA (no como estipulación)
+; ------------------------------------------------------------
+; f_k = salida colectiva cuando k de los 3 jueces votan "verdadero"
+; para una proposición dada. Esto captura TODA regla anónima posible
+; (anonimato = la salida depende solo del NÚMERO de votos, no de
+; QUIÉN vota — axioma estándar de teoría de agregación, Arrow/
+; List-Pettit). Como son variables libres, Z3 explora las 16
+; asignaciones posibles buscando una que funcione.
+(declare-const f0 Bool)  ; 0 de 3 jueces aceptan -> ?
+(declare-const f1 Bool)  ; 1 de 3 jueces aceptan -> ?
+(declare-const f2 Bool)  ; 2 de 3 jueces aceptan -> ?
+(declare-const f3 Bool)  ; 3 de 3 jueces aceptan -> ?
+
+; agg(v1,v2,v3): aplica la regla f al conteo de votos verdaderos
+; entre 3 jueces, sin usar aritmética, por chequeo directo de casos.
+(define-fun agg ((v1 Bool) (v2 Bool) (v3 Bool)) Bool
+  (ite v1
+       (ite v2 (ite v3 f3 f2) (ite v3 f2 f1))
+       (ite v2 (ite v3 f2 f1) (ite v3 f1 f0))))
+
+; ------------------------------------------------------------
+; 2. RACIONALIDAD = NO HAY CICLOS DE CONDORCET
+; ------------------------------------------------------------
+; Sobre 3 alternativas {a,b,c}, un orden de preferencia se codifica
+; con 3 proposiciones: aRb ("a es preferido a b"), bRc, aRc.
+; Un juicio es racional (transitivo, sin ciclos) si NO cae en
+; ninguno de los 2 patrones cíclicos de 8 posibles combinaciones:
+;   (aRb ∧ bRc ∧ ¬aRc)   — ciclo a>b>c>a
+;   (¬aRb ∧ ¬bRc ∧ aRc)  — ciclo b>a, c>b, a>c
+(define-fun sin_ciclo ((ab Bool) (bc Bool) (ac Bool)) Bool
+  (not (or (and ab bc (not ac))
+           (and (not ab) (not bc) ac))))
+
+; ------------------------------------------------------------
+; 3. AXIOMA DE NO-IMPOSICIÓN (condición estándar, no ad hoc)
+; ------------------------------------------------------------
+; Excluye las 2 reglas degeneradas que ignoran completamente el
+; voto de los jueces (dictar siempre el mismo orden pase lo que
+; pase). Sin esta condición, esas 2 reglas triviales "funcionarían"
+; -- pero precisamente PORQUE no agregan nada: imponen un resultado
+; fijo, exactamente la operación de reificación que el Capítulo 7
+; denuncia (una entidad con "voluntad propia" independiente de sus
+; miembros). Esta condición, lejos de estar puesta para forzar el
+; resultado deseado, es la condición estándar de la literatura
+; (non-imposition / citizen sovereignty en Arrow 1951).
+(assert (! (not (and (= f0 f1) (= f1 f2) (= f2 f3)))
+           :named no_imposicion))
+
+; ------------------------------------------------------------
+; 4. VERIFICACIÓN PREVIA: LA MAYORÍA SIMPLE FALLA (caso concreto)
+; ------------------------------------------------------------
+; Antes del teorema general, exhibimos que la regla más "intuitiva"
+; -- mayoría simple (f0=F,f1=F,f2=T,f3=T) -- ya falla, con un
+; contraejemplo concreto que Z3 debe encontrar por sí mismo.
+(push)
+  (assert (= f0 false))
+  (assert (= f1 false))
+  (assert (= f2 true))
+  (assert (= f3 true))
+  (declare-const ab1 Bool) (declare-const bc1 Bool) (declare-const ac1 Bool)
+  (declare-const ab2 Bool) (declare-const bc2 Bool) (declare-const ac2 Bool)
+  (declare-const ab3 Bool) (declare-const bc3 Bool) (declare-const ac3 Bool)
+  (assert (sin_ciclo ab1 bc1 ac1))
+  (assert (sin_ciclo ab2 bc2 ac2))
+  (assert (sin_ciclo ab3 bc3 ac3))
+  (assert (not (sin_ciclo (agg ab1 ab2 ab3) (agg bc1 bc2 bc3) (agg ac1 ac2 ac3))))
+  (check-sat)
+  (get-model)
+(pop)
+; Resultado esperado: sat, con un modelo donde cada juez es
+; individualmente racional pero la mayoría colectiva es cíclica
+; (el ciclo de Condorcet clásico).
+
+; ------------------------------------------------------------
+; 5. TEOREMA GENERAL: NINGUNA REGLA (no impuesta) FUNCIONA SIEMPRE
+; ------------------------------------------------------------
+; Cuantificación universal sobre TODOS los perfiles posibles de
+; 3 jueces (9 variables booleanas = 512 perfiles, de los cuales
+; solo los individualmente racionales activan el antecedente).
+; Le pedimos a Z3: ¿existe una asignación a f0..f3, distinta de las
+; 2 triviales ya excluidas, tal que para TODO perfil de jueces
+; individualmente racionales, el agregado también sea racional?
+(assert (! (forall ((ab1 Bool) (bc1 Bool) (ac1 Bool)
+                     (ab2 Bool) (bc2 Bool) (ac2 Bool)
+                     (ab3 Bool) (bc3 Bool) (ac3 Bool))
+             (=> (and (sin_ciclo ab1 bc1 ac1)
+                      (sin_ciclo ab2 bc2 ac2)
+                      (sin_ciclo ab3 bc3 ac3))
+                 (sin_ciclo (agg ab1 ab2 ab3)
+                            (agg bc1 bc2 bc3)
+                            (agg ac1 ac2 ac3))))
+           :named universal_domain_y_racionalidad_colectiva))
+
+(check-sat)
+(get-unsat-core)
+
+; ============================================================
+; RESULTADO ESPERADO: unsat
+;
+; INTERPRETACIÓN PARA EL CAPÍTULO 7:
+; No existe ninguna regla de agregación anónima, sistemática, de
+; dominio universal y no-impuesta que garantice que "la voluntad
+; del pueblo" (la salida agregada) sea lógicamente coherente,
+; aunque CADA agente individual lo sea. Cualquier procedimiento de
+; agregación que respete los votos (no-imposición) producirá,
+; para ALGÚN perfil de preferencias individuales perfectamente
+; racionales, una "voluntad colectiva" intransitiva/incoherente.
+;
+; Esto es estrictamente más fuerte que lo que el Capítulo 7 afirma
+; en el Escenario B de Clingo (que "nadie individualmente posee la
+; intención colectiva"). Ese hecho es trivial y no dice nada sobre
+; si la intención colectiva es siquiera COHERENTE. Este teorema dice
+; que, en general, NO PUEDE serlo -- no por un defecto de diseño de
+; una regla en particular (como la mayoría, Sección 7.6), sino como
+; propiedad estructural necesaria de CUALQUIER regla no-impuesta.
+;
+; Esto reformula con más fuerza formal la reificación de "soberanía
+; popular" que el Capítulo 7 denuncia en 7.2 y 7.10: no solo el
+; lenguaje corriente le atribuye a "el pueblo" una voluntad unitaria
+; que no tiene sustento ontológico (crítica ya presente en el libro);
+; además, y esto SÍ es un aporte del formalismo, ninguna construcción
+; procedimental legítima (no dictatorial) puede en general GARANTIZAR
+; que esa voluntad agregada sea internamente consistente. La
+; incoherencia no es un accidente de mal diseño institucional: es
+; una imposibilidad matemática (pariente directo del Teorema de
+; Arrow, 1951, y su generalización a agregación de juicios en
+; List & Pettit, 2002).
+;
+; LÍMITE HONESTO: este script verifica el caso n=3 jueces / 3
+; alternativas. El resultado general para n y k arbitrarios ya está
+; establecido en la literatura (Arrow 1951; List & Pettit 2002) y
+; no se sigue de este script por sí solo -- lo que este script aporta
+; es una instancia concreta, autocontenida y verificable por Z3,
+; ligada explícitamente a la afirmación del Capítulo 7 sobre la
+; soberanía popular, y construida de forma que el resultado (unsat)
+; no estaba garantizado de antemano por el diseño de los axiomas
+; (como sí lo estaban T1-T3 del Cap. 6/7): la sección 4 de este
+; script muestra que probar reglas concretas (mayoría) da sat con
+; contraejemplo; solo la cuantificación universal sobre TODAS las
+; reglas posibles (16, salvo las 2 triviales) da unsat.
+; ============================================================

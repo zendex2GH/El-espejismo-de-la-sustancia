@@ -1,0 +1,75 @@
+; ============================================================
+; Z3: CONSTRUCCION FORMAL DEL MODELO CONTEXTUAL
+; ============================================================
+; Este script es AUTONOMO. No depende del script de la falacia.
+; Verifica que cuatro correlaciones cuanticas, tratadas como
+; objetos matematicos independientes, son mutuamente consistentes
+; y violan la cota CHSH, demostrando por Fine que NO pueden
+; provenir de una distribucion conjunta P(A,A',B,B').
+; ============================================================
+
+(set-option :produce-models true)
+
+; ------------------------------------------------------------
+; 1. sqrt(2) como constante real no interpretada
+; ------------------------------------------------------------
+; Z3 no tiene sqrt como built-in. Declaramos sqrt2 como Real
+; con su propiedad definitoria: sqrt2 * sqrt2 = 2.
+(declare-const sqrt2 Real)
+(assert (= (* sqrt2 sqrt2) 2.0))
+(assert (> sqrt2 0.0))
+
+; ------------------------------------------------------------
+; 2. CORRELACIONES CUANTICAS para cada sub-experimento
+; ------------------------------------------------------------
+; Cada sub-experimento es un espacio de probabilidad independiente.
+; Las correlaciones son los valores predichos por Born para el
+; estado singlete con los angulos estandar de Bell.
+
+(declare-const E_ab Real)   ; E(a,b)   = -cos(0 - pi/4)     = -sqrt2/2
+(declare-const E_abp Real)  ; E(a,b')  = -cos(0 - 3pi/4)    = +sqrt2/2
+(declare-const E_apb Real)  ; E(a',b)  = -cos(pi/2 - pi/4)  = -sqrt2/2
+(declare-const E_apbp Real) ; E(a',b') = -cos(pi/2 - 3pi/4) = -sqrt2/2
+
+; Asignacion de valores exactos
+(assert (= E_ab    (- (/ sqrt2 2.0))))
+(assert (= E_abp   (/ sqrt2 2.0)))
+(assert (= E_apb   (- (/ sqrt2 2.0))))
+(assert (= E_apbp  (- (/ sqrt2 2.0))))
+
+; ------------------------------------------------------------
+; 3. COMBINACION CHSH EN EL MODELO CONTEXTUAL
+; ------------------------------------------------------------
+; S = E(a,b) - E(a,b') + E(a',b) + E(a',b')
+; Con los valores cuanticos: -sqrt2/2 - (+sqrt2/2) + (-sqrt2/2) + (-sqrt2/2)
+;                        = -2*sqrt2  (aproximadamente -2.828)
+(declare-const S_ctx Real)
+(assert (= S_ctx (+ (- E_ab E_abp) (+ E_apb E_apbp))))
+
+; Verificamos que S_ctx = -2*sqrt2
+(assert (= S_ctx (- (* 2.0 sqrt2))))
+
+; ------------------------------------------------------------
+; 4. VIOLACION DE LA COTA CHSH (Teorema de Fine)
+; ------------------------------------------------------------
+; La cota clasica es |S| <= 2.
+; Como S_ctx = -2.828, viola la cota. Por el teorema de Fine (1982),
+; esto demuestra formalmente que NO EXISTE una distribucion conjunta
+; P(A,A',B,B') de la cual las 4 correlaciones sean marginales.
+
+(declare-const CHSH_bound Real)
+(assert (= CHSH_bound 2.0))
+
+; Demostramos que S_ctx < -2 (violacion por debajo)
+(assert (< S_ctx (- CHSH_bound)))
+
+; ------------------------------------------------------------
+; 5. VERIFICACION DE CONSISTENCIA
+; ------------------------------------------------------------
+; Si el modelo contextual es consistente, Z3 debe devolver SAT.
+; Esto demuestra que describir los 4 sub-experimentos por separado
+; (sin distribucion conjunta) es logicamente posible y compatible
+; con los datos S = 2.828 (en valor absoluto).
+
+(check-sat)
+(get-model)
