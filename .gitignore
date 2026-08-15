@@ -1,0 +1,48 @@
+# ==========================================
+# 1. Archivos Temporales y del Sistema
+# ==========================================
+.DS_Store
+Thumbs.db
+*.log
+*.tmp
+*.bak
+
+# ==========================================
+# 2. Especificidades de LEAN 4
+# ==========================================
+# Ignorar la carpeta de compilación de Lean (archivos .olean, .c, etc.)
+.lake/
+# Archivos de configuración locales de Lake que no deben compartirse
+lake-manifest.json
+
+# ==========================================
+# 3. Especificidades de Z3 y Solucionadores SMT
+# ==========================================
+# Archivos de traza, modelos generados y logs de salida de Z3
+*.smt2.out
+*.z3.log
+*.z3.trace
+# Si generas archivos temporales de salida con tus scripts
+/outputs/
+/temp/
+
+# ==========================================
+# 4. Especificidades de CLINGO y ASP
+# ==========================================
+# Archivos de salida de solvers, respuestas o estadísticas pesadas
+*.lp.out
+*.asp.out
+*.clingo.log
+
+# ==========================================
+# 5. Entornos Virtuales y Editores (Por si usas Python para conectar Z3/Clingo)
+# ==========================================
+.venv/
+venv/
+ENV/
+__pycache__/
+*.pyc
+
+# Configuración de editores locales
+.vscode/
+.idea/
